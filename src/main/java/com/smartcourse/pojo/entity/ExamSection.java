@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 /*
- * 考卷分节/大题块实体，对应表 `exam_section`。
+ * 考卷分节/大题块实体，对应表 exam_section
  * 说明：用于题型分组与显示排序，可配置多选题计分策略与参数。
  */
 public class ExamSection {

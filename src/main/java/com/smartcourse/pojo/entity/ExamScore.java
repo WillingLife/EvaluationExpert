@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 /*
- * 学生成绩实体，对应表 `exam_score`。
+ * 学生成绩实体，对应表 exam_score
  * 说明：支持多次作答，按 attemptNo 区分；保留成绩快照 JSON。
  */
 public class ExamScore {

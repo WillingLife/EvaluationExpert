@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 /*
- * 学生题目成绩明细实体，对应表 `exam_score_item`。
+ * 学生题目成绩明细实体，对应表 exam_score_item
  * 说明：一次作答中的单题成绩与答案记录。
  */
 public class ExamScoreItem {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.QuestionFillBlankMapper">
+    <insert id="insertBatch">
+        insert into question_fill_blank (question_id, blank_index, answer)
+        values <foreach collection="blanks" item="b" separator=",">
+            (#{b.questionId}, #{b.blankIndex}, #{b.answer})
+        </foreach>
+    </insert>
+
+</mapper>

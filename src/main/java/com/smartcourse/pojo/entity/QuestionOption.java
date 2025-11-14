@@ -17,6 +17,6 @@ public class QuestionOption {
     private Long id;             // 主键ID
     private Long questionId;     // 题目ID（逻辑外键）
     private String content;      // 选项内容（可含富文本/图片引用）
-    private Boolean correct;     // 是否为正确选项
+    private Integer correct;     // 是否为正确选项
     private Integer sortOrder;   // 显示顺序
 }

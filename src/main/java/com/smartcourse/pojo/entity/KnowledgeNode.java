@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 /*
- * 知识点节点实体，对应表 `knowledge_node`。
+ * 知识点节点实体，对应表 knowledge_node
  * 说明：用于题目与课程知识体系的关联。
  */
 public class KnowledgeNode {

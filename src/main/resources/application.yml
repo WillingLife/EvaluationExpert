@@ -9,11 +9,6 @@ spring:
     url: jdbc:mysql://172.22.120.47:13306/evaluation_expert?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: password
-  sql:
-    init:
-      mode: always
-      continue-on-error: true
-      schema-locations: classpath:db/mysql/init_database.sql
 
 mybatis:
   #mapper配置文件
