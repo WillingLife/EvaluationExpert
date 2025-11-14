@@ -17,7 +17,7 @@
 ```json
 {
   "student_id": "学生ID",
-  "course_id": "课程ID"
+  "exam_id": "考试ID"
 }
 ```
 返回体：

@@ -14,3 +14,5 @@
 - 2025/11/14： 大幅简化试题API部分，取消组合题型
 - 2025/11/14: 删除题库管理API中教师新增题目API，当type为填空题时，details中去掉answer_rule_type字段
 [跳转](docs/draft-api/question_manage.md#1教师新增题目)
+- 2025/11/14：勘误，修改学生考试API中学生提获取考卷请求体示例,原先`course_id`字段改为`exam_id`字段
+[跳转](docs/draft-api/student_exam.md#1学生获取考试试卷)
