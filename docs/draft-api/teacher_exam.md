@@ -81,10 +81,22 @@
           "question_stem": "请问1+1=？",
           "score": 2,
           "options": [
-            {"option_id": 11, "content": "1"},
-            {"option_id": 12, "content": "2"},
-            {"option_id": 13, "content": "3"},
-            {"option_id": 14, "content": "4"}
+            {
+              "option_id": 11,
+              "content": "1"
+            },
+            {
+              "option_id": 12,
+              "content": "2"
+            },
+            {
+              "option_id": 13,
+              "content": "3"
+            },
+            {
+              "option_id": 14,
+              "content": "4"
+            }
           ]
         }
       ]
@@ -112,33 +124,9 @@
       "description": "本小节共5题，共40分",
       "questions": [
         {
-          "is_group": false,
-          "group_id": null,
-          "group_stem": null,
-          "questions": [
-            {
-              "question_id": 3,
-              "score": 5,
-              "question_stem": "请简述机器学习的基本原理。"
-            }
-          ]
-        },
-        {
-          "is_group": true,
-          "group_id": 1,
-          "group_stem": "静夜思\n床前看月光，疑是地上霜。\n举头望明月，低头思故乡。\n阅读以上材料，回答下列问题。",
-          "questions": [
-            {
-              "question_id": 4,
-              "score": 5,
-              "question_stem": "这首诗的作者是谁？"
-            },
-            {
-              "question_id": 5,
-              "score": 10,
-              "question_stem": "请分析这首诗的意境。"
-            }
-          ]
+          "question_id": 3,
+          "score": 5,
+          "question_stem": "请简述机器学习的基本原理。"
         }
       ]
     }
@@ -176,7 +164,7 @@
       "question_type": "single",
       "question_number": 20,
       "choice_score": 2,
-      "choice_negative_score":0,
+      "choice_negative_score": 0,
       "questions": [
         {
           "question_id": 1
@@ -206,33 +194,9 @@
       "description": "本小节共5题，共40分",
       "questions": [
         {
-          "is_group": false,
-          "group_id": null,
-          "group_stem": null,
-          "questions": [
-            {
-              "question_id": 3,
-              "score": 5,
-              "question_stem": "请简述机器学习的基本原理。"
-            }
-          ]
-        },
-        {
-          "is_group": true,
-          "group_id": 1,
-          "group_stem": "静夜思\n床前看月光，疑是地上霜。\n举头望明月，低头思故乡。\n阅读以上材料，回答下列问题。",
-          "questions": [
-            {
-              "question_id": 4,
-              "score": 5,
-              "question_stem": "这首诗的作者是谁？"
-            },
-            {
-              "question_id": 5,
-              "score": 10,
-              "question_stem": "请分析这首诗的意境。"
-            }
-          ]
+          "question_id": 3,
+          "score": 5,
+          "question_stem": "请简述机器学习的基本原理。"
         }
       ]
     }
