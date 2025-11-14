@@ -1,6 +1,12 @@
 # 学生考试API
 
 ## 目录
+[1.学生获取考试试卷](#1学生获取考试试卷)  
+[2.学生提交考试答案](#2学生提交考试答案)  
+[3.获取考试成绩](#3获取考试成绩)  
+[4.获取考试成绩总结](#4获取考试成绩总结)  
+[5.获取考试知识点掌握情况](#5获取考试知识点掌握情况)  
+[6.学生获取指定课程的考试列表](#6学生获取指定课程的考试列表)
 
 ## 1.学生获取考试试卷
 请求路径/student/exam/exam-paper
@@ -36,10 +42,22 @@
           "question_stem": "请问1+1=？",
           "score": 2,
           "options": [
-            {"option_id": 11, "content": "1"},
-            {"option_id": 12, "content": "2"},
-            {"option_id": 13, "content": "3"},
-            {"option_id": 14, "content": "4"}
+            {
+              "option_id": 11,
+              "content": "1"
+            },
+            {
+              "option_id": 12,
+              "content": "2"
+            },
+            {
+              "option_id": 13,
+              "content": "3"
+            },
+            {
+              "option_id": 14,
+              "content": "4"
+            }
           ]
         }
       ]
@@ -67,33 +85,9 @@
       "description": "本小节共5题，共40分",
       "questions": [
         {
-          "is_group": false,
-          "group_id": null,
-          "group_stem": null,
-          "questions": [
-            {
-              "question_id": 3,
-              "score": 5,
-              "question_stem": "请简述机器学习的基本原理。"
-            }
-          ]
-        },
-        {
-          "is_group": true,
-          "group_id": 1,
-          "group_stem": "静夜思\n床前看月光，疑是地上霜。\n举头望明月，低头思故乡。\n阅读以上材料，回答下列问题。",
-          "questions": [
-            {
-              "question_id": 4,
-              "score": 5,
-              "question_stem": "这首诗的作者是谁？"
-            },
-            {
-              "question_id": 5,
-              "score": 10,
-              "question_stem": "请分析这首诗的意境。"
-            }
-          ]
+          "question_id": 3,
+          "score": 5,
+          "question_stem": "请简述机器学习的基本原理。"
         }
       ]
     }
@@ -129,7 +123,9 @@
       "questions": [
         {
           "question_id": 1,
-          "student_answer": [12]
+          "student_answer": [
+            12
+          ]
         }
       ]
     },
@@ -138,7 +134,9 @@
       "questions": [
         {
           "question_id": 2,
-          "student_answer": ["30"]
+          "student_answer": [
+            "30"
+          ]
         }
       ]
     },
@@ -146,28 +144,8 @@
       "section_id": 3,
       "questions": [
         {
-          "is_group": false,
-          "group_id": null,
-          "questions": [
-            {
-              "question_id": 3,
-              "student_answer": "机器学习是通过数据训练模型，从而使计算机能够自动识别模式并进行预测。"
-            }
-          ]
-        },
-        {
-          "is_group": true,
-          "group_id": 1,
-          "questions": [
-            {
-              "question_id": 4,
-              "student_answer": "李白"
-            },
-            {
-              "question_id": 5,
-              "student_answer": "这首诗表达了作者对故乡的思念之情，意境优美。"
-            }
-          ]
+          "question_id": 3,
+          "student_answer": "机器学习是通过数据训练模型，从而使计算机能够自动识别模式并进行预测。"
         }
       ]
     }
@@ -210,14 +188,30 @@
           "question_id": 1,
           "full_score": 2,
           "student_score": 2,
-          "student_answer": [12],
-          "correct_answer": [12],
+          "student_answer": [
+            12
+          ],
+          "correct_answer": [
+            12
+          ],
           "question_stem": "请问1+1=？",
           "options": [
-            {"option_id": 11, "content": "1"},
-            {"option_id": 12, "content": "2"},
-            {"option_id": 13, "content": "3"},
-            {"option_id": 14, "content": "4"}
+            {
+              "option_id": 11,
+              "content": "1"
+            },
+            {
+              "option_id": 12,
+              "content": "2"
+            },
+            {
+              "option_id": 13,
+              "content": "3"
+            },
+            {
+              "option_id": 14,
+              "content": "4"
+            }
           ]
         }
       ]
@@ -233,8 +227,12 @@
           "full_score": 2,
           "student_score": 0,
           "blank_count": 1,
-          "student_answer": ["30"],
-          "correct_answer": ["365"],
+          "student_answer": [
+            "30"
+          ],
+          "correct_answer": [
+            "365"
+          ],
           "question_stem": "请填写地球绕太阳一周的时间是____天。"
         }
       ]
@@ -247,45 +245,13 @@
       "description": "本小节共5题，共40分",
       "questions": [
         {
-          "is_group": false,
-          "group_id": null,
-          "group_stem": null,
-          "questions": [
-            {
-              "question_id": 3,
-              "full_score": 5,
-              "student_score": 3,
-              "student_answer": "机器学习是通过数据训练模型，从而使计算机能够自动识别模式并进行预测。",
-              "answer": "机器学习的基本原理包括数据收集、特征提取、模型选择、训练与验证等步骤。",
-              "remark": "答案较为完整，但缺少对模型选择的描述。",
-              "question_stem": "请简述机器学习的基本原理。"
-            }
-          ]
-        },
-        {
-          "is_group": true,
-          "group_id": 1,
-          "group_stem": "静夜思\n床前看月光，疑是地上霜。\n举头望明月，低头思故乡。\n阅读以上材料，回答下列问题。",
-          "questions": [
-            {
-              "question_id": 4,
-              "full_score": 5,
-              "student_score": 5,
-              "student_answer": "李白",
-              "answer": "李白",
-              "remark": "回答正确。",
-              "question_stem": "这首诗的作者是谁？"
-            },
-            {
-              "question_id": 5,
-              "full_score": 10,
-              "student_score": 7,
-              "student_answer": "这首诗表达了作者对故乡的思念之情，意境优美。",
-              "answer": "诗中通过描写月光和霜的意象,表达了作者对故乡的深切思念，意境清幽。",
-              "remark": "答案抓住了意境，但缺少具体意象的分析。",
-              "question_stem": "请分析这首诗的意境。"
-            }
-          ]
+          "question_id": 3,
+          "full_score": 5,
+          "student_score": 3,
+          "student_answer": "机器学习是通过数据训练模型，从而使计算机能够自动识别模式并进行预测。",
+          "answer": "机器学习的基本原理包括数据收集、特征提取、模型选择、训练与验证等步骤。",
+          "remark": "答案较为完整，但缺少对模型选择的描述。",
+          "question_stem": "请简述机器学习的基本原理。"
         }
       ]
     }
