@@ -23,7 +23,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionElasticSearchServiceImpl implements QuestionElasticSearchService {
 
+    /**
+     * 进行分割的最少字符数量
+     */
     private static final int CHUNK_THRESHOLD = 1000;
+    /**
+     * 进行分割时每一块的字符数量
+     */
     private static final int CHUNK_SIZE = 800;
     private static final int CHUNK_OVERLAP = 80;
 
@@ -59,7 +65,7 @@ public class QuestionElasticSearchServiceImpl implements QuestionElasticSearchSe
      *
      * @param text 题目文本
      * @param model embedding 模型
-     * @return
+     * @return QuestionVector
      */
     private List<QuestionDocument.QuestionVectorChunk> createQuestionChunks(String text, EmbeddingModel model) {
         List<String> chunks = splitText(text);
