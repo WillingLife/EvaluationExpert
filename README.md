@@ -16,3 +16,5 @@
 [跳转](docs/draft-api/question_manage.md#1教师新增题目)
 - 2025/11/14：勘误，修改学生考试API中学生提获取考卷请求体示例,原先`course_id`字段改为`exam_id`字段
 [跳转](docs/draft-api/student_exam.md#1学生获取考试试卷)
+- 2025/11/14:为简化后端实现，学生考试API中学生提交考试答案API在请求体中`sections`部分新增`question_type`字段。删除无用部分
+[跳转](docs/draft-api/student_exam.md#2学生提交考试答案)
