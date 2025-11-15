@@ -1,12 +1,25 @@
 package com.smartcourse.service.impl;
 
+import com.smartcourse.mapper.ExamMapper;
+import com.smartcourse.mapper.ExamSectionMapper;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
+import com.smartcourse.pojo.entity.Exam;
+import com.smartcourse.pojo.entity.ExamSection;
 import com.smartcourse.pojo.vo.exam.StudentExamVO;
 import com.smartcourse.service.StudentExamService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StudentExamServiceImpl implements StudentExamService {
+    @Autowired
+    ExamMapper examMapper;
+
+    @Autowired
+    ExamSectionMapper examSectionMapper;
+
 
     /**
      *
@@ -16,6 +29,9 @@ public class StudentExamServiceImpl implements StudentExamService {
     @Override
     public StudentExamVO getStudentExamPaper(StudentGetExamDTO studentGetExamDTO) {
         Long examId = studentGetExamDTO.getExamId();
+        Exam exam = examMapper.getById(examId);
+        List<ExamSection> exceptions = examSectionMapper.getById(examId);
+
         /*
         查询过程为：
         查询1：根据examId在exam表查询Exam实体类
