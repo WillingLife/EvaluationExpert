@@ -18,3 +18,4 @@
 [跳转](docs/draft-api/student_exam.md#1学生获取考试试卷)
 - 2025/11/14:为简化后端实现，学生考试API中学生提交考试答案API在请求体中`sections`部分新增`question_type`字段。删除无用部分
 [跳转](docs/draft-api/student_exam.md#2学生提交考试答案)
+- 2025/11/15：修改教师考试修改考试API[跳转](docs/draft-api/teacher_exam.md#2修改试卷)
