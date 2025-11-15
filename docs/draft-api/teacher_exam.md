@@ -186,9 +186,7 @@
       "questions": [
         {
           "question_id": 2,
-          "score": 2,
-          "blank_count": 1,
-          "question_stem": "请填写地球绕太阳一周的时间是____天。"
+          "score": 2
         }
       ]
     },
@@ -201,8 +199,7 @@
       "questions": [
         {
           "question_id": 3,
-          "score": 5,
-          "question_stem": "请简述机器学习的基本原理。"
+          "score": 5
         }
       ]
     }
