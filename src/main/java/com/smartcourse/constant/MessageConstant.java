@@ -26,4 +26,9 @@ public final class MessageConstant {
     // 其他通用业务
     public static final String DATA_PARSE_ERROR = "数据解析错误";
     public static final String QUESTION_TYPE_INVALID = "题目类型错误";
+
+    // 作业相关
+    public static final String ASSIGNMENT_NOT_EXIST = "作业不存在";
+    public static final String ASSIGNMENT_SCORE_NOT_EXIST = "作业评分记录不存在";
+    public static final String ASSIGNMENT_SUBMIT_LIMIT_EXCEEDED = "超过作业提交次数上限";
 }

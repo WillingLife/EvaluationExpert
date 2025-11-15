@@ -159,7 +159,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         // 分页查询
-        List<QuestionQueryVO> records = questionMapper.pageList(
+        List<QuestionQueryVO> questionRecords = questionMapper.pageList(
                 questionQueryDTO.getCourseId(),
                 questionQueryDTO.getStem(),
                 questionQueryDTO.getDifficulty(),
@@ -173,11 +173,11 @@ public class QuestionServiceImpl implements QuestionService {
         List<Long> blankIds = new ArrayList<>();
         List<Long> shortIds = new ArrayList<>();
 
-        for (QuestionQueryVO vo : records) {
-            if (vo.getType() == null) continue;
-            if (vo.getType() == 1 || vo.getType() == 2) optionIds.add(vo.getId());
-            else if (vo.getType() == 3) blankIds.add(vo.getId());
-            else if (vo.getType() == 4) shortIds.add(vo.getId());
+        for (QuestionQueryVO questionVO : questionRecords) {
+            if (questionVO.getType() == null) continue;
+            if (questionVO.getType() == 1 || questionVO.getType() == 2) optionIds.add(questionVO.getId());
+            else if (questionVO.getType() == 3) blankIds.add(questionVO.getId());
+            else if (questionVO.getType() == 4) shortIds.add(questionVO.getId());
         }
 
         // 每个题目对应的题目详情信息
@@ -211,9 +211,9 @@ public class QuestionServiceImpl implements QuestionService {
             }
         }
 
-        for (QuestionQueryVO vo : records) {
-            Integer type = vo.getType();
-            Long questionId = vo.getId();
+        for (QuestionQueryVO questionVO : questionRecords) {
+            Integer type = questionVO.getType();
+            Long questionId = questionVO.getId();
 
             if (type == null) continue;
             if (type == 1 || type == 2) {
@@ -223,7 +223,7 @@ public class QuestionServiceImpl implements QuestionService {
                 ObjectNode node = objectMapper.createObjectNode();
                 node.set(OPTIONS, objectMapper.valueToTree(options));
 
-                vo.setDetails(node);
+                questionVO.setDetails(node);
             } else if (type == 3) {
                 List<QuestionFillBlank> blanks =
                         blankMap.getOrDefault(questionId, Collections.emptyList());
@@ -231,16 +231,21 @@ public class QuestionServiceImpl implements QuestionService {
                 ObjectNode node = objectMapper.createObjectNode();
                 node.set(BLANKS, objectMapper.valueToTree(blanks));
 
-                vo.setDetails(node);
+                questionVO.setDetails(node);
             } else if (type == 4) {
                 QuestionShortAnswer sa = shortMap.get(questionId);
-                vo.setDetails(objectMapper.valueToTree(sa));
+                questionVO.setDetails(objectMapper.valueToTree(sa));
             }
         }
 
-        return new PageResult<>(total, records);
+        return new PageResult<>(total, questionRecords);
     }
 
+    /**
+     * 根据ID查询题目详情
+     * @param id 题目ID
+     * @return 题目详情
+     */
     @Override
     public QuestionQueryVO get(Long id) {
         Question question = questionMapper.selectById(id);
@@ -258,6 +263,10 @@ public class QuestionServiceImpl implements QuestionService {
         return questionQueryVO;
     }
 
+    /**
+     * 修改题目信息
+     * @param questionUpdateDTO 题目修改信息
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(QuestionUpdateDTO questionUpdateDTO) {
@@ -350,6 +359,10 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
 
+    /**
+     * 根据ID删除题目（逻辑删除）
+     * @param id 题目ID
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteQuestion(Long id) {

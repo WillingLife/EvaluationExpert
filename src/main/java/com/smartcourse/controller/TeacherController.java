@@ -4,6 +4,12 @@ import com.smartcourse.pojo.dto.QuestionAddDTO;
 import com.smartcourse.pojo.dto.QuestionQueryDTO;
 import com.smartcourse.pojo.dto.QuestionUpdateDTO;
 import com.smartcourse.pojo.vo.QuestionQueryVO;
+import com.smartcourse.pojo.dto.AssignmentAddDTO;
+import com.smartcourse.pojo.dto.AssignmentUpdateDTO;
+import com.smartcourse.pojo.dto.TeacherGradeDTO;
+import com.smartcourse.pojo.vo.AssignmentIdVO;
+import com.smartcourse.pojo.vo.AssignmentScoreIdVO;
+import com.smartcourse.service.AssignmentService;
 import com.smartcourse.result.PageResult;
 import com.smartcourse.result.Result;
 import com.smartcourse.service.QuestionService;
@@ -18,7 +24,13 @@ import org.springframework.web.bind.annotation.*;
 public class TeacherController {
 
     private final QuestionService questionService;
+    private final AssignmentService assignmentService;
 
+    /**
+     * 教师新增题目
+     * @param questionAddDTO 题目信息
+     * @return 操作结果
+     */
     @PostMapping("/question/add")
     public Result addQuestion(@RequestBody QuestionAddDTO questionAddDTO) {
         log.info("教师新增题目：{}", questionAddDTO);
@@ -40,14 +52,24 @@ public class TeacherController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 根据ID查询题目详情
+     * @param id 题目ID
+     * @return 题目详情
+     */
     @GetMapping("/question/{id}")
     public Result get(@PathVariable Long id) {
         log.info("教师查看题目详情：{}", id);
-        QuestionQueryVO vo = questionService.get(id);
+        QuestionQueryVO questionVO = questionService.get(id);
 
-        return Result.success(vo);
+        return Result.success(questionVO);
     }
 
+    /**
+     * 修改题目
+     * @param questionUpdateDTO 题目修改信息
+     * @return 操作结果
+     */
     @PutMapping("/question/update")
     public Result updateQuestion(@RequestBody QuestionUpdateDTO questionUpdateDTO) {
         log.info("教师修改题目：{}", questionUpdateDTO);
@@ -56,11 +78,55 @@ public class TeacherController {
         return Result.success();
     }
 
+    /**
+     * 根据ID删除题目（逻辑删除）
+     * @param id 题目ID
+     * @return 操作结果
+     */
     @DeleteMapping("/question/delete")
     public Result deleteQuestion(@RequestParam Long id) {
         log.info("教师删除题目：{}", id);
         questionService.deleteQuestion(id);
 
         return Result.success();
+    }
+
+    /**
+     * 教师新增作业
+     * @param assignmentAddDTO 作业新增信息
+     * @return 作业ID
+     */
+    @PostMapping("/assignment/add")
+    public Result addAssignment(@RequestBody AssignmentAddDTO assignmentAddDTO) {
+        log.info("教师新增作业：{}", assignmentAddDTO);
+        AssignmentIdVO assignmentIdVO = assignmentService.addAssignment(assignmentAddDTO);
+
+        return Result.success(assignmentIdVO);
+    }
+
+    /**
+     * 教师修改作业
+     * @param assignmentUpdateDTO 作业修改信息
+     * @return 作业ID
+     */
+    @PostMapping("/assignment/update")
+    public Result updateAssignment(@RequestBody AssignmentUpdateDTO assignmentUpdateDTO) {
+        log.info("教师修改作业：{}", assignmentUpdateDTO);
+        AssignmentIdVO assignmentIdVO = assignmentService.updateAssignment(assignmentUpdateDTO);
+
+        return Result.success(assignmentIdVO);
+    }
+
+    /**
+     * 教师评价学生作业
+     * @param teacherGradeDTO 评分信息
+     * @return 作业评分ID
+     */
+    @PostMapping("/assignment/grade")
+    public Result gradeAssignment(@RequestBody TeacherGradeDTO teacherGradeDTO) {
+        log.info("教师评价作业：{}", teacherGradeDTO);
+        AssignmentScoreIdVO assignmentScoreIdVO = assignmentService.gradeAssignment(teacherGradeDTO);
+
+        return Result.success(assignmentScoreIdVO);
     }
 }

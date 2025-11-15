@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.AssignmentMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into assignment(
+            name, description, course_id, submit_limit, status, version, creator,
+            deadline, create_time, update_time, `delete`
+        ) values (
+            #{name}, #{description}, #{courseId}, #{submitLimit}, #{status}, #{version}, #{creator},
+            #{deadline}, #{createTime}, #{updateTime}, #{delete}
+        )
+    </insert>
+
+    <update id="update">
+        update assignment
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="submitLimit != null">submit_limit = #{submitLimit},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="deadline != null">deadline = #{deadline},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delete != null">`delete` = #{delete},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" resultType="com.smartcourse.pojo.entity.Assignment">
+        select id, name, description, course_id as courseId, submit_limit as submitLimit,
+               status, version, creator, deadline, create_time as createTime,
+               update_time as updateTime, `delete` as `delete`
+        from assignment
+        where id = #{id}
+        limit 1
+    </select>
+</mapper>

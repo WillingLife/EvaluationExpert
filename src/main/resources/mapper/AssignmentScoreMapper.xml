@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.AssignmentScoreMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into assignment_score(
+            assignment_id, student_id, score, status, submit_no,
+            submit_file_url, grader, note, create_time, update_time, deleted
+        ) values (
+            #{assignmentId}, #{studentId}, #{score}, #{status}, #{submitNo},
+            #{submitFileUrl}, #{grader}, #{note}, #{createTime}, #{updateTime}, #{deleted}
+        )
+    </insert>
+
+    <update id="update">
+        update assignment_score
+        <set>
+            <if test="assignmentId != null">assignment_id = #{assignmentId},</if>
+            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="submitNo != null">submit_no = #{submitNo},</if>
+            <if test="submitFileUrl != null">submit_file_url = #{submitFileUrl},</if>
+            <if test="grader != null">grader = #{grader},</if>
+            <if test="note != null">note = #{note},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" resultType="com.smartcourse.pojo.entity.AssignmentScore">
+        select id, assignment_id as assignmentId, student_id as studentId, score, status, submit_no as submitNo,
+               submit_file_url as submitFileUrl, grader, note, create_time as createTime, update_time as updateTime,
+               deleted
+        from assignment_score
+        where id = #{id}
+        limit 1
+    </select>
+
+    <select id="selectMaxSubmitNo" resultType="int">
+        select coalesce(max(submit_no), 0) from assignment_score
+        where assignment_id = #{assignmentId} and student_id = #{studentId}
+    </select>
+
+    <select id="selectByAssignmentAndStudent" resultType="com.smartcourse.pojo.entity.AssignmentScore">
+        select id, assignment_id as assignmentId, student_id as studentId, score, status, submit_no as submitNo,
+               submit_file_url as submitFileUrl, grader, note, create_time as createTime, update_time as updateTime,
+               deleted
+        from assignment_score
+        where assignment_id = #{assignmentId} and student_id = #{studentId}
+        order by submit_no desc, id desc
+    </select>
+</mapper>

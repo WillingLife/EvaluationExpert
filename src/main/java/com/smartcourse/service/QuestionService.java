@@ -20,9 +20,22 @@ public interface QuestionService {
      */
     PageResult<QuestionQueryVO> page(QuestionQueryDTO questionQueryDTO);
 
+    /**
+     * 根据ID查询题目详情
+     * @param id 题目ID
+     * @return 题目详情
+     */
     QuestionQueryVO get(Long id);
 
+    /**
+     * 修改题目信息
+     * @param questionUpdateDTO 题目修改信息
+     */
     void update(QuestionUpdateDTO questionUpdateDTO);
 
+    /**
+     * 根据ID删除题目（逻辑删除）
+     * @param id 题目ID
+     */
     void deleteQuestion(Long id);
 }

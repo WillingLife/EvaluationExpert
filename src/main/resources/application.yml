@@ -18,6 +18,14 @@ mybatis:
     #开启驼峰命名
     map-underscore-to-camel-case: true
 
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucket-name: evaluation_expert
+    region: cn-beijing
+    access-key-id: LTAI5tRZrSiZcLSGoHuTSk8z
+    access-key-secret: 2seTDeE5qjbrOthg43uRa3CuuEeS4Y
+
 logging:
   level:
     com.smartcourse.mapper: debug
