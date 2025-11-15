@@ -13,4 +13,10 @@ public interface QuestionFillBlankMapper {
      * @param blanks 填空题信息
      */
     void insertBatch(List<QuestionFillBlank> blanks);
+
+    List<QuestionFillBlank> selectByQuestionId(Long questionId);
+
+    void deleteByQuestionId(Long questionId);
+
+    List<QuestionFillBlank> selectByQuestionIds(List<Long> questionIds);
 }

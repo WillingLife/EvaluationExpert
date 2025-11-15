@@ -7,4 +7,23 @@
             (#{o.questionId}, #{o.content}, #{o.correct}, #{o.sortOrder})
         </foreach>
     </insert>
+
+    <select id="selectByQuestionId" resultType="com.smartcourse.pojo.entity.QuestionOption">
+        select id, question_id, content, correct, sort_order
+        from question_option
+        where question_id = #{questionId}
+        order by sort_order, id
+    </select>
+
+    <delete id="deleteByQuestionId">
+        delete from question_option where question_id = #{questionId}
+    </delete>
+
+    <select id="selectByQuestionIds" resultType="com.smartcourse.pojo.entity.QuestionOption">
+        select id, question_id, content, correct, sort_order
+        from question_option
+        where question_id in
+        <foreach collection="questionIds" item="id" separator="," open="(" close=")">#{id}</foreach>
+        order by question_id, sort_order, id
+    </select>
 </mapper>

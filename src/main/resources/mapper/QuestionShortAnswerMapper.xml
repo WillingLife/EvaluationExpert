@@ -5,4 +5,23 @@
         insert into question_short_answer (question_id, answer, criteria)
         values (#{questionId}, #{answer}, #{criteria})
     </insert>
+
+    <select id="selectByQuestionId" resultType="com.smartcourse.pojo.entity.QuestionShortAnswer">
+        select question_id, answer, criteria
+        from question_short_answer
+        where question_id = #{questionId}
+        limit 1
+    </select>
+
+    <delete id="deleteByQuestionId">
+        delete from question_short_answer where question_id = #{questionId}
+    </delete>
+
+    <select id="selectByQuestionIds" resultType="com.smartcourse.pojo.entity.QuestionShortAnswer">
+        select question_id, answer, criteria
+        from question_short_answer
+        where question_id in
+        <foreach collection="questionIds" item="id" separator="," open="(" close=")">#{id}</foreach>
+        order by question_id
+    </select>
 </mapper>

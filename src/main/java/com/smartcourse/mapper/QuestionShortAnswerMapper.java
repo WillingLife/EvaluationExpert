@@ -10,4 +10,10 @@ public interface QuestionShortAnswerMapper {
      * @param answer 答案信息
      */
     void insert(QuestionShortAnswer answer);
+
+    QuestionShortAnswer selectByQuestionId(Long questionId);
+
+    void deleteByQuestionId(Long questionId);
+
+    java.util.List<com.smartcourse.pojo.entity.QuestionShortAnswer> selectByQuestionIds(@org.apache.ibatis.annotations.Param("questionIds") java.util.List<Long> questionIds);
 }

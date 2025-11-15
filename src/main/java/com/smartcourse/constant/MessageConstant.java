@@ -10,6 +10,7 @@ public final class MessageConstant {
     // 通用
     public static final String QUESTION_TYPE_EMPTY = "题型不能为空";
     public static final String DETAILS_MISSING = "缺少题目详情";
+    public static final String QUESTION_NOT_EXIST = "题目不存在";
 
     // 选择题
     public static final String CHOICE_OPTIONS_EMPTY = "选择题选项不能为空";
