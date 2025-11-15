@@ -55,4 +55,12 @@ public class TeacherController {
 
         return Result.success();
     }
+
+    @DeleteMapping("/question/delete")
+    public Result deleteQuestion(@RequestParam Long id) {
+        log.info("教师删除题目：{}", id);
+        questionService.deleteQuestion(id);
+
+        return Result.success();
+    }
 }

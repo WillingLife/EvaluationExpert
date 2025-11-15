@@ -347,6 +347,30 @@ public class QuestionServiceImpl implements QuestionService {
         }
     }
 
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteQuestion(Long id) {
+        if (id == null) {
+            throw new QuestionValidationException(MessageConstant.QUESTION_NOT_EXIST);
+        }
+
+        // 查询数据是否存在
+        Question question = questionMapper.selectById(id);
+        if (question == null) {
+            throw new QuestionValidationException(MessageConstant.QUESTION_NOT_EXIST);
+        }
+
+        questionOptionMapper.deleteByQuestionId(id);
+        questionFillBlankMapper.deleteByQuestionId(id);
+        questionShortAnswerMapper.deleteByQuestionId(id);
+
+        // 逻辑删除
+        question.setDeleted(1);
+        question.setUpdateTime(LocalDateTime.now());
+        questionMapper.update(question);
+    }
+
     private void getQuestionDetails(QuestionQueryVO questionQueryVO) {
         Integer type = questionQueryVO.getType();
         Long questionId = questionQueryVO.getId();
@@ -372,4 +396,5 @@ public class QuestionServiceImpl implements QuestionService {
             questionQueryVO.setDetails(objectMapper.valueToTree(shortAnswer));
         }
     }
+
 }

@@ -23,4 +23,6 @@ public interface QuestionService {
     QuestionQueryVO get(Long id);
 
     void update(QuestionUpdateDTO questionUpdateDTO);
+
+    void deleteQuestion(Long id);
 }
