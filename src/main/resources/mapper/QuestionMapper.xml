@@ -27,6 +27,9 @@
             <if test="stem != null and stem != ''">
                 and stem like concat('%', #{stem}, '%')
             </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
         </where>
         order by update_time desc
         limit #{pageSize} offset #{offset}
@@ -45,6 +48,9 @@
             </if>
             <if test="stem != null and stem != ''">
                 and stem like concat('%', #{stem}, '%')
+            </if>
+            <if test="type != null">
+                and type = #{type}
             </if>
         </where>
     </select>

@@ -149,7 +149,8 @@ public class QuestionServiceImpl implements QuestionService {
         Long total = questionMapper.count(
                 questionQueryDTO.getCourseId(),
                 questionQueryDTO.getStem(),
-                questionQueryDTO.getDifficulty()
+                questionQueryDTO.getDifficulty(),
+                questionQueryDTO.getType()
         );
 
         // 当前不存在数据
@@ -162,6 +163,7 @@ public class QuestionServiceImpl implements QuestionService {
                 questionQueryDTO.getCourseId(),
                 questionQueryDTO.getStem(),
                 questionQueryDTO.getDifficulty(),
+                questionQueryDTO.getType(),
                 offset,
                 pageSize
         );

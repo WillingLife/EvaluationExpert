@@ -18,12 +18,12 @@ public interface QuestionMapper {
      * 分页查询题目列表
      */
     List<QuestionQueryVO> pageList(Long courseId, String stem, Integer difficulty,
-                                   Integer offset, Integer pageSize);
+                                   Integer type, Integer offset, Integer pageSize);
 
     /**
      * 统计题目数量
      */
-    Long count(Long courseId, String stem, Integer difficulty);
+    Long count(Long courseId, String stem, Integer difficulty, Integer type);
 
     /**
      * 根据ID查询题目
