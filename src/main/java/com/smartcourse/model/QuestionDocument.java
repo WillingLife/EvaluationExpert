@@ -1,4 +1,4 @@
-package com.smartcourse.evaluationexpert.model;
+package com.smartcourse.model;
 
 
 import lombok.Data;
