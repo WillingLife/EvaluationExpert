@@ -140,6 +140,8 @@
 **📌 Important Notice:** 在AI自动组卷后，返回的数据不携带`exam_id`，当教师在前端使用AI组卷或创建新试卷自己组卷时，向后端保存试卷信息时，`exam_id`为空，后端会自己创建新exam；
 当教师修改已存在的试卷时，需携带对应的`exam_id`。
 
+当老师修改题目时，前端应该先向后端发送新增题目请求，获取新的`question_id`，再将新的`question_id`传给修改试卷接口。
+
 请求路径：/teacher/exam/make/save
 
 请求方式：POST
