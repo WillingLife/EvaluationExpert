@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: EvaluationExpert
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.22.120.47:13306/evaluation_expert?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: password
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.smartcourse
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.smartcourse.mapper: debug
+    com.smartcourse.service: info
+    com.smartcourse.controller: info

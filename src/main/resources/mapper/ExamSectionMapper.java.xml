@@ -3,27 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.">
-    <!-- 可以在这里定义SQL语句 -->
-    <select id="queryUsers" resultType="com.work.work.vo.UserVO">
-        SELECT id, name, gender, state, department, email, time, phone, role, post, nickname
-        FROM test_union.user
-        <where>
-            <if test="name != null and name != ''">
-                AND name LIKE CONCAT('%', #{name}, '%')
-            </if>
-            <if test="phone != null">
-                AND phone LIKE CONCAT('%', #{phone}, '%')
-            </if>
-            <if test="state != null">
-                AND state = #{state}
-            </if>
-            <if test="startDate != null">
-                AND time &gt;= #{startDate}
-            </if>
-            <if test="endDate != null">
-                AND time &lt;= #{endDate}
-            </if>
-        </where>
+<mapper namespace="com.smartcourse.mapper.ExamSectionMapper">
+
+    <select id="getSectionItems" resultType="com.smartcourse.pojo.vo.exam.SectionItemDTO">
+        SELECT
+            s.id,
+            s.exam_id AS examId,
+            s.title,
+            s.question_type AS questionType,
+            s.description,
+            s.choice_score AS choiceScore,
+            s.order_no AS orderNo,
+            s.note,
+            s.choice_negative_score AS choiceNegativeScore,
+            s.multiple_strategy AS multipleStrategy,
+            s.multiple_strategy_conf AS multipleStrategyConf,
+            s.creator,
+            s.create_time AS createTime,
+            s.update_time AS updateTime,
+            s.deleted,
+            i.id AS questionId
+        FROM evaluation_expert.exam_section s
+                 LEFT JOIN evaluation_expert.exam_item i ON s.id = i.section_id
+        WHERE s.exam_id = #{examId}
+        ORDER BY s.order_no, s.id, i.id
     </select>
+
 </mapper>
