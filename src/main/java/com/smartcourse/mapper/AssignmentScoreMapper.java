@@ -12,8 +12,6 @@ public interface AssignmentScoreMapper {
     void update(AssignmentScore score);
     AssignmentScore selectById(Long id);
 
-    Integer selectMaxSubmitNo(@Param("assignmentId") Long assignmentId,
-                              @Param("studentId") Long studentId);
-    List<AssignmentScore> selectByAssignmentAndStudent(@Param("assignmentId") Long assignmentId,
-                                                       @Param("studentId") Long studentId);
+    Integer selectMaxSubmitNo(Long assignmentId, Long studentId);
+    List<AssignmentScore> selectByAssignmentAndStudent(Long assignmentId, Long studentId);
 }

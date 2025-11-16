@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper
 public interface AssignmentDimensionRemarkMapper {
     void insert(AssignmentDimensionRemark remark);
-    List<AssignmentDimensionRemark> selectByAssignmentRemarkId(@Param("assignmentRemarkId") Long assignmentRemarkId);
+    List<AssignmentDimensionRemark> selectByAssignmentRemarkId(Long assignmentRemarkId);
 }

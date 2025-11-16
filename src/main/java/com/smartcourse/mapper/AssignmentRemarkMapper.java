@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface AssignmentRemarkMapper {
     void insert(AssignmentRemark remark);
-    AssignmentRemark selectByScoreId(@Param("scoreId") Long scoreId);
+    AssignmentRemark selectByScoreId(Long scoreId);
 }
