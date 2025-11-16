@@ -21,7 +21,7 @@ mybatis:
 aliyun:
   oss:
     endpoint: https://oss-cn-beijing.aliyuncs.com
-    bucket-name: evaluation_expert
+    bucket-name: evaluation-expert
     region: cn-beijing
     access-key-id: LTAI5tRZrSiZcLSGoHuTSk8z
     access-key-secret: 2seTDeE5qjbrOthg43uRa3CuuEeS4Y
