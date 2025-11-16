@@ -22,7 +22,7 @@ public class Result<T> {
     // 成功：携带数据
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>();
-        result.code = 0;
+        result.code = 200;
         result.data = data;
         return result;
     }
