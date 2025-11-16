@@ -243,7 +243,7 @@
   "exam_score_id": "考试评分ID",
   "grades": [
     {
-      "question_id": 3,
+      "exam_item_id": 3,
       "score": 4,
       "remark": "答案较为完整，但缺少对模型选择的描述。"
     }
@@ -272,7 +272,7 @@
 {
   "questions": [
     {
-      "question_id": 3,
+      "exam_item_id": 3,
       "full_score": 5,
       "student_score": 3,
       "student_answer": "机器学习是通过数据训练模型，从而使计算机能够自动识别模式并进行预测。",
