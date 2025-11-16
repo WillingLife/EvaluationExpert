@@ -51,4 +51,33 @@ public class Exam {
             section.batchUpdateExamIdInSections();
         }
     }
+
+    public boolean hasExistingSections() {
+        if (sections == null) {
+            return false;
+        }
+        for (ExamSection section : sections) {
+            if (section != null && section.getId() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasExistingExamItems() {
+        if (sections == null) {
+            return false;
+        }
+        for (ExamSection section : sections) {
+            if (section == null || section.getExamItems() == null) {
+                continue;
+            }
+            for (ExamItem item : section.getExamItems()) {
+                if (item != null && item.getId() != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

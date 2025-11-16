@@ -25,4 +25,9 @@ public interface ExamMapper {
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insertExam(Exam exam);
+
+    int updateExamRecursive(Exam exam);
+
+    int updateExamSelective(Exam exam);
+
 }
