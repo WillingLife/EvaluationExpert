@@ -165,6 +165,7 @@
   "version": 1,
   "sections": [
     {
+      "section_id": null,
       "order_no": 1,
       "title": "单选题",
       "question_type": "single",
@@ -173,6 +174,7 @@
       "choice_negative_score": 0,
       "questions": [
         {
+          "exam_item_id": null,
           "question_id": 1
         }
       ]
