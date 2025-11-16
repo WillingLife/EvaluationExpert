@@ -168,10 +168,13 @@
       "section_id": null,
       "order_no": 1,
       "title": "单选题",
+      "description": "本小节共20题，每题2分，共40分",
       "question_type": "single",
       "question_number": 20,
       "choice_score": 2,
       "choice_negative_score": 0,
+      "multiple_strategy": "",
+      "multiple_strategy_conf":{},
       "questions": [
         {
           "exam_item_id": null,
@@ -320,6 +323,22 @@
 ```
 
 `status`包括draft（草稿）、published（已发布）、completed（已结束）、graded（已评分）等状态。
+
+
+## 7.教师删除试卷（仅草稿）
+
+请求路径：`teacher/exam/delete`
+
+请求方法：POST
+
+请求体示例：
+```json
+{
+  "teacher_id": "教师ID",
+  "exam_id": "考试ID"
+}
+```
+
 
 
  
