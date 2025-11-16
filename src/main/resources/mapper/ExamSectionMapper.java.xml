@@ -29,4 +29,32 @@
         ORDER BY s.order_no, s.id, i.id
     </select>
 
+    <insert id="insetSections" parameterType="java.util.List" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO evaluation_expert.exam_section (
+        exam_id, title, question_type, description, choice_score,
+        order_no, note, choice_negative_score, multiple_strategy,
+        multiple_strategy_conf, creator, create_time, update_time, deleted
+        )
+        VALUES
+        <foreach collection="sections" item="section" separator=",">
+            (
+            #{section.examId},
+            #{section.title},
+            #{section.questionType},
+            #{section.description},
+            #{section.choiceScore},
+            #{section.orderNo},
+            #{section.note},
+            #{section.choiceNegativeScore},
+            #{section.multipleStrategy},
+            #{section.multipleStrategyConf},
+            #{section.creator},
+            #{section.createTime},
+            #{section.updateTime},
+            #{section.deleted}
+            )
+        </foreach>
+    </insert>
+
 </mapper>
