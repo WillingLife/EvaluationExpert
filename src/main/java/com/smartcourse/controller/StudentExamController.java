@@ -34,4 +34,12 @@ public class StudentExamController {
         return Result.success();
     }
 
+    @GetMapping("/score/details")
+    public Result<StudentExamVO> getExamScore(@RequestBody StudentGetExamDTO studentGetExamDTO) {
+        StudentExamVO studentExamPaper = studentExamService.getStudentExamPaper(studentGetExamDTO);
+        return Result.success(studentExamPaper);
+    }
+
+
+
 }
