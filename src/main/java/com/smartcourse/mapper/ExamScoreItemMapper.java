@@ -10,5 +10,7 @@ import java.util.List;
 public interface ExamScoreItemMapper {
     int batchUpdateExamScoreItemSelective(List<ExamScoreItem> examScoreItems);
 
+    int batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId(List<ExamScoreItem> examScoreItems);
+
     void submit(List<ExamScoreItemDTO> examScoreItems);
 }

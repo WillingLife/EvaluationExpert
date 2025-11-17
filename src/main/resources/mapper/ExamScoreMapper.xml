@@ -66,4 +66,20 @@
           AND exam_id = #{examId}
     </select>
 
+    <select id="getStudentAnswers" resultType="com.smartcourse.pojo.vo.exam.TeacherViewAnswerItemVO">
+        SELECT
+            ei.id AS examItemId,
+            ei.score AS fullScore,
+            esi.answer AS studentAnswer,
+            qsa.answer AS answer,
+            qsa.criteria AS criteria
+        FROM exam_score es
+        INNER JOIN exam_score_item esi ON es.id = esi.score_id
+        INNER JOIN exam_item ei ON esi.exam_item_id = ei.id
+        INNER JOIN question_short_answer qsa ON ei.question_id = qsa.question_id
+        WHERE es.exam_id = #{examId}
+          AND es.student_id = #{studentId}
+        ORDER BY ei.id
+    </select>
+
 </mapper>

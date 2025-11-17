@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 @Data
 @Alias("CompatResult")
 public class Result<T> {
-    private Integer code; // 编码：0成功，其它数字为失败
+    private Integer code;
     private String msg;   // 错误信息
     private T data;       // 泛型数据
 

@@ -1,23 +1,26 @@
 package com.smartcourse.service.impl;
 
 import com.smartcourse.converter.ExamConverter;
+import com.smartcourse.converter.ExamScoreItemConverter;
 import com.smartcourse.enums.ExamStatusEnum;
 import com.smartcourse.exception.IllegalOperationException;
 import com.smartcourse.exception.SqlErrorException;
-import com.smartcourse.mapper.ExamClassMapper;
-import com.smartcourse.mapper.ExamItemMapper;
-import com.smartcourse.mapper.ExamMapper;
-import com.smartcourse.mapper.ExamSectionMapper;
+import com.smartcourse.mapper.*;
 import com.smartcourse.pojo.dto.TeacherGradeDTO;
 import com.smartcourse.pojo.dto.TeacherPublishExamDTO;
 import com.smartcourse.pojo.dto.TeacherSaveExamDTO;
+import com.smartcourse.pojo.dto.TeacherViewAnswerDTO;
 import com.smartcourse.pojo.entity.Exam;
+import com.smartcourse.pojo.entity.ExamScoreItem;
+import com.smartcourse.pojo.vo.exam.TeacherViewAnswerItemVO;
+import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
 import com.smartcourse.service.TeacherExamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -29,6 +32,9 @@ public class TeacherExamServiceImpl implements TeacherExamService {
     private final ExamSectionMapper examSectionMapper;
     private final ExamItemMapper examItemMapper;
     private final ExamClassMapper examClassMapper;
+    private final ExamScoreItemMapper examScoreItemMapper;
+    private final ExamScoreItemConverter  examScoreItemConverter;
+    private final ExamScoreMapper examScoreMapper;
 
     @Override
     @Transactional
@@ -40,7 +46,7 @@ public class TeacherExamServiceImpl implements TeacherExamService {
             }
             exam.batchUpdateExamIdIntoSections();
             examSectionMapper.insetSections(exam.getSections());
-            exam.batchUpdateExamIdIntoSections();
+            exam.batchUpdateSectionIdIntoExamItems();
             examItemMapper.insertExamItemsByExamSections(exam.getSections());
         } else {
             examMapper.updateExamRecursive(exam);
@@ -71,8 +77,18 @@ public class TeacherExamServiceImpl implements TeacherExamService {
     }
 
     @Override
+    @Transactional
     public void submitGrade(TeacherGradeDTO teacherGradeDTO) {
         //TODO Add teacher check
+        List<ExamScoreItem> items = examScoreItemConverter.teacherGradeItemsToExamScoreItems(
+                teacherGradeDTO.getGrades(), teacherGradeDTO.getExamScoreId());
+        examScoreItemMapper.batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId(items);
+    }
 
+    @Override
+    public TeacherViewAnswerVO viewStudentAnswers(TeacherViewAnswerDTO teacherViewAnswerDTO) {
+        List<TeacherViewAnswerItemVO> studentAnswers = examScoreMapper.getStudentAnswers(teacherViewAnswerDTO.getExamId(),
+                teacherViewAnswerDTO.getStudentId());
+        return new TeacherViewAnswerVO(studentAnswers);
     }
 }
