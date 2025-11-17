@@ -6,22 +6,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartcourse.enums.QuestionTypeEnum;
 import com.smartcourse.mapper.*;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
-import com.smartcourse.pojo.dto.exam.ExamScoreItemDTO;
-import com.smartcourse.pojo.dto.exam.StudentExamDTO;
+import com.smartcourse.pojo.dto.exam.*;
 import com.smartcourse.pojo.entity.Exam;
 import com.smartcourse.pojo.entity.ExamScore;
-import com.smartcourse.pojo.entity.ExamScoreItem;
-import com.smartcourse.pojo.entity.ExamSection;
 import com.smartcourse.pojo.vo.exam.*;
 import com.smartcourse.pojo.vo.exam.question.*;
-import com.smartcourse.pojo.vo.exam.sql.SectionItemVO;
 import com.smartcourse.service.AsyncQuestionService;
 import com.smartcourse.service.StudentExamService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.smartcourse.pojo.dto.exam.StudentExamQuestionDTO;
-import com.smartcourse.pojo.dto.exam.StudentExamSectionDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
@@ -287,5 +281,14 @@ public class StudentExamServiceImpl implements StudentExamService {
             studentScoreSectionVO.setQuestions(questionVOS);
         }
         return examScoreVO;
+    }
+
+    @Override
+    public StudentExamListVO getList(Long courseId) {
+        List<ExamList> list = examMapper.getList(courseId);
+        StudentExamListVO studentExamListVO = new StudentExamListVO();
+        studentExamListVO.setCourseId(courseId);
+        studentExamListVO.setList(list);
+        return studentExamListVO;
     }
 }

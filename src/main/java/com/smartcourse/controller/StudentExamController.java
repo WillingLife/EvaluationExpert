@@ -7,7 +7,9 @@ import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.dto.exam.StudentExamDTO;
 import com.smartcourse.pojo.dto.exam.StudentExamQuestionDTO;
 import com.smartcourse.pojo.dto.exam.StudentExamSectionDTO;
+import com.smartcourse.pojo.dto.exam.StudentGetExamListDTO;
 import com.smartcourse.pojo.vo.exam.ExamScoreVO;
+import com.smartcourse.pojo.vo.exam.StudentExamListVO;
 import com.smartcourse.pojo.vo.exam.StudentExamVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.StudentExamService;
@@ -39,7 +41,7 @@ public class StudentExamController {
 
     @GetMapping("/score/details")
     public Result<ExamScoreVO> getExamScore(@RequestBody StudentGetExamDTO studentGetExamDTO) {
-        ExamScoreVO examScoreVO = null;
+        ExamScoreVO examScoreVO;
         try {
             examScoreVO = studentExamService.getScore(studentGetExamDTO);
         } catch (JsonProcessingException e) {
@@ -48,5 +50,9 @@ public class StudentExamController {
         return Result.success(examScoreVO);
     }
 
-
+    @GetMapping("/list")
+    public Result<StudentExamListVO> getExamList(Long courseId) {
+        StudentExamListVO studentExamListVO = studentExamService.getList(courseId);
+        return Result.success(studentExamListVO);
+    }
 }
