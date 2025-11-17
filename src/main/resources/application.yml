@@ -11,6 +11,18 @@ spring:
     url: jdbc:mysql://172.22.120.47:13306/evaluation_expert?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: password
+  ai:
+    openai:
+      # embedding model configuration
+      api-key: ${CHAT_GLM_API_KEY}
+      base-url: https://open.bigmodel.cn/api/paas
+      embedding:
+        options:
+          model: embedding-3
+          dimensions: 1024
+        embeddings-path: /v4/embeddings
+  elasticsearch:
+    uris: http://localhost:9200
 
 mybatis:
   #mapper配置文件
