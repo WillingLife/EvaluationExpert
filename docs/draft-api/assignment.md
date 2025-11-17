@@ -132,3 +132,34 @@ Content-Type:application/octet-stream
   "teacher_remark": "优秀的作业，继续保持！"
 }
 ```
+
+## 6.教师某个课程的作业列表
+
+请求路径：/teacher/assignment/list
+
+请求方法：GET
+
+请求体：
+```json
+{
+  "teacher_id": 1,
+  "course_id": 1
+}
+```
+
+返回体：
+```json
+{
+  "assignments": [
+    {
+      "assignment_id": 1,
+      "name": "作业名称",
+      "status": "open",
+      "deadline": "2024-12-31T23:59:59Z"
+    }
+  ]
+}
+```
+
+`status`见后端具体实现
+
