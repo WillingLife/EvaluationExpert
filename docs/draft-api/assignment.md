@@ -12,6 +12,8 @@
 
 [5. 教师评价学生作业](#5教师评价学生作业)
 
+[6. 教师某个课程的作业列表](#6教师某个课程的作业列表)
+
 ## 1.教师新增作业
 
 请求路径: /teacher/assignment/add
@@ -163,3 +165,19 @@ Content-Type:application/octet-stream
 
 `status`见后端具体实现
 
+## 7.教师删除作业
+
+请求路径:/teacher/assignment/delete
+
+请求方法：DELETE
+
+请求体：
+```json
+{
+  "teacher_id": 1,
+  "course_id": 1,
+  "assignment_id": 1
+}
+```
+
+后端删除时如果`status`有要求可以实现
