@@ -59,4 +59,11 @@
                 #{updateTime})
     </insert>
 
+    <select id="getScore" resultType="com.smartcourse.pojo.vo.exam.ExamScoreVO">
+        SELECT id, exam_id, student_id, total_score, submit_time, grade_time
+        FROM evaluation_expert.exam_score
+        WHERE student_id = #{studentId}
+          AND exam_id = #{examId}
+    </select>
+
 </mapper>

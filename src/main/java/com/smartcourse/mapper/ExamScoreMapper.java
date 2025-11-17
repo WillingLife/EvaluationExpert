@@ -1,6 +1,8 @@
 package com.smartcourse.mapper;
 
+import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.entity.ExamScore;
+import com.smartcourse.pojo.vo.exam.ExamScoreVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +17,6 @@ public interface ExamScoreMapper {
     int updateExamScoreSelective(ExamScore examScore);
 
     Long submit(ExamScore examScore);
+
+    ExamScoreVO getScore(StudentGetExamDTO studentGetExamDTO);
 }

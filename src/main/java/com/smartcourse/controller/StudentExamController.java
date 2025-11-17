@@ -1,10 +1,13 @@
 package com.smartcourse.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.smartcourse.exception.SqlErrorException;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.dto.exam.StudentExamDTO;
 import com.smartcourse.pojo.dto.exam.StudentExamQuestionDTO;
 import com.smartcourse.pojo.dto.exam.StudentExamSectionDTO;
+import com.smartcourse.pojo.vo.exam.ExamScoreVO;
 import com.smartcourse.pojo.vo.exam.StudentExamVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.StudentExamService;
@@ -35,11 +38,15 @@ public class StudentExamController {
     }
 
     @GetMapping("/score/details")
-    public Result<StudentExamVO> getExamScore(@RequestBody StudentGetExamDTO studentGetExamDTO) {
-        StudentExamVO studentExamPaper = studentExamService.getStudentExamPaper(studentGetExamDTO);
-        return Result.success(studentExamPaper);
+    public Result<ExamScoreVO> getExamScore(@RequestBody StudentGetExamDTO studentGetExamDTO) {
+        ExamScoreVO examScoreVO = null;
+        try {
+            examScoreVO = studentExamService.getScore(studentGetExamDTO);
+        } catch (JsonProcessingException e) {
+            throw new SqlErrorException("Json转换错误");
+        }
+        return Result.success(examScoreVO);
     }
-
 
 
 }

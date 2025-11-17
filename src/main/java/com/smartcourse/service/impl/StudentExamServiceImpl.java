@@ -1,6 +1,7 @@
 package com.smartcourse.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartcourse.enums.QuestionTypeEnum;
 import com.smartcourse.mapper.*;
@@ -11,9 +12,7 @@ import com.smartcourse.pojo.entity.Exam;
 import com.smartcourse.pojo.entity.ExamScore;
 import com.smartcourse.pojo.entity.ExamScoreItem;
 import com.smartcourse.pojo.entity.ExamSection;
-import com.smartcourse.pojo.vo.exam.ExamSectionWithIdsVO;
-import com.smartcourse.pojo.vo.exam.SectionItemDTO;
-import com.smartcourse.pojo.vo.exam.StudentExamVO;
+import com.smartcourse.pojo.vo.exam.*;
 import com.smartcourse.pojo.vo.exam.question.*;
 import com.smartcourse.pojo.vo.exam.sql.SectionItemVO;
 import com.smartcourse.service.AsyncQuestionService;
@@ -30,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -46,6 +46,9 @@ public class StudentExamServiceImpl implements StudentExamService {
 
     @Autowired
     ExamScoreItemMapper examScoreItemMapper;
+
+    @Autowired
+    ExamItemMapper examItemMapper;
 
     @Autowired
     QuestionMapper questionMapper;
@@ -237,5 +240,52 @@ public class StudentExamServiceImpl implements StudentExamService {
         }
 
         examScoreItemMapper.submit(examScoreItems);
+    }
+
+    @Override
+    public ExamScoreVO getScore(StudentGetExamDTO studentGetExamDTO) throws JsonProcessingException {
+        Long examId = studentGetExamDTO.getExamId();
+
+        ExamScoreVO examScoreVO = examScoreMapper.getScore(studentGetExamDTO);
+
+        Exam exam = examMapper.getById(examId);
+        examScoreVO.setExamName(exam.getName());
+        examScoreVO.setStartTime(exam.getStartTime());
+
+        List<StudentScoreSectionVO> studentScoreSectionVOS = examSectionMapper.getById(examId);
+        for (StudentScoreSectionVO studentScoreSectionVO : studentScoreSectionVOS) {
+            Long sectionId = studentScoreSectionVO.getSectionId();
+            String type = String.valueOf(studentScoreSectionVO.getQuestionType());
+            List<StudentScoreQuestionVO> questionVOS = examItemMapper.getQuestion(sectionId, examScoreVO.getId());
+            for (StudentScoreQuestionVO questionVO : questionVOS) {
+                if (type.equals("short_answer")) {
+                    String answerJson = questionVO.getAnswer();
+                    String str = objectMapper.readValue(answerJson, new TypeReference<String>() {
+                    });
+                    questionVO.setStudentAnswer(str);
+                    questionVO.setCorrectAnswer(questionMapper.getShortAnswer(questionVO.getQuestionId()));
+                } else if (type.equals("fill_blank")) {
+                    String answerJson = questionVO.getAnswer();
+                    List<String> list = objectMapper.readValue(answerJson, new TypeReference<List<String>>() {
+                    });
+                    questionVO.setStudentAnswer(list);
+                    List<String> answerList = questionMapper.getFillAnswer(questionVO.getQuestionId());
+                    questionVO.setBlankCount(answerList.size());
+                    questionVO.setCorrectAnswer(answerList);
+                } else {
+                    String answerJson = questionVO.getAnswer();
+                    List<Integer> list = objectMapper.readValue(answerJson, new TypeReference<List<Integer>>() {
+                    });
+                    questionVO.setStudentAnswer(list);
+                    Set<Integer> answerList = questionMapper.getChoiceAnswer(questionVO.getQuestionId());
+                    questionVO.setCorrectAnswer(answerList);
+                    List<StudentScoreQuestionVO.Option> optionVOS = questionMapper.getOptions(questionVO.getQuestionId());
+                    questionVO.setOptions(optionVOS);
+                }
+            }
+            studentScoreSectionVO.setQuestionNumber(questionVOS.size());
+            studentScoreSectionVO.setQuestions(questionVOS);
+        }
+        return examScoreVO;
     }
 }
