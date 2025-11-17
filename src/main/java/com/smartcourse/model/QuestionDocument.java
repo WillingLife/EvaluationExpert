@@ -30,11 +30,29 @@ public class QuestionDocument {
 
     /**
      * 题目文本的向量表示。
-     * type = FieldType.Dense_Vector 是专门用于向量搜索的类型，对于实现“以题搜题”至关重要。
-     * 注意：在创建索引时，需要为这个字段指定维度（dims）。
      */
-    @Field(type = FieldType.Dense_Vector, name = "question_vector")
-    private List<Double> questionVector;
+    @Field(type = FieldType.Nested, name = "question_vector_chunks")
+    private List<QuestionVectorChunk> questionVectorChunks;
+
+    /**
+     * 分块向量类
+     */
+    @Data
+    public static class QuestionVectorChunk {
+
+        @Field(type = FieldType.Integer, name = "chunk_id")
+        private Integer chunkId;
+
+        @Field(type = FieldType.Text, name = "chunk_text")
+        private String chunkText;
+
+        /**
+         * 题目分块向量（dims = 1024）
+         */
+        @Field(type = FieldType.Dense_Vector, name = "chunk_vector")
+        private float[] chunkVector;
+    }
+
 
     /**
      * 答案文本。
@@ -47,8 +65,24 @@ public class QuestionDocument {
      * 答案文本的向量表示。
      * 可用于通过问题描述来搜索最相关的答案。
      */
-    @Field(type = FieldType.Dense_Vector, name = "answer_vector")
-    private List<Double> answerVector;
+    @Field(type = FieldType.Nested, name = "answer_vector_chunks")
+    private List<AnswerVectorChunk> answerVectorChunks;
+
+    @Data
+    public static class AnswerVectorChunk {
+
+        @Field(type = FieldType.Integer, name = "chunk_id")
+        private Integer chunkId;
+
+        @Field(type = FieldType.Text, name = "chunk_text")
+        private String chunkText;
+
+        /**
+         * 答案分块向量（dims = 2048）
+         */
+        @Field(type = FieldType.Dense_Vector, name = "chunk_vector")
+        private float[] chunkVector;
+    }
 
     /**
      * 所属课程的ID。
@@ -56,15 +90,14 @@ public class QuestionDocument {
      * 例如：WHERE course_id = 'CS101'
      */
     @Field(type = FieldType.Keyword, name = "course_id")
-    private String courseId;
+    private Long courseId;
 
     /**
      * 题目难度。
-     * type = FieldType.Integer 用于存储数值，便于进行范围查询和排序。
-     * 例如：难度介于 3 到 5 之间。
+     * type = FieldType.Float 用于存储数值，便于进行范围查询和排序。
      */
-    @Field(type = FieldType.Integer, name = "difficulty")
-    private Integer difficulty;
+    @Field(type = FieldType.Float, name = "difficulty")
+    private Float difficulty;
 
     /**
      * 作者的ID。
@@ -72,5 +105,10 @@ public class QuestionDocument {
      */
     @Field(type = FieldType.Keyword, name = "author_id")
     private Long authorId;
+
+    @Field(type = FieldType.Keyword,name = "type")
+    private String type;
+
+
 
 }
