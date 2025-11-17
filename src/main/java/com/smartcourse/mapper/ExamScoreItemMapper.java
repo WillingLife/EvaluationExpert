@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface ExamScoreItemMapper {
     int batchUpdateExamScoreItemSelective(List<ExamScoreItem> examScoreItems);
+
+    int batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId(List<ExamScoreItem> examScoreItems);
 }

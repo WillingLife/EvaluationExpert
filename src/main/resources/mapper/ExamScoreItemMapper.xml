@@ -39,4 +39,33 @@
         </foreach>
     </update>
 
+    <update id="batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId">
+        <foreach collection="list" item="item" separator=";">
+            UPDATE evaluation_expert.exam_score_item
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.score != null">
+                    score = #{item.score},
+                </if>
+                <if test="item.answer != null">
+                    answer = #{item.answer},
+                </if>
+                <if test="item.autoJudgeDetailJson != null">
+                    auto_judge_detail_json = #{item.autoJudgeDetailJson},
+                </if>
+                <if test="item.remark != null">
+                    remark = #{item.remark},
+                </if>
+                <if test="item.gradeTime != null">
+                    grade_time = #{item.gradeTime},
+                </if>
+                <if test="item.deleted != null">
+                    deleted = #{item.deleted},
+                </if>
+                update_time = NOW(),
+            </trim>
+            WHERE score_id = #{item.scoreId}
+              AND exam_item_id = #{item.examItemId}
+        </foreach>
+    </update>
+
 </mapper>

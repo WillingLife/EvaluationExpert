@@ -5,14 +5,13 @@ package com.smartcourse.controller;
 import com.smartcourse.pojo.dto.TeacherGradeDTO;
 import com.smartcourse.pojo.dto.TeacherPublishExamDTO;
 import com.smartcourse.pojo.dto.TeacherSaveExamDTO;
+import com.smartcourse.pojo.dto.TeacherViewAnswerDTO;
+import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.TeacherExamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -37,6 +36,13 @@ public class TeacherExamController {
         teacherExamService.submitGrade(teacherGradeDTO);
         return Result.success("success");
     }
+
+    @GetMapping("grade/student-answers")
+    public Result<TeacherViewAnswerVO> viewStudentAnswers(@RequestBody TeacherViewAnswerDTO teacherViewAnswerDTO){
+        TeacherViewAnswerVO res = teacherExamService.viewStudentAnswers(teacherViewAnswerDTO);
+        return Result.success(res);
+    }
+
 
 
 
