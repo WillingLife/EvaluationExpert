@@ -1,10 +1,13 @@
 package com.smartcourse.mapper;
 
 import com.smartcourse.pojo.entity.Exam;
+import com.smartcourse.pojo.vo.exam.ExamList;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface ExamMapper {
@@ -30,4 +33,5 @@ public interface ExamMapper {
 
     int updateExamSelective(Exam exam);
 
+    List<ExamList> getList(Long courseId);
 }

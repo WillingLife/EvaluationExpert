@@ -19,5 +19,5 @@ public class StudentExamDTO {
 
     private LocalDateTime submitTime;
 
-    private List<StudentExamSectionVO> sections;
+    private List<StudentExamSectionDTO> sections;
 }

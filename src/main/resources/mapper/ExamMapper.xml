@@ -376,4 +376,11 @@
         WHERE id = #{id}
     </update>
 
+    <select id="getList" resultType="com.smartcourse.pojo.vo.exam.ExamList">
+        SELECT e.id AS examId, e.name AS examName, e.status, s.total_score AS score
+        FROM evaluation_expert.exam e
+                 LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id AND e.status = 'graded'
+        WHERE course_id = #{courseId}
+    </select>
+
 </mapper>
