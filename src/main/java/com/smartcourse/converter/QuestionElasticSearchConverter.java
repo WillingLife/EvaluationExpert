@@ -1,8 +1,8 @@
 package com.smartcourse.converter;
 
-import com.smartcourse.pojo.dto.QuestionElasticSearchDTO;
+import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
 import com.smartcourse.model.QuestionDocument;
 
 public interface QuestionElasticSearchConverter {
-    QuestionDocument QuestionElasticSearchDTOToQuestionDocument(QuestionElasticSearchDTO questionElasticSearchDTO);
+    QuestionDocument QuestionElasticSearchDTOToQuestionDocument(QuestionElasticSearchAddDTO questionElasticSearchAddDTO);
 }

@@ -2,7 +2,7 @@ package com.smartcourse.embedding;
 
 import com.smartcourse.converter.QuestionElasticSearchConverter;
 import com.smartcourse.model.QuestionDocument;
-import com.smartcourse.pojo.dto.QuestionElasticSearchDTO;
+import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
 import com.smartcourse.repository.QuestionDocumentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
@@ -21,7 +21,7 @@ class QuestionElasticSearchConverterImplTests {
 
     @Test
     void convertDtoAndInsertDocument() {
-        QuestionElasticSearchDTO dto = new QuestionElasticSearchDTO();
+        QuestionElasticSearchAddDTO dto = new QuestionElasticSearchAddDTO();
         dto.setId(System.currentTimeMillis());
         dto.setQuestionText("What is the capital of France?");
         dto.setAnswerText("The capital of France is Paris.");

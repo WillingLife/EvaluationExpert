@@ -1,7 +1,8 @@
 package com.smartcourse.service.impl;
 import com.smartcourse.converter.QuestionElasticSearchConverter;
-import com.smartcourse.pojo.dto.QuestionElasticSearchDTO;
+import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
 import com.smartcourse.model.QuestionDocument;
+import com.smartcourse.pojo.dto.QuestionElasticSearchQueryDTO;
 import com.smartcourse.repository.QuestionDocumentRepository;
 import com.smartcourse.service.QuestionElasticSearchService;
 import dev.langchain4j.data.document.Document;
@@ -39,7 +40,7 @@ public class QuestionElasticSearchServiceImpl implements QuestionElasticSearchSe
     private final DocumentSplitter documentSplitter = DocumentSplitters.recursive(CHUNK_SIZE, CHUNK_OVERLAP);
 
     @Override
-    public void addQuestionDocument(QuestionElasticSearchDTO dto) {
+    public void addQuestionDocument(QuestionElasticSearchAddDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("QuestionElasticSearchDTO 不能为空");
         }
@@ -59,6 +60,7 @@ public class QuestionElasticSearchServiceImpl implements QuestionElasticSearchSe
 
         repository.save(doc);
     }
+
 
     /**
      * 将文本转化为 {@link QuestionDocument.QuestionVectorChunk}列表
@@ -131,6 +133,11 @@ public class QuestionElasticSearchServiceImpl implements QuestionElasticSearchSe
         return segments.stream()
                 .map(TextSegment::text)
                 .toList();
+    }
+
+    @Override
+    public void queryQuestionDocument(QuestionElasticSearchQueryDTO dto) {
+
     }
 }
 

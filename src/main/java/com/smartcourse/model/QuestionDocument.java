@@ -106,6 +106,9 @@ public class QuestionDocument {
     @Field(type = FieldType.Keyword, name = "author_id")
     private Long authorId;
 
+    @Field(type = FieldType.Keyword,name = "type")
+    private String type;
+
 
 
 }

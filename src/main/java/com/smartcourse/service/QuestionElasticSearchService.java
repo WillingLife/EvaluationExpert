@@ -1,6 +1,7 @@
 package com.smartcourse.service;
 
-import com.smartcourse.pojo.dto.QuestionElasticSearchDTO;
+import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
+import com.smartcourse.pojo.dto.QuestionElasticSearchQueryDTO;
 
 public interface QuestionElasticSearchService {
 
@@ -9,5 +10,7 @@ public interface QuestionElasticSearchService {
      *
      * @param dto payload containing question, answer, and metadata
      */
-    void addQuestionDocument(QuestionElasticSearchDTO dto);
+    void addQuestionDocument(QuestionElasticSearchAddDTO dto);
+
+    void queryQuestionDocument(QuestionElasticSearchQueryDTO dto);
 }

@@ -3,7 +3,7 @@ package com.smartcourse.pojo.dto;
 import lombok.Data;
 
 @Data
-public class QuestionElasticSearchDTO {
+public class QuestionElasticSearchAddDTO {
     /**
      * 文档的唯一ID,使用数据库中的主键。
      */
@@ -15,7 +15,7 @@ public class QuestionElasticSearchDTO {
     private String questionText;
 
     /**
-     * 答案文本。
+     * 答案文本,选择题为空
      */
     private String answerText;
 
@@ -33,5 +33,10 @@ public class QuestionElasticSearchDTO {
      * 作者的ID。
      */
     private Long authorId;
+
+    /**
+     * 题目类型
+     */
+    private String type;
 
 }
