@@ -4,11 +4,11 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into question(
             type, course_id, stem, analysis, difficulty,
-            teacher_id, active, deleted, create_time, update_time
+            teacher_id, active, create_time, update_time
         )
         values (
             #{type}, #{courseId}, #{stem}, #{analysis}, #{difficulty},
-            #{teacherId}, #{active}, #{deleted}, #{createTime}, #{updateTime}
+            #{teacherId}, #{active}, #{createTime}, #{updateTime}
         )
     </insert>
 
