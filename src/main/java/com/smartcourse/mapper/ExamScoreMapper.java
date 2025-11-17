@@ -1,6 +1,7 @@
 package com.smartcourse.mapper;
 
 import com.smartcourse.pojo.entity.ExamScore;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -12,4 +13,6 @@ public interface ExamScoreMapper {
      * @return 更新数量
      */
     int updateExamScoreSelective(ExamScore examScore);
+
+    Long submit(ExamScore examScore);
 }

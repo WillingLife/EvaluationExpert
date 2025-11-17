@@ -52,4 +52,11 @@
         WHERE id = #{id}
     </update>
 
+    <insert id="submit"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO evaluation_expert.exam_score(exam_id, student_id, status, start_time,
+                                                 submit_time, duration_seconds, create_time, update_time)
+        VALUES (#{examId}, #{studentId}, #{status}, #{startTime}, #{submitTime}, #{durationSeconds}, #{createTime},
+                #{updateTime})
+    </insert>
+
 </mapper>

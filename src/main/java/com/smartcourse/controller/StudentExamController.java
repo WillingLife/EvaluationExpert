@@ -2,12 +2,17 @@ package com.smartcourse.controller;
 
 
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
+import com.smartcourse.pojo.dto.exam.StudentExamDTO;
+import com.smartcourse.pojo.dto.exam.StudentExamQuestionDTO;
+import com.smartcourse.pojo.dto.exam.StudentExamSectionDTO;
 import com.smartcourse.pojo.vo.exam.StudentExamVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.StudentExamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -24,7 +29,8 @@ public class StudentExamController {
     }
 
     @PostMapping("/submit")
-    public Result submitStudentExam(@RequestBody StudentGetExamDTO studentGetExamDTO) {
+    public Result submitStudentExam(@RequestBody StudentExamDTO studentExamDTO) {
+        studentExamService.submit(studentExamDTO);
         return Result.success();
     }
 
