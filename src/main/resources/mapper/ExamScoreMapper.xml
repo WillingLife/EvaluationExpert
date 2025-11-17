@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smartcourse.mapper.ExamScoreMapper">
+
+    <update id="updateExamScoreSelective" parameterType="com.smartcourse.pojo.entity.ExamScore">
+        UPDATE evaluation_expert.exam_score
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="examId != null">
+                exam_id = #{examId},
+            </if>
+            <if test="studentId != null">
+                student_id = #{studentId},
+            </if>
+            <if test="attemptNo != null">
+                attempt_no = #{attemptNo},
+            </if>
+            <if test="totalScore != null">
+                total_score = #{totalScore},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="submitTime != null">
+                submit_time = #{submitTime},
+            </if>
+            <if test="gradeTime != null">
+                grade_time = #{gradeTime},
+            </if>
+            <if test="durationSeconds != null">
+                duration_seconds = #{durationSeconds},
+            </if>
+            <if test="grader != null">
+                grader = #{grader},
+            </if>
+            <if test="detailJson != null">
+                detail_json = #{detailJson},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            update_time = NOW(),
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getStudentAnswers" resultType="com.smartcourse.pojo.vo.exam.TeacherViewAnswerItemVO">
+        SELECT
+            ei.id AS examItemId,
+            ei.score AS fullScore,
+            esi.answer AS studentAnswer,
+            qsa.answer AS answer,
+            qsa.criteria AS criteria
+        FROM exam_score es
+        INNER JOIN exam_score_item esi ON es.id = esi.score_id
+        INNER JOIN exam_item ei ON esi.exam_item_id = ei.id
+        INNER JOIN question_short_answer qsa ON ei.question_id = qsa.question_id
+        WHERE es.exam_id = #{examId}
+          AND es.student_id = #{studentId}
+        ORDER BY ei.id
+    </select>
+
+</mapper>

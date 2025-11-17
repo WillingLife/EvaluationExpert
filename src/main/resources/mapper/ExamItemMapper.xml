@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartcourse.mapper.ExamItemMapper">
+
+    <insert id="insertExamItemsByExamSections"
+            parameterType="java.util.List"
+            useGeneratedKeys="true"
+            keyProperty="examItems.id">
+        INSERT INTO evaluation_expert.exam_item (
+        section_id, question_id, score, order_no,question_type
+        )
+        VALUES
+        <trim suffixOverrides=",">
+            <foreach collection="sections" item="section">
+                <if test="section.examItems != null and section.examItems.size() > 0">
+                    <foreach collection="section.examItems" item="item">
+                        (
+                        <choose>
+                            <when test="item.sectionId != null">
+                                #{item.sectionId}
+                            </when>
+                            <otherwise>
+                                #{section.id}
+                            </otherwise>
+                        </choose>
+                        ,
+                        #{item.questionId},
+                        #{item.score},
+                        #{item.orderNo},
+                        #{section.questionType}
+                        ),
+                    </foreach>
+                </if>
+            </foreach>
+        </trim>
+    </insert>
+
+</mapper>

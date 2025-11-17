@@ -45,7 +45,6 @@
   "blanks": [
     {
       "blank_index": 1,
-      "answer_rule_type": "text",
       "answer": ["答案1","备选答案1"]
     }
   ]

@@ -137,17 +137,20 @@
 
 ## 2.修改试卷
 
-请求路径：/teacher/exam/make/update
+**📌 Important Notice:** 在AI自动组卷后，返回的数据不携带`exam_id`，当教师在前端使用AI组卷或创建新试卷自己组卷时，向后端保存试卷信息时，`exam_id`为空，后端会自己创建新exam；
+当教师修改已存在的试卷时，需携带对应的`exam_id`。
+
+请求路径：/teacher/exam/make/save
 
 请求方式：POST
 
 请求体：
 ```json
 {
+  "exam_id": "考试ID，可以为空",
   "course_id": 1,
   "teacher_id": "教师ID",
   "description": "修改后的试卷描述",
-  "publish": false,
   "exam_name": "考试名称",
   "exam_notice": "考生注意：\n1.考试答题前，务必将自己的姓名、准考证号用黑色字迹的签字笔或钢笔写在答题卷上",
   "start_time": "2024-01-01T09:00:00",
