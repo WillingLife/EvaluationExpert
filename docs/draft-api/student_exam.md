@@ -17,7 +17,7 @@
 ```json
 {
   "student_id": "学生ID",
-  "course_id": "课程ID"
+  "exam_id": "考试ID"
 }
 ```
 返回体：
@@ -102,13 +102,6 @@
 
 请求路径/student/exam/submit
 
-请求头示例：
-```json
-{
-  "student_id": "学生ID",
-  "exam_id": "考试ID"
-}
-```
 
 请求体示例：
 ```json
@@ -120,6 +113,7 @@
   "sections": [
     {
       "section_id": 1,
+      "question_type": "single",
       "questions": [
         {
           "question_id": 1,
@@ -131,6 +125,7 @@
     },
     {
       "section_id": 2,
+      "question_type": "fill_blank",
       "questions": [
         {
           "question_id": 2,
@@ -142,6 +137,7 @@
     },
     {
       "section_id": 3,
+      "question_type": "short_answer",
       "questions": [
         {
           "question_id": 3,
