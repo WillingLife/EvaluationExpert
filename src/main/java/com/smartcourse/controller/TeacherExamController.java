@@ -2,10 +2,13 @@ package com.smartcourse.controller;
 
 
 
+import com.smartcourse.enums.QuestionTypeEnum;
 import com.smartcourse.pojo.dto.TeacherGradeDTO;
 import com.smartcourse.pojo.dto.TeacherPublishExamDTO;
 import com.smartcourse.pojo.dto.TeacherSaveExamDTO;
 import com.smartcourse.pojo.dto.TeacherViewAnswerDTO;
+import com.smartcourse.pojo.dto.exam.TeacherSaveExamQuestionDTO;
+import com.smartcourse.pojo.dto.exam.TeacherSaveExamSectionDTO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.TeacherExamService;
@@ -21,6 +24,13 @@ public class TeacherExamController {
     private final TeacherExamService teacherExamService;
     @PostMapping("make/save")
    public Result<Long> saveExam(@RequestBody TeacherSaveExamDTO teacherSaveExamDTO){
+        for(TeacherSaveExamSectionDTO section :teacherSaveExamDTO.getSections()){
+            if(section.getQuestionType().equals(QuestionTypeEnum.SINGLE)|| section.getQuestionType().equals(QuestionTypeEnum.MULTIPLE)){
+                for (TeacherSaveExamQuestionDTO question :section.getQuestions()) {
+                    question.setScore(section.getChoiceScore());
+                }
+            }
+        }
         Long exam_id = teacherExamService.saveExam(teacherSaveExamDTO);
         return Result.success(exam_id);
     }

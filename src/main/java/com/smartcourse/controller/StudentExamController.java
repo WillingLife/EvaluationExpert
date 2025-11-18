@@ -5,9 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.smartcourse.exception.SqlErrorException;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.dto.exam.StudentExamDTO;
-import com.smartcourse.pojo.dto.exam.StudentExamQuestionDTO;
-import com.smartcourse.pojo.dto.exam.StudentExamSectionDTO;
-import com.smartcourse.pojo.dto.exam.StudentGetExamListDTO;
 import com.smartcourse.pojo.vo.exam.ExamScoreVO;
 import com.smartcourse.pojo.vo.exam.StudentExamListVO;
 import com.smartcourse.pojo.vo.exam.StudentExamVO;
@@ -16,8 +13,6 @@ import com.smartcourse.service.StudentExamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -34,9 +29,9 @@ public class StudentExamController {
     }
 
     @PostMapping("/submit")
-    public Result submitStudentExam(@RequestBody StudentExamDTO studentExamDTO) {
+    public Result<String> submitStudentExam(@RequestBody StudentExamDTO studentExamDTO) {
         studentExamService.submit(studentExamDTO);
-        return Result.success();
+        return Result.success("success");
     }
 
     @GetMapping("/score/details")
