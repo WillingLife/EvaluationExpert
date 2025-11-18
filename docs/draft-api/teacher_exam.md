@@ -174,35 +174,40 @@
       "choice_score": 2,
       "choice_negative_score": 0,
       "multiple_strategy": "",
-      "multiple_strategy_conf":{},
+      "multiple_strategy_conf":"{}",
       "questions": [
         {
+          "order_no": 1,
           "exam_item_id": null,
           "question_id": 1
         }
       ]
     },
     {
-      "section_id": 2,
+      "section_id": null,
+      "order_no": 2,
       "title": "填空题",
       "question_type": "fill_blank",
       "question_number": 10,
       "description": "本小节共10题，每题2分，共20分",
       "questions": [
         {
+          "order_no": 1,
           "question_id": 2,
           "score": 2
         }
       ]
     },
     {
-      "section_id": 3,
+      "section_id": null,
+      "order_no": 1,
       "title": "简答题",
       "question_type": "short_answer",
       "question_number": 5,
       "description": "本小节共5题，共40分",
       "questions": [
         {
+          "order_no": 1,
           "question_id": 3,
           "score": 5
         }
