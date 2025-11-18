@@ -200,7 +200,8 @@ public class StudentExamServiceImpl implements StudentExamService {
             throw new IllegalArgumentException("提交时间和开始时间不能为0");
         }
 
-        Long scoreId = examScoreMapper.submit(examScore);
+        examScoreMapper.submit(examScore);
+        Long scoreId = examScore.getId();
 
         List<ExamScoreItemDTO> examScoreItems = new ArrayList<>();
         for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
