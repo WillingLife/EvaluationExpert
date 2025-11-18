@@ -64,8 +64,8 @@ public class WeightedReciprocalRankFusionReranker implements Reranker {
         }
 
         double vectorWeight = weight(RerankerWeights.SOURCE_VECTOR);
-        if (shouldUseRank(candidate.getVector_rank(), vectorWeight, candidate.getUseVector())) {
-            fusedScore += reciprocalContribution(vectorWeight, candidate.getVector_rank());
+        if (shouldUseRank(candidate.getVectorRank(), vectorWeight, candidate.getUseVector())) {
+            fusedScore += reciprocalContribution(vectorWeight, candidate.getVectorRank());
             contributed = true;
         }
 

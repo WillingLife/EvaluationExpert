@@ -107,7 +107,7 @@ public class WeightedFusionReranker implements Reranker {
         return enabled == null || Boolean.TRUE.equals(enabled);
     }
 
-    private Map<Integer, Double> normalizeChannel(List<BaseRerankerItem> candidates,
+    private Map<Long, Double> normalizeChannel(List<BaseRerankerItem> candidates,
                                                   Function<BaseRerankerItem, Double> extractor) {
         List<BaseRerankerItem> channelItems = new ArrayList<>();
         for (BaseRerankerItem candidate : candidates) {
@@ -133,9 +133,9 @@ public class WeightedFusionReranker implements Reranker {
                         (existing, replacement) -> replacement));
     }
 
-    private record ChannelScores(Map<Integer, Double> keywordScores,
-                                 Map<Integer, Double> vectorScores,
-                                 Map<Integer, Double> knowledgeScores,
-                                 Map<Integer, Double> cfScores) {
+    private record ChannelScores(Map<Long, Double> keywordScores,
+                                 Map<Long, Double> vectorScores,
+                                 Map<Long, Double> knowledgeScores,
+                                 Map<Long, Double> cfScores) {
     }
 }
