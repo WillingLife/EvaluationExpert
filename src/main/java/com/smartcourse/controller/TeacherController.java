@@ -1,14 +1,10 @@
 package com.smartcourse.controller;
 
-import com.smartcourse.pojo.dto.QuestionAddDTO;
-import com.smartcourse.pojo.dto.QuestionQueryDTO;
-import com.smartcourse.pojo.dto.QuestionUpdateDTO;
+import com.smartcourse.pojo.dto.*;
 import com.smartcourse.pojo.vo.QuestionQueryVO;
-import com.smartcourse.pojo.dto.AssignmentAddDTO;
-import com.smartcourse.pojo.dto.AssignmentUpdateDTO;
-import com.smartcourse.pojo.dto.TeacherGradeDTO;
 import com.smartcourse.pojo.vo.AssignmentIdVO;
 import com.smartcourse.pojo.vo.AssignmentScoreIdVO;
+import com.smartcourse.pojo.vo.AssignmentListItemVO;
 import com.smartcourse.service.AssignmentService;
 import com.smartcourse.result.PageResult;
 import com.smartcourse.result.Result;
@@ -129,5 +125,31 @@ public class TeacherController {
         AssignmentScoreIdVO assignmentScoreIdVO = assignmentService.gradeAssignment(teacherGradeDTO);
 
         return Result.success(assignmentScoreIdVO);
+    }
+
+    /**
+     * 教师查询某课程的作业列表
+     * @param dto 查询条件（teacher_id, course_id）
+     * @return 作业列表
+     */
+    @GetMapping("/assignment/list")
+    public Result listAssignments(@RequestBody TeacherAssignmentListDTO dto) {
+        log.info("教师查询作业列表：{}", dto);
+        java.util.List<AssignmentListItemVO> items = assignmentService.listTeacherAssignments(dto);
+        java.util.Map<String, Object> data = new java.util.HashMap<>();
+        data.put("assignments", items);
+        return Result.success(data);
+    }
+
+    /**
+     * 教师删除作业（逻辑删除）
+     * @param dto 删除条件（teacher_id, course_id, assignment_id）
+     * @return 操作结果
+     */
+    @DeleteMapping("/assignment/delete")
+    public Result deleteAssignment(@RequestBody AssignmentDeleteDTO dto) {
+        log.info("教师删除作业：{}", dto);
+        assignmentService.deleteAssignment(dto);
+        return Result.success();
     }
 }

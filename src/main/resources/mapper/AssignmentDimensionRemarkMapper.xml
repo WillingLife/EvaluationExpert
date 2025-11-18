@@ -17,6 +17,6 @@
                create_time as createTime, update_time as updateTime, deleted
         from assignment_dimension_remark
         where assignment_remark_id = #{assignmentRemarkId}
-        order by id asc
+        order by id
     </select>
 </mapper>

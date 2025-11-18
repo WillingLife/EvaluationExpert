@@ -10,6 +10,7 @@ import com.smartcourse.pojo.entity.AssignmentRemark;
 import com.smartcourse.pojo.entity.AssignmentScore;
 import com.smartcourse.pojo.entity.AssignmentDimensionRemark;
 import com.smartcourse.pojo.vo.AssignmentFeedbackVO;
+import com.smartcourse.pojo.vo.AssignmentListItemVO;
 import com.smartcourse.pojo.vo.AssignmentIdVO;
 import com.smartcourse.pojo.vo.AssignmentScoreIdVO;
 import com.smartcourse.pojo.vo.AssignmentScoreUploadVO;
@@ -74,9 +75,12 @@ public class AssignmentServiceImpl implements AssignmentService {
         if (existingAssignment == null) {
             throw new IllegalArgumentException(MessageConstant.ASSIGNMENT_NOT_EXIST);
         }
+
         // 构造更新实体
         Assignment assignment = new Assignment();
         BeanUtils.copyProperties(assignmentUpdateDTO, assignment);
+        assignment.setId(assignmentUpdateDTO.getAssignmentId());
+        assignment.setDeadline(assignmentUpdateDTO.getDeadline() != null ? assignmentUpdateDTO.getDeadline().toLocalDateTime() : null);
         assignment.setUpdateTime(LocalDateTime.now());
 
         // 更新数据库
@@ -214,5 +218,80 @@ public class AssignmentServiceImpl implements AssignmentService {
                 .aiRemark(assignmentRemark != null ? assignmentRemark.getAiRemark() : null)
                 .teacherRemark(assignmentRemark != null ? assignmentRemark.getTeacherRemark() : null)
                 .build();
+    }
+
+    /**
+     * 教师按课程查询作业列表
+     * @param teacherAssignmentListDTO 查询条件
+     * @return 作业列表
+     */
+    @Override
+    public List<AssignmentListItemVO> listTeacherAssignments(TeacherAssignmentListDTO teacherAssignmentListDTO) {
+        List<Assignment> assignments = assignmentMapper.selectByTeacherAndCourse(teacherAssignmentListDTO.getTeacherId(), teacherAssignmentListDTO.getCourseId());
+        List<AssignmentListItemVO> items = new ArrayList<>();
+        for (Assignment assignment : assignments) {
+            String deadlineStr = null;
+            if (assignment.getDeadline() != null) {
+                deadlineStr = assignment.getDeadline().atOffset(java.time.ZoneOffset.UTC).toInstant().toString();
+            }
+            items.add(AssignmentListItemVO.builder()
+                    .assignmentId(assignment.getId())
+                    .name(assignment.getName())
+                    .status(assignment.getStatus())
+                    .deadline(deadlineStr)
+                    .build());
+        }
+        return items;
+    }
+
+    /**
+     * 学生按课程查询作业列表
+     * @param studentAssignmentListDTO 查询条件
+     * @return 作业列表
+     */
+    @Override
+    public List<AssignmentListItemVO> listStudentAssignments(StudentAssignmentListDTO studentAssignmentListDTO) {
+        List<Assignment> assignments = assignmentMapper.selectByCourse(studentAssignmentListDTO.getCourseId());
+        List<AssignmentListItemVO> items = new ArrayList<>();
+        for (Assignment assignment : assignments) {
+            String deadlineStr = null;
+            if (assignment.getDeadline() != null) {
+                deadlineStr = assignment.getDeadline().atOffset(java.time.ZoneOffset.UTC).toInstant().toString();
+            }
+            items.add(AssignmentListItemVO.builder()
+                    .assignmentId(assignment.getId())
+                    .name(assignment.getName())
+                    .status(assignment.getStatus())
+                    .deadline(deadlineStr)
+                    .build());
+        }
+        return items;
+    }
+
+    /**
+     * 教师删除作业（逻辑删除）
+     * @param assignmentDeleteDTO 删除条件
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteAssignment(AssignmentDeleteDTO assignmentDeleteDTO) {
+        Assignment assignment = assignmentMapper.selectById(assignmentDeleteDTO.getAssignmentId());
+        if (assignment == null) {
+            throw new IllegalArgumentException(MessageConstant.ASSIGNMENT_NOT_EXIST);
+        }
+        if (assignmentDeleteDTO.getCourseId() != null && assignment.getCourseId() != null
+                && !assignmentDeleteDTO.getCourseId().equals(assignment.getCourseId())) {
+            throw new IllegalArgumentException(MessageConstant.ASSIGNMENT_NOT_EXIST);
+        }
+        if (assignmentDeleteDTO.getTeacherId() != null && assignment.getCreator() != null
+                && !assignmentDeleteDTO.getTeacherId().equals(assignment.getCreator())) {
+            throw new IllegalArgumentException(MessageConstant.ASSIGNMENT_NOT_EXIST);
+        }
+
+        Assignment update = new Assignment();
+        update.setId(assignment.getId());
+        update.setDelete(true);
+        update.setUpdateTime(LocalDateTime.now());
+        assignmentMapper.update(update);
     }
 }

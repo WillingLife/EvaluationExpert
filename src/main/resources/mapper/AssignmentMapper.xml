@@ -37,4 +37,24 @@
         where id = #{id}
         limit 1
     </select>
+
+    <select id="selectByTeacherAndCourse" resultType="com.smartcourse.pojo.entity.Assignment">
+        select id, name, description, course_id as courseId, submit_limit as submitLimit,
+               status, version, creator, deadline, create_time as createTime,
+               update_time as updateTime, `delete` as `delete`
+        from assignment
+        where creator = #{creator} and course_id = #{courseId}
+          and ( `delete` is null or `delete` = false )
+        order by update_time desc, id desc
+    </select>
+
+    <select id="selectByCourse" resultType="com.smartcourse.pojo.entity.Assignment">
+        select id, name, description, course_id as courseId, submit_limit as submitLimit,
+               status, version, creator, deadline, create_time as createTime,
+               update_time as updateTime, `delete` as `delete`
+        from assignment
+        where course_id = #{courseId}
+          and ( `delete` is null or `delete` = false )
+        order by update_time desc, id desc
+    </select>
 </mapper>

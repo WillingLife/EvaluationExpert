@@ -1,8 +1,10 @@
 package com.smartcourse.controller;
 
 import com.smartcourse.pojo.dto.StudentSubmitMetaDTO;
+import com.smartcourse.pojo.dto.StudentAssignmentListDTO;
 import com.smartcourse.pojo.vo.AssignmentFeedbackVO;
 import com.smartcourse.pojo.vo.AssignmentScoreUploadVO;
+import com.smartcourse.pojo.vo.AssignmentListItemVO;
 import com.smartcourse.result.Result;
 import com.smartcourse.service.AssignmentService;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +46,19 @@ public class StudentController {
         log.info("学生查看作业评语 studentId:{} assignmentId:{}", studentId, assignmentId);
         AssignmentFeedbackVO feedbackVO = assignmentService.getFeedback(studentId, assignmentId);
         return Result.success(feedbackVO);
+    }
+
+    /**
+     * 学生查询某课程的作业列表
+     * @param dto 查询条件（student_id, course_id）
+     * @return 作业列表
+     */
+    @GetMapping("/assignment/list")
+    public Result listAssignments(@RequestBody StudentAssignmentListDTO dto) {
+        log.info("学生查询作业列表：{}", dto);
+        java.util.List<AssignmentListItemVO> items = assignmentService.listStudentAssignments(dto);
+        java.util.Map<String, Object> data = new java.util.HashMap<>();
+        data.put("assignments", items);
+        return Result.success(data);
     }
 }

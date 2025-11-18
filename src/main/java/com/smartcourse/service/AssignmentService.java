@@ -5,6 +5,7 @@ import com.smartcourse.pojo.vo.AssignmentFeedbackVO;
 import com.smartcourse.pojo.vo.AssignmentIdVO;
 import com.smartcourse.pojo.vo.AssignmentScoreIdVO;
 import com.smartcourse.pojo.vo.AssignmentScoreUploadVO;
+import com.smartcourse.pojo.vo.AssignmentListItemVO;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AssignmentService {
@@ -44,4 +45,8 @@ public interface AssignmentService {
      * @return 反馈信息（维度项、AI评语、教师评语）
      */
     AssignmentFeedbackVO getFeedback(Long studentId, Long assignmentId);
+
+    java.util.List<AssignmentListItemVO> listTeacherAssignments(TeacherAssignmentListDTO teacherAssignmentListDTO);
+    java.util.List<AssignmentListItemVO> listStudentAssignments(StudentAssignmentListDTO studentAssignmentListDTO);
+    void deleteAssignment(AssignmentDeleteDTO assignmentDeleteDTO);
 }
