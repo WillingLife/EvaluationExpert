@@ -52,7 +52,7 @@
         SELECT
         q.id AS question_id,
         q.stem AS question_stem,
-        e.score AS score,
+        e.score AS score
         FROM evaluation_expert.question q
         LEFT JOIN evaluation_expert.exam_item e ON q.id = e.question_id
         WHERE q.id IN

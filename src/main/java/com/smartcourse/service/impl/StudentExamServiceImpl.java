@@ -64,6 +64,8 @@ public class StudentExamServiceImpl implements StudentExamService {
         Exam exam = examMapper.getById(examId);
         List<SectionItemDTO> list = examSectionMapper.getSectionItems(examId);
 
+        System.out.println(list);
+
         // 按 sectionId 分组
         Map<Long, List<SectionItemDTO>> groupMap = list.stream()
                 .collect(Collectors.groupingBy(SectionItemDTO::getId));
@@ -119,6 +121,10 @@ public class StudentExamServiceImpl implements StudentExamService {
         List<StudentExamFillBlankQuestionVO> studentExamFillBlankQuestionVOS = fillBlankFuture.join();
         List<StudentExamShortAnswerQuestionVO> studentExamShortAnswerQuestionVOS = shortAnswerFuture.join();
 
+        System.out.println("1 " + studentExamChoiceQuestionVOS);
+        System.out.println("2 " + studentExamFillBlankQuestionVOS);
+        System.out.println("3 " + studentExamShortAnswerQuestionVOS);
+
         List<StudentExamSectionVO> studentExamSectionVOS = new ArrayList<>();
         for (ExamSectionWithIdsVO vo : collect) {
             StudentExamSectionVO studentExamSectionVO = new StudentExamSectionVO();
@@ -149,6 +155,7 @@ public class StudentExamServiceImpl implements StudentExamService {
                 }
             }
             studentExamSectionVO.setQuestions(questions);
+            studentExamSectionVOS.add(studentExamSectionVO);
         }
 
         StudentExamVO studentExamVO = new StudentExamVO();
@@ -197,7 +204,7 @@ public class StudentExamServiceImpl implements StudentExamService {
 
         List<ExamScoreItemDTO> examScoreItems = new ArrayList<>();
         for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
-            String questionType = String.valueOf(section.getQuestionType());
+            String questionType = section.getQuestionType().getValue();
             for (StudentExamQuestionDTO question : section.getQuestions()) {
                 ExamScoreItemDTO examScoreItem = new ExamScoreItemDTO();
                 String answerJson = null;
