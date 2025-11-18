@@ -21,7 +21,7 @@ public class TeacherSaveExamDTO {
     private LocalDateTime startTime;
     private Integer durationMinutes;
     private BigDecimal totalScore;
-    private BigDecimal passeScore;
+    private BigDecimal passScore;
     private Boolean shuffleQuestions;
     private Boolean shuffleOptions;
     private Integer version;

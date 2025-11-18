@@ -1,5 +1,8 @@
 server:
   port: 8080
+  error:
+    include-stacktrace: always
+    include-message: always
 
 spring:
   application:
@@ -36,6 +39,13 @@ mybatis:
 logging:
   level:
     com.smartcourse.mapper: debug
-    com.smartcourse.service: info
-    com.smartcourse.controller: info
+    com.smartcourse.service: debug
+    com.smartcourse.controller: debug
+    org.springframework.web: DEBUG
+    org.springframework.http.converter: DEBUG
+    com.fasterxml.jackson.databind: DEBUG
+    com.your.package: TRACE
+
+
+
 

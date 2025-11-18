@@ -108,6 +108,7 @@
             <artifactId>lombok-mapstruct-binding</artifactId>
             <version>${lombok-mapstruct-binding.version}</version>
             <scope>provided</scope>
+        </dependency>
         <!--    Spring AI    -->
         <dependency>
             <groupId>org.springframework.ai</groupId>

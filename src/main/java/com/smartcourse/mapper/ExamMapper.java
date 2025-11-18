@@ -19,11 +19,11 @@ public interface ExamMapper {
             INSERT INTO evaluation_expert.exam (
                 name, description, notice, course_id, total_score, duration_minutes,
                 start_time, pass_score, shuffle_questions, shuffle_options, status,
-                version, creator, deleted
+                version, creator, deleted,create_time,update_time
             ) VALUES (
                 #{name}, #{description}, #{notice}, #{courseId}, #{totalScore}, #{durationMinutes},
                 #{startTime}, #{passScore}, #{shuffleQuestions}, #{shuffleOptions}, #{status},
-                #{version}, #{creator}, #{deleted}
+                #{version}, #{creator}, #{deleted}, NOW(), NOW()
             )
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")

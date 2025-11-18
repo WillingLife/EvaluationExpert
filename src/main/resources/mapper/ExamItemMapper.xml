@@ -6,10 +6,9 @@
 
     <insert id="insertExamItemsByExamSections"
             parameterType="java.util.List"
-            useGeneratedKeys="true"
-            keyProperty="examItems.id">
+            useGeneratedKeys="false">
         INSERT INTO evaluation_expert.exam_item (
-        section_id, question_id, score, order_no,question_type
+        section_id, question_id, score, order_no, question_type
         )
         VALUES
         <trim suffixOverrides=",">
@@ -36,7 +35,6 @@
             </foreach>
         </trim>
     </insert>
-
     <select id="getQuestion" resultType="com.smartcourse.pojo.vo.exam.StudentScoreQuestionVO">
         SELECT e.question_id, e.score AS fullScore, s.score AS studentScore, q.stem AS questionStem, s.answer, s.remark
         FROM evaluation_expert.exam_item e

@@ -31,7 +31,7 @@ public class ExamConverterTest {
         dto.setStartTime(LocalDateTime.now());
         dto.setDurationMinutes(120);
         dto.setTotalScore(new BigDecimal(120));
-        dto.setPasseScore(new BigDecimal(80));
+        dto.setPassScore(new BigDecimal(80));
         dto.setShuffleQuestions(false);
         dto.setShuffleOptions(false);
         dto.setVersion(1);
@@ -69,7 +69,7 @@ public class ExamConverterTest {
         dto.setStartTime(LocalDateTime.now());
         dto.setDurationMinutes(120);
         dto.setTotalScore(new BigDecimal(120));
-        dto.setPasseScore(new BigDecimal(80));
+        dto.setPassScore(new BigDecimal(80));
         dto.setShuffleQuestions(false);
         dto.setShuffleOptions(false);
         dto.setVersion(1);

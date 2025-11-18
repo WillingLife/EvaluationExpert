@@ -50,8 +50,8 @@
             #{section.multipleStrategy},
             #{section.multipleStrategyConf},
             #{section.creator},
-            #{section.createTime},
-            #{section.updateTime},
+            NOW(),
+            NOW(),
             #{section.deleted}
             )
         </foreach>
