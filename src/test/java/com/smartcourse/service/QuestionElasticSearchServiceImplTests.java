@@ -1,7 +1,9 @@
 package com.smartcourse.service;
 
+import com.smartcourse.infra.es.vo.QuestionEsSearchResult;
 import com.smartcourse.model.QuestionDocument;
 import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
+import com.smartcourse.pojo.dto.QuestionElasticSearchQueryDTO;
 import com.smartcourse.repository.QuestionDocumentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
@@ -50,6 +52,18 @@ class QuestionElasticSearchServiceImplTests {
                 // ignore cleanup failures
             }
         }
+    }
+
+    @Test
+    void testQueryQuestionDocument(){
+        QuestionElasticSearchQueryDTO dto = new QuestionElasticSearchQueryDTO();
+        dto.setUseVector(true);
+        dto.setQuery("Butterfly");
+        dto.setSearchAnswer(true);
+        QuestionEsSearchResult questionEsSearchResult = questionElasticSearchService.queryQuestionDocument(dto);
+        System.out.println(questionEsSearchResult);
+
+
     }
 
 

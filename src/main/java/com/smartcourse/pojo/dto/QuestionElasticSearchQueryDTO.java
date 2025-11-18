@@ -1,8 +1,13 @@
 package com.smartcourse.pojo.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class QuestionElasticSearchQueryDTO {
     /** 课程 ID，null 表示不限。 */
     private Long courseId;
@@ -33,5 +38,16 @@ public class QuestionElasticSearchQueryDTO {
 
     /** 作者 ID，null 表示不限。 */
     private Long authorId;
+
+    /** 是否使用知识节点查询 */
+    private Boolean useKnowledgeArgs;
+
+    /** 查询的知识节点*/
+    private List<ElasticSearchKnowledgeDTO> knowledge;
+
+    /** reranker 配置 */
+    private QueryRerankerConfigDTO reranker;
+
+
 
 }
