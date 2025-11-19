@@ -49,7 +49,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignment.setVersion(1);
         assignment.setCreateTime(LocalDateTime.now());
         assignment.setUpdateTime(LocalDateTime.now());
-        assignment.setDelete(false);
+        assignment.setDeleted(false);
 
         // 写入数据库
         assignmentMapper.insert(assignment);
@@ -166,6 +166,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignmentScoreRecord.setUpdateTime(LocalDateTime.now());
         assignmentScoreRecord.setDeleted(false);
 
+        assignmentScoreMapper.deleted(studentSubmitMetaDTO.getAssignmentId(),studentSubmitMetaDTO.getStudentId());
         assignmentScoreMapper.insert(assignmentScoreRecord);
 
         // 返回评分ID与文件URL
@@ -286,7 +287,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         Assignment update = new Assignment();
         update.setId(assignment.getId());
-        update.setDelete(true);
+        update.setDeleted(true);
         update.setUpdateTime(LocalDateTime.now());
         assignmentMapper.update(update);
     }
