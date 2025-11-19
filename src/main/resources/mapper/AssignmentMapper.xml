@@ -49,12 +49,26 @@
     </select>
 
     <select id="selectByCourse" resultType="com.smartcourse.pojo.entity.Assignment">
-        select id, name, description, course_id as courseId, submit_limit as submitLimit,
-               status, version, creator, deadline, create_time as createTime,
-               update_time as updateTime, `delete` as `delete`
-        from assignment
-        where course_id = #{courseId}
-          and ( `delete` is null or `delete` = false )
-        order by update_time desc, id desc
+        select a.id,
+               a.name,
+               a.description,
+               a.course_id    as courseId,
+               a.submit_limit as submitLimit,
+               CASE
+                   WHEN s.submit_no IS NULL THEN 'pending'
+                   WHEN s.submit_no &lt; a.submit_limit THEN 'pending'
+                   ELSE COALESCE(s.status, 'pending')
+                   END        as status,
+               a.version,
+               a.creator,
+               a.deadline,
+               a.create_time  as createTime,
+               a.update_time  as updateTime,
+               a.`delete`     as deleted
+        from assignment a
+                 left join assignment_score s on a.id = s.assignment_id
+        where a.course_id = #{courseId}
+          and (a.`delete` is null or a.`delete` = false)
+        order by a.update_time desc, a.id desc
     </select>
 </mapper>

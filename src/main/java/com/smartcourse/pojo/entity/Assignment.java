@@ -23,5 +23,5 @@ public class Assignment {
     private LocalDateTime deadline;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
-    private Boolean delete;
+    private Boolean deleted;
 }
