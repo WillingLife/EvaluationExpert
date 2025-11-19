@@ -1,6 +1,7 @@
 package com.smartcourse.service.impl;
 
 import com.smartcourse.mapper.*;
+import com.smartcourse.pojo.vo.*;
 import com.smartcourse.utils.AliyunOSSOperator;
 import com.smartcourse.constant.MessageConstant;
 import com.smartcourse.constant.StatusConstant;
@@ -9,11 +10,6 @@ import com.smartcourse.pojo.entity.Assignment;
 import com.smartcourse.pojo.entity.AssignmentRemark;
 import com.smartcourse.pojo.entity.AssignmentScore;
 import com.smartcourse.pojo.entity.AssignmentDimensionRemark;
-import com.smartcourse.pojo.vo.AssignmentFeedbackVO;
-import com.smartcourse.pojo.vo.AssignmentListItemVO;
-import com.smartcourse.pojo.vo.AssignmentIdVO;
-import com.smartcourse.pojo.vo.AssignmentScoreIdVO;
-import com.smartcourse.pojo.vo.AssignmentScoreUploadVO;
 import com.smartcourse.service.AssignmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -293,5 +289,10 @@ public class AssignmentServiceImpl implements AssignmentService {
         update.setDelete(true);
         update.setUpdateTime(LocalDateTime.now());
         assignmentMapper.update(update);
+    }
+
+    @Override
+    public AssignmentVO getAssignment(Long assignmentId) {
+        return assignmentMapper.getAssignment(assignmentId);
     }
 }

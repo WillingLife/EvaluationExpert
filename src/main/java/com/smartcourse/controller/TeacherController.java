@@ -133,12 +133,10 @@ public class TeacherController {
      * @return 作业列表
      */
     @GetMapping("/assignment/list")
-    public Result listAssignments(@RequestBody TeacherAssignmentListDTO dto) {
+    public Result listAssignments(TeacherAssignmentListDTO dto) {
         log.info("教师查询作业列表：{}", dto);
         java.util.List<AssignmentListItemVO> items = assignmentService.listTeacherAssignments(dto);
-        java.util.Map<String, Object> data = new java.util.HashMap<>();
-        data.put("assignments", items);
-        return Result.success(data);
+        return Result.success(items);
     }
 
     /**

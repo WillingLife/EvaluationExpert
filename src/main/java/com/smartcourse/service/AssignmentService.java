@@ -1,11 +1,7 @@
 package com.smartcourse.service;
 
 import com.smartcourse.pojo.dto.*;
-import com.smartcourse.pojo.vo.AssignmentFeedbackVO;
-import com.smartcourse.pojo.vo.AssignmentIdVO;
-import com.smartcourse.pojo.vo.AssignmentScoreIdVO;
-import com.smartcourse.pojo.vo.AssignmentScoreUploadVO;
-import com.smartcourse.pojo.vo.AssignmentListItemVO;
+import com.smartcourse.pojo.vo.*;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AssignmentService {
@@ -49,4 +45,6 @@ public interface AssignmentService {
     java.util.List<AssignmentListItemVO> listTeacherAssignments(TeacherAssignmentListDTO teacherAssignmentListDTO);
     java.util.List<AssignmentListItemVO> listStudentAssignments(StudentAssignmentListDTO studentAssignmentListDTO);
     void deleteAssignment(AssignmentDeleteDTO assignmentDeleteDTO);
+
+    AssignmentVO getAssignment(Long assignmentId);
 }
