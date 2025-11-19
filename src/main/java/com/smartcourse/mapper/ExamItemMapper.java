@@ -5,6 +5,7 @@ import com.smartcourse.pojo.vo.exam.StudentScoreQuestionVO;
 import com.smartcourse.pojo.vo.exam.sql.GradeShortQuestionSqlVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 
 import java.math.BigDecimal;
