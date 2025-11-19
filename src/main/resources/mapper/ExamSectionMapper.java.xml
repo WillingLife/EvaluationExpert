@@ -50,11 +50,17 @@
             #{section.multipleStrategy},
             #{section.multipleStrategyConf},
             #{section.creator},
-            #{section.createTime},
-            #{section.updateTime},
+            NOW(),
+            NOW(),
             #{section.deleted}
             )
         </foreach>
     </insert>
+
+    <select id="getById" resultType="com.smartcourse.pojo.vo.exam.StudentScoreSectionVO">
+        SELECT id AS sectionId, title, question_type
+        FROM evaluation_expert.exam_section
+        WHERE exam_id = #{examId}
+    </select>
 
 </mapper>

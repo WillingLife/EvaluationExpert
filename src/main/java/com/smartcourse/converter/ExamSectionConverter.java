@@ -28,6 +28,7 @@ public abstract class ExamSectionConverter {
        examSection.setMultipleStrategyConf(dto.getMultipleStrategyConf());
        examSection.setCreator(creator);
        examSection.setDeleted(false);
+       examSection.setDescription(dto.getDescription());
        List<ExamItem> examItems =examItemConverter.teacherQuestionDTOsTOExamItems(dto.getQuestions(),dto.getSectionId());
        examSection.setExamItems(examItems);
        return examSection;

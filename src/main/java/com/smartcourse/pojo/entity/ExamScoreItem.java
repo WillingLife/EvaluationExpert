@@ -20,6 +20,7 @@ public class ExamScoreItem {
     private Long id;                      // 主键ID
     private Long scoreId;                 // 成绩ID（逻辑外键）
     private Long examItemId;              // 考卷题目明细ID（逻辑外键）
+    private BigDecimal aiScore;
     private BigDecimal score;             // 该题得分
     private String answer;                // 学生作答（JSON 字符串）
     private String autoJudgeDetailJson;   // 自动判分过程/依据（JSON 字符串）

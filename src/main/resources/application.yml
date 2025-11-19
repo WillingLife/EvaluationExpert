@@ -1,5 +1,8 @@
 server:
   port: 8080
+  error:
+    include-stacktrace: always
+    include-message: always
 
 spring:
   application:
@@ -23,7 +26,12 @@ spring:
         embeddings-path: /v4/embeddings
   elasticsearch:
     uris: http://localhost:9200
-   
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 
 mybatis:
   #mapper配置文件
@@ -36,6 +44,16 @@ mybatis:
 logging:
   level:
     com.smartcourse.mapper: debug
-    com.smartcourse.service: info
-    com.smartcourse.controller: info
+    com.smartcourse.service: debug
+    com.smartcourse.controller: debug
+    org.springframework.web: DEBUG
+    org.springframework.http.converter: DEBUG
+    com.fasterxml.jackson.databind: DEBUG
+    com.your.package: TRACE
+dify:
+  base-url: http://localhost/v1/workflows/run
+  grade-short-question-key: app-VUZyLcX0EKv3yXAy513hnDtW
+
+
+
 

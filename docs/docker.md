@@ -1,0 +1,1 @@
+docker run -d --hostname rabbitmq-expert --name rabbitmq -p 5672:5672 -p 15672:15672 -v rabbitmq-data:/var/lib/rabbitmq rabbitmq:4.2.1-management

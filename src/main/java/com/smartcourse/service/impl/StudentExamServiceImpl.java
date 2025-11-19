@@ -1,26 +1,29 @@
 package com.smartcourse.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartcourse.enums.QuestionTypeEnum;
-import com.smartcourse.mapper.ExamMapper;
-import com.smartcourse.mapper.ExamSectionMapper;
-import com.smartcourse.mapper.QuestionMapper;
+import com.smartcourse.mapper.*;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
+import com.smartcourse.pojo.dto.exam.*;
 import com.smartcourse.pojo.entity.Exam;
-import com.smartcourse.pojo.entity.ExamSection;
-import com.smartcourse.pojo.vo.exam.ExamSectionWithIdsVO;
-import com.smartcourse.pojo.vo.exam.SectionItemDTO;
-import com.smartcourse.pojo.vo.exam.StudentExamVO;
+import com.smartcourse.pojo.entity.ExamScore;
+import com.smartcourse.pojo.vo.exam.*;
 import com.smartcourse.pojo.vo.exam.question.*;
-import com.smartcourse.pojo.vo.exam.sql.SectionItemVO;
 import com.smartcourse.service.AsyncQuestionService;
 import com.smartcourse.service.StudentExamService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -30,10 +33,22 @@ public class StudentExamServiceImpl implements StudentExamService {
     ExamMapper examMapper;
 
     @Autowired
+    ExamScoreMapper examScoreMapper;
+
+    @Autowired
     ExamSectionMapper examSectionMapper;
 
     @Autowired
+    ExamScoreItemMapper examScoreItemMapper;
+
+    @Autowired
+    ExamItemMapper examItemMapper;
+
+    @Autowired
     QuestionMapper questionMapper;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private AsyncQuestionService asyncQuestionService;
@@ -158,5 +173,122 @@ public class StudentExamServiceImpl implements StudentExamService {
         查询2和查询3合并为1次连表查询
         提前分好组别（单/多选，填空，选择），使用CompletableFuture并发3次查询
          */
+    }
+
+    @Override
+    @Transactional
+    public void submit(StudentExamDTO studentExamDTO) {
+        ExamScore examScore = new ExamScore();
+        examScore.setExamId(studentExamDTO.getExamId());
+        examScore.setStudentId(studentExamDTO.getStudentId());
+        examScore.setStatus("submitted");
+        examScore.setStartTime(studentExamDTO.getStartTime());
+        examScore.setSubmitTime(studentExamDTO.getSubmitTime());
+        examScore.setCreateTime(LocalDateTime.now());
+        examScore.setUpdateTime(LocalDateTime.now());
+        if (studentExamDTO.getStartTime() != null && studentExamDTO.getSubmitTime() != null) {
+            Duration duration = Duration.between(studentExamDTO.getStartTime(), studentExamDTO.getSubmitTime());
+            examScore.setDurationSeconds(Math.toIntExact(duration.getSeconds()));
+        } else {
+            throw new IllegalArgumentException("提交时间和开始时间不能为0");
+        }
+
+        Long scoreId = examScoreMapper.submit(examScore);
+
+        List<ExamScoreItemDTO> examScoreItems = new ArrayList<>();
+        for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
+            String questionType = String.valueOf(section.getQuestionType());
+            for (StudentExamQuestionDTO question : section.getQuestions()) {
+                ExamScoreItemDTO examScoreItem = new ExamScoreItemDTO();
+                String answerJson = null;
+                try {
+                    answerJson = switch (questionType) {
+                        case "single", "multiple" -> {
+                            // 处理选择题
+                            List<Integer> choices = question.getChoiceAnswer();
+                            yield objectMapper.writeValueAsString(choices);
+                        }
+                        case "fill_blank" -> {
+                            // 处理填空题
+                            List<String> blanks = question.getFillBlankAnswer();
+                            yield objectMapper.writeValueAsString(blanks);
+                        }
+                        case "short_answer" -> {
+                            // 处理简答题
+                            String answer = question.getShortAnswer();
+                            yield objectMapper.writeValueAsString(answer);
+                        }
+                        default -> answerJson;
+                    };
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+
+                examScoreItem.setScoreId(scoreId);
+                examScoreItem.setAnswer(answerJson);
+                examScoreItem.setCreateTime(LocalDateTime.now());
+                examScoreItem.setUpdateTime(LocalDateTime.now());
+                examScoreItem.setQuestionId(question.getQuestionId());
+                examScoreItems.add(examScoreItem);
+            }
+        }
+
+        examScoreItemMapper.submit(examScoreItems);
+    }
+
+    @Override
+    public ExamScoreVO getScore(StudentGetExamDTO studentGetExamDTO) throws JsonProcessingException {
+        Long examId = studentGetExamDTO.getExamId();
+
+        ExamScoreVO examScoreVO = examScoreMapper.getScore(studentGetExamDTO);
+
+        Exam exam = examMapper.getById(examId);
+        examScoreVO.setExamName(exam.getName());
+        examScoreVO.setStartTime(exam.getStartTime());
+
+        List<StudentScoreSectionVO> studentScoreSectionVOS = examSectionMapper.getById(examId);
+        for (StudentScoreSectionVO studentScoreSectionVO : studentScoreSectionVOS) {
+            Long sectionId = studentScoreSectionVO.getSectionId();
+            String type = String.valueOf(studentScoreSectionVO.getQuestionType());
+            List<StudentScoreQuestionVO> questionVOS = examItemMapper.getQuestion(sectionId, examScoreVO.getId());
+            for (StudentScoreQuestionVO questionVO : questionVOS) {
+                if (type.equals("short_answer")) {
+                    String answerJson = questionVO.getAnswer();
+                    String str = objectMapper.readValue(answerJson, new TypeReference<String>() {
+                    });
+                    questionVO.setStudentAnswer(str);
+                    questionVO.setCorrectAnswer(questionMapper.getShortAnswer(questionVO.getQuestionId()));
+                } else if (type.equals("fill_blank")) {
+                    String answerJson = questionVO.getAnswer();
+                    List<String> list = objectMapper.readValue(answerJson, new TypeReference<List<String>>() {
+                    });
+                    questionVO.setStudentAnswer(list);
+                    List<String> answerList = questionMapper.getFillAnswer(questionVO.getQuestionId());
+                    questionVO.setBlankCount(answerList.size());
+                    questionVO.setCorrectAnswer(answerList);
+                } else {
+                    String answerJson = questionVO.getAnswer();
+                    List<Integer> list = objectMapper.readValue(answerJson, new TypeReference<List<Integer>>() {
+                    });
+                    questionVO.setStudentAnswer(list);
+                    Set<Integer> answerList = questionMapper.getChoiceAnswer(questionVO.getQuestionId());
+                    questionVO.setCorrectAnswer(answerList);
+                    List<StudentScoreQuestionVO.Option> optionVOS = questionMapper.getOptions(questionVO.getQuestionId());
+                    questionVO.setOptions(optionVOS);
+                }
+            }
+            studentScoreSectionVO.setQuestionNumber(questionVOS.size());
+            studentScoreSectionVO.setQuestions(questionVOS);
+        }
+        return examScoreVO;
+    }
+
+    @Override
+    public StudentExamListVO getList(Long courseId) {
+        List<ExamList> list = examMapper.getList(courseId);
+        StudentExamListVO studentExamListVO = new StudentExamListVO();
+        studentExamListVO.setCourseId(courseId);
+        studentExamListVO.setList(list);
+        return studentExamListVO;
     }
 }
