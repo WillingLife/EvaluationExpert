@@ -6,14 +6,13 @@ import com.smartcourse.enums.ExamStatusEnum;
 import com.smartcourse.exception.IllegalOperationException;
 import com.smartcourse.exception.SqlErrorException;
 import com.smartcourse.mapper.*;
-import com.smartcourse.pojo.dto.TeacherGradeDTO;
-import com.smartcourse.pojo.dto.TeacherPublishExamDTO;
-import com.smartcourse.pojo.dto.TeacherSaveExamDTO;
-import com.smartcourse.pojo.dto.TeacherViewAnswerDTO;
+import com.smartcourse.pojo.dto.*;
 import com.smartcourse.pojo.entity.Exam;
 import com.smartcourse.pojo.entity.ExamScoreItem;
+import com.smartcourse.pojo.vo.exam.TeacherGetExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerItemVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
+import com.smartcourse.pojo.vo.exam.items.TeacherGetExamItemVO;
 import com.smartcourse.service.TeacherExamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -71,9 +70,15 @@ public class TeacherExamServiceImpl implements TeacherExamService {
         }
         Exam insetExam = Exam.builder().id(teacherPublishExamDTO.getExam_id())
                 .startTime(teacherPublishExamDTO.getStartTime())
-                .durationMinutes(teacherPublishExamDTO.getDurationMinutes()).build();
+                .durationMinutes(teacherPublishExamDTO.getDurationMinutes())
+                .status(ExamStatusEnum.PUBLISHED.getValue())
+                .build();
         examMapper.updateExamSelective(insetExam);
-        examClassMapper.replaceExamClasses(exam.getId(),teacherPublishExamDTO.getClassIds());
+        if(teacherPublishExamDTO.getClassIds()!=null&& !teacherPublishExamDTO.getClassIds().isEmpty()){
+            examClassMapper.deleteExamClassesByExamId(exam.getId());
+            examClassMapper.insertExamClasses(exam.getId(), teacherPublishExamDTO.getClassIds());
+        }
+
     }
 
     @Override
@@ -90,5 +95,21 @@ public class TeacherExamServiceImpl implements TeacherExamService {
         List<TeacherViewAnswerItemVO> studentAnswers = examScoreMapper.getStudentAnswers(teacherViewAnswerDTO.getExamId(),
                 teacherViewAnswerDTO.getStudentId());
         return new TeacherViewAnswerVO(studentAnswers);
+    }
+
+    @Override
+    public TeacherGetExamVO getExamList(TeacherGetExamListDTO teacherGetExamListDTO) {
+        List<TeacherGetExamItemVO> list = examMapper.getTeacherGetExamItemVOListByCourseId(teacherGetExamListDTO.getCourseId());
+        return new TeacherGetExamVO(list);
+    }
+
+    @Override
+    public void deleteExam(TeacherDeleteExamDTO teacherDeleteExamDTO) {
+        Exam exam = examMapper.getById(teacherDeleteExamDTO.getExamId());
+        if (exam == null || Objects.equals(teacherDeleteExamDTO.getTeacherId(), exam.getCreator()) ||
+                !Objects.equals(exam.getStatus(), ExamStatusEnum.DRAFT.getValue())){
+            throw new  IllegalOperationException("只能删除自己草稿状态的试卷");
+        }
+        examMapper.deleteExamById(exam.getId());
     }
 }

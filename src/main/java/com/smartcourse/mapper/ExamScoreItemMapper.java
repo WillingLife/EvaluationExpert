@@ -13,4 +13,6 @@ public interface ExamScoreItemMapper {
     int batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId(List<ExamScoreItem> examScoreItems);
 
     void submit(List<ExamScoreItemDTO> examScoreItems);
+
+    int updateExamScoreItemSelective(ExamScoreItem examScoreItem);
 }

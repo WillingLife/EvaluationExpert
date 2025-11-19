@@ -26,6 +26,11 @@ spring:
         embeddings-path: /v4/embeddings
   elasticsearch:
     uris: http://localhost:9200
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 
 mybatis:
@@ -45,6 +50,9 @@ logging:
     org.springframework.http.converter: DEBUG
     com.fasterxml.jackson.databind: DEBUG
     com.your.package: TRACE
+dify:
+  base-url: http://localhost/v1/workflows/run
+  grade-short-question-key: app-VUZyLcX0EKv3yXAy513hnDtW
 
 
 

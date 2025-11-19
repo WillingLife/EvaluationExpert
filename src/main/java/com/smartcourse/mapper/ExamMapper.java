@@ -2,10 +2,8 @@ package com.smartcourse.mapper;
 
 import com.smartcourse.pojo.entity.Exam;
 import com.smartcourse.pojo.vo.exam.ExamList;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import com.smartcourse.pojo.vo.exam.items.TeacherGetExamItemVO;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -34,4 +32,9 @@ public interface ExamMapper {
     int updateExamSelective(Exam exam);
 
     List<ExamList> getList(Long courseId);
+
+    List<TeacherGetExamItemVO> getTeacherGetExamItemVOListByCourseId(@Param("courseId") Long courseId);
+
+    @Update("UPDATE evaluation_expert.exam SET deleted = 1 WHERE id = #{examId}")
+    int deleteExamById(@Param("examId") Long examId);
 }

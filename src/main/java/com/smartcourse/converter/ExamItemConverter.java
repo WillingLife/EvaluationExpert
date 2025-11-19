@@ -1,9 +1,10 @@
 package com.smartcourse.converter;
 
+import com.smartcourse.pojo.dto.dify.DifyGradeShortQuestionDTO;
 import com.smartcourse.pojo.dto.exam.TeacherSaveExamQuestionDTO;
 import com.smartcourse.pojo.entity.ExamItem;
+import com.smartcourse.pojo.vo.exam.sql.GradeShortQuestionSqlVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,4 +30,6 @@ public interface ExamItemConverter {
       }
       return examItems;
   }
+
+    DifyGradeShortQuestionDTO gradeShortQuestionSqlVOToDifyDTO(GradeShortQuestionSqlVO sqlVO);
 }
