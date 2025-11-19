@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.BindParam;
 @Data
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class TeacherViewAnswerDTO {
+public class TeacherGetExamListDTO {
     @BindParam("teacher_id")
     private Long teacherId;
-    @BindParam("exam_id")
-    private Long examId;
-    @BindParam("student_id")
-    private Long studentId;
+    @BindParam("course_id")
+    private Long courseId;
 }

@@ -44,4 +44,20 @@
           AND s.score_id = #{scoerId}
     </select>
 
+    <select id="getStudentAnswer" resultType="com.smartcourse.pojo.vo.exam.sql.GradeShortQuestionSqlVO">
+        SELECT
+            esi.id AS examScoreItemId,
+            q.stem AS question,
+            esi.answer AS solution,
+            ei.score AS score,
+            qsa.answer AS answer,
+            qsa.criteria AS criteria
+        FROM evaluation_expert.exam_score_item esi
+                 INNER JOIN evaluation_expert.exam_item ei ON ei.id = esi.exam_item_id
+                 INNER JOIN evaluation_expert.question q ON q.id = ei.question_id
+                 LEFT JOIN evaluation_expert.question_short_answer qsa ON qsa.question_id = q.id
+        WHERE esi.score_id = #{scoreId}
+          AND esi.exam_item_id = #{examItemId}
+    </select>
+
 </mapper>

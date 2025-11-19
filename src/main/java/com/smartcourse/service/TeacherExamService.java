@@ -1,9 +1,7 @@
 package com.smartcourse.service;
 
-import com.smartcourse.pojo.dto.TeacherGradeDTO;
-import com.smartcourse.pojo.dto.TeacherPublishExamDTO;
-import com.smartcourse.pojo.dto.TeacherSaveExamDTO;
-import com.smartcourse.pojo.dto.TeacherViewAnswerDTO;
+import com.smartcourse.pojo.dto.*;
+import com.smartcourse.pojo.vo.exam.TeacherGetExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
 
 public interface TeacherExamService {
@@ -14,4 +12,8 @@ public interface TeacherExamService {
     void submitGrade(TeacherGradeDTO teacherGradeDTO);
 
     TeacherViewAnswerVO viewStudentAnswers(TeacherViewAnswerDTO teacherViewAnswerDTO);
+
+    TeacherGetExamVO getExamList(TeacherGetExamListDTO teacherGetExamListDTO);
+
+    void deleteExam(TeacherDeleteExamDTO teacherDeleteExamDTO);
 }

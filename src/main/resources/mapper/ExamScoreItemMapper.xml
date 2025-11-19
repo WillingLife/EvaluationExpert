@@ -18,6 +18,9 @@
                 <if test="item.score != null">
                     score = #{item.score},
                 </if>
+                <if test="item.aiScore != null">
+                    ai_score = #{item.aiScore},
+                </if>
                 <if test="item.answer != null">
                     answer = #{item.answer},
                 </if>
@@ -78,6 +81,42 @@
             WHERE score_id = #{item.scoreId}
               AND exam_item_id = #{item.examItemId}
         </foreach>
+    </update>
+
+    <update id="updateExamScoreItemSelective"
+            parameterType="com.smartcourse.pojo.entity.ExamScoreItem">
+        UPDATE evaluation_expert.exam_score_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scoreId != null">
+                score_id = #{scoreId},
+            </if>
+            <if test="examItemId != null">
+                exam_item_id = #{examItemId},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="aiScore != null">
+                ai_score = #{aiScore},
+            </if>
+            <if test="answer != null">
+                answer = #{answer},
+            </if>
+            <if test="autoJudgeDetailJson != null">
+                auto_judge_detail_json = #{autoJudgeDetailJson},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="gradeTime != null">
+                grade_time = #{gradeTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            update_time = NOW(),
+        </trim>
+        WHERE id = #{id}
     </update>
 
 </mapper>

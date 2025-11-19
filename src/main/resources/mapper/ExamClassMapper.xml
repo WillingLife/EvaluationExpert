@@ -17,4 +17,19 @@
         </if>
     </update>
 
+    <!-- 删除方法 -->
+    <delete id="deleteExamClassesByExamId">
+        DELETE FROM evaluation_expert.exam_class
+        WHERE exam_id = #{examId}
+    </delete>
+
+    <!-- 插入方法 -->
+    <insert id="insertExamClasses">
+        INSERT INTO evaluation_expert.exam_class (exam_id, class_id)
+        VALUES
+        <foreach collection="classIds" item="classId" separator=",">
+            (#{examId}, #{classId})
+        </foreach>
+    </insert>
+
 </mapper>

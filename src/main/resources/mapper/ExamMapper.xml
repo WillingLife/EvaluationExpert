@@ -57,6 +57,29 @@
         </trim>
     </sql>
 
+    <resultMap id="TeacherExamClassItemResultMap"
+               type="com.smartcourse.pojo.vo.exam.items.TeacherExamClassItemVO">
+        <id property="classId" column="class_id"/>
+        <result property="className" column="class_name"/>
+    </resultMap>
+
+    <resultMap id="TeacherGetExamItemResultMap"
+               type="com.smartcourse.pojo.vo.exam.items.TeacherGetExamItemVO">
+        <id property="examId" column="exam_id"/>
+        <result property="examName" column="exam_name"/>
+        <result property="description" column="description"/>
+        <result property="totalScore" column="total_score"/>
+        <result property="startTime" column="start_time"/>
+        <result property="durationMinutes" column="duration_minutes"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="classes"
+                    column="exam_id"
+                    ofType="com.smartcourse.pojo.vo.exam.items.TeacherExamClassItemVO"
+                    select="getExamClassesByExamId"/>
+    </resultMap>
+
     <!--首先动态拼接非null字段，更新exam表-->
 
     <update id="updateExamRecursive" parameterType="com.smartcourse.pojo.entity.Exam">
@@ -381,6 +404,34 @@
         FROM evaluation_expert.exam e
                  LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id AND e.status = 'graded'
         WHERE course_id = #{courseId}
+    </select>
+
+    <select id="getTeacherGetExamItemVOListByCourseId"
+            parameterType="long"
+            resultMap="TeacherGetExamItemResultMap">
+        SELECT e.id          AS exam_id,
+               e.name        AS exam_name,
+               e.description AS description,
+               e.total_score AS total_score,
+               e.start_time  AS start_time,
+               e.duration_minutes AS duration_minutes,
+               e.status      AS status,
+               e.create_time AS create_time,
+               e.update_time AS update_time
+        FROM evaluation_expert.exam e
+        WHERE e.course_id = #{courseId}
+          AND e.deleted = 0
+        ORDER BY e.create_time DESC
+    </select>
+
+    <select id="getExamClassesByExamId"
+            resultMap="TeacherExamClassItemResultMap"
+            parameterType="long">
+        SELECT ec.class_id AS class_id,
+               c.name      AS class_name
+        FROM evaluation_expert.exam_class ec
+                 INNER JOIN evaluation_expert.`class` c ON ec.class_id = c.id
+        WHERE ec.exam_id = #{examId}
     </select>
 
 </mapper>
