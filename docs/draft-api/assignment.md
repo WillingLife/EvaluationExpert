@@ -213,3 +213,32 @@ Content-Type:application/octet-stream
   ]
 }
 ```
+
+## 9.教师获取学生作业
+
+请求路径：/teacher/assignment/get
+
+请求方法：GET
+
+请求体：
+```json
+{
+  "student_id": 1,
+  "assignment_id":1
+}
+```
+
+返回体：
+```json
+{
+  "code":200,
+  "msg":""
+  "data": [
+    {
+      "name": "作业名称",
+      "description": "作业内容"
+      "assignment_url":文档地址
+    }
+  ]
+}
+```
