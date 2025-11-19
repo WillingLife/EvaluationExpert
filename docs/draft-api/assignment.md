@@ -18,6 +18,8 @@
 
 [8. 学生获取某个课程的作业列表](#8学生获取某个课程的作业列表)
 
+[9. 教师获取学生作业](#9.教师获取学生作业)
+
 ## 1.教师新增作业
 
 请求路径: /teacher/assignment/add
@@ -237,7 +239,7 @@ Content-Type:application/octet-stream
     {
       "name": "作业名称",
       "description": "作业内容"
-      "assignment_url":文档地址
+      "assignment_url":"文档地址"
     }
   ]
 }
