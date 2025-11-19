@@ -204,7 +204,6 @@ public class StudentExamServiceImpl implements StudentExamService {
 
         examScoreMapper.submit(examScore);
         Long scoreId = examScore.getId();
-        BigDecimal totalScore = new BigDecimal(0);
 
         List<ExamScoreItemDTO> examScoreItems = new ArrayList<>();
         for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
@@ -214,6 +213,7 @@ public class StudentExamServiceImpl implements StudentExamService {
             for (StudentExamQuestionDTO question : section.getQuestions()) {
                 ExamScoreItemDTO examScoreItem = new ExamScoreItemDTO();
                 Long questionId = question.getQuestionId();
+                Long examItemId = examItemMapper.getId(sectionId,questionId);
                 String answerJson = null;
                 BigDecimal score = BigDecimal.valueOf(0);
                 try {
@@ -263,6 +263,7 @@ public class StudentExamServiceImpl implements StudentExamService {
                             yield objectMapper.writeValueAsString(blanks);
                         }
                         case "short_answer" -> {
+                            // TODO 简答题AI通用 function(scoreId,examItemId)
                             // 处理简答题
                             String answer = question.getShortAnswer();
                             yield objectMapper.writeValueAsString(answer);
@@ -280,12 +281,10 @@ public class StudentExamServiceImpl implements StudentExamService {
                 examScoreItem.setQuestionId(question.getQuestionId());
                 examScoreItem.setScore(score);
                 examScoreItems.add(examScoreItem);
-                totalScore = totalScore.add(score);
             }
         }
 
         examScoreItemMapper.submit(examScoreItems);
-        examScoreMapper.addScore(scoreId, totalScore);
     }
 
     @Override

@@ -18,4 +18,7 @@ public interface ExamItemMapper {
 
     @Select("select score from evaluation_expert.exam_item where section_id = #{sectionId}")
     BigDecimal getScore(Long sectionId);
+
+    @Select("select id from evaluation_expert.exam_item where section_id = #{sectionId} and question_id = #{questionId}")
+    Long getId(Long sectionId, Long questionId);
 }
