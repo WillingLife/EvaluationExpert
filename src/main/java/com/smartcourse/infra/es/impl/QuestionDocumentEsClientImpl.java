@@ -1,4 +1,5 @@
 package com.smartcourse.infra.es.impl;
+
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.ElasticsearchException;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
@@ -48,6 +49,8 @@ public class QuestionDocumentEsClientImpl implements QuestionDocumentEsClient {
     private static final String FIELD_DIFFICULTY = "difficulty";
     private static final String FIELD_QUESTION_VECTOR = "question_vector_chunks.chunk_vector";
     private static final String FIELD_ANSWER_VECTOR = "answer_vector_chunks.chunk_vector";
+    private static final String FIELD_QUESTION_VECTOR_CHUNKS = "question_vector_chunks";
+    private static final String FIELD_ANSWER_VECTOR_CHUNKS = "answer_vector_chunks";
     private static final Set<String> HIGHLIGHT_FIELDS = Set.of(FIELD_QUESTION_TEXT, FIELD_ANSWER_TEXT);
     private static final int DEFAULT_FROM = 0;
     private static final int DEFAULT_SIZE = 10;
@@ -88,6 +91,7 @@ public class QuestionDocumentEsClientImpl implements QuestionDocumentEsClient {
                 .size(resolveSize(query.getSize()))
                 .query(textQuery)
                 .highlight(buildHighlight())
+                .source(s -> s.filter(f -> f.excludes(FIELD_QUESTION_VECTOR_CHUNKS, FIELD_ANSWER_VECTOR_CHUNKS)))
                 .build();
     }
 
@@ -112,6 +116,7 @@ public class QuestionDocumentEsClientImpl implements QuestionDocumentEsClient {
                 .size(resolveSize(query.getSize()))
                 .query(buildKeywordQuery(query))
                 .highlight(buildHighlight())
+                .source(s -> s.filter(f -> f.excludes(FIELD_QUESTION_VECTOR_CHUNKS, FIELD_ANSWER_VECTOR_CHUNKS)))
                 .build();
     }
 
@@ -137,7 +142,8 @@ public class QuestionDocumentEsClientImpl implements QuestionDocumentEsClient {
         if (Boolean.TRUE.equals(query.getSearchAnswer())) {
             builder.knn(buildKnn(fieldAnswerVector(), queryVector, topK, numCandidates));
         }
-        return builder.build();
+        return builder.source(s -> s.filter(f -> f.excludes(FIELD_QUESTION_VECTOR_CHUNKS, FIELD_ANSWER_VECTOR_CHUNKS)))
+                .build();
     }
 
     private KnnSearch buildKnn(String field,
@@ -243,6 +249,7 @@ public class QuestionDocumentEsClientImpl implements QuestionDocumentEsClient {
                 .aggregations(multiItem.aggregations())
                 .took(multiItem.took())
                 .timedOut(multiItem.timedOut())
+                .shards(multiItem.shards())
                 .build();
         return toHits(searchResponse);
     }
