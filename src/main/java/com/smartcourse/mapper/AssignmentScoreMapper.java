@@ -2,7 +2,6 @@ package com.smartcourse.mapper;
 
 import com.smartcourse.pojo.entity.AssignmentScore;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,4 +13,5 @@ public interface AssignmentScoreMapper {
 
     Integer selectMaxSubmitNo(Long assignmentId, Long studentId);
     List<AssignmentScore> selectByAssignmentAndStudent(Long assignmentId, Long studentId);
+
 }

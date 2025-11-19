@@ -1,8 +1,6 @@
 package com.smartcourse.utils;
 
-import com.aliyun.oss.ClientBuilderConfiguration;
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.*;
 import com.aliyun.oss.common.auth.DefaultCredentialProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.ObjectMetadata;
@@ -13,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -25,7 +25,7 @@ public class AliyunOSSOperator {
     // 阿里云配置信息
     private final AliyunOSSProperties aliyunOSSProperties;
 
-    public String upload(byte[] data, String originalFileName){
+    public String upload(byte[] data, String originalFileName) {
         String endpoint = aliyunOSSProperties.getEndpoint();
         String bucketName = aliyunOSSProperties.getBucketName();
         String region = aliyunOSSProperties.getRegion();
@@ -55,14 +55,14 @@ public class AliyunOSSOperator {
                 .build();
 
         // 简单上传文件
-        try{
+        try {
             ossClient.putObject(bucketName, objectName, new ByteArrayInputStream(data), metadata);
-        }finally {
+        } finally {
             ossClient.shutdown();
         }
 
         // 返回url
-        return  objectName;
+        return objectName;
     }
 
     /**
@@ -103,4 +103,46 @@ public class AliyunOSSOperator {
             default -> "application/octet-stream";
         };
     }
+
+    public String getUrl(String fileName) {
+        String endpoint = aliyunOSSProperties.getEndpoint();
+        String bucketName = aliyunOSSProperties.getBucketName();
+        String region = aliyunOSSProperties.getRegion();
+        String accessKeyId = aliyunOSSProperties.getAccessKeyId();
+        String accessKeySecret = aliyunOSSProperties.getAccessKeySecret();
+        DefaultCredentialProvider provider = new DefaultCredentialProvider(accessKeyId, accessKeySecret);
+        ClientBuilderConfiguration clientBuilderConfiguration = new ClientBuilderConfiguration();
+        clientBuilderConfiguration.setSignatureVersion(SignVersion.V4);
+        OSS ossClient = OSSClientBuilder.create()
+                .endpoint(endpoint)
+                .credentialsProvider(provider)
+                .clientConfiguration(clientBuilderConfiguration)
+                .region(region)
+                .build();
+
+        try {
+            // 设置预签名URL过期时间，单位为毫秒。本示例以设置过期时间为1小时为例。
+            Date expiration = new Date(new Date().getTime() + 3600 * 1000L);
+            // 生成以GET方法访问的预签名URL。本示例没有额外请求头，其他人可以直接通过浏览器访问相关内容。
+            URL url = ossClient.generatePresignedUrl(bucketName, fileName, expiration);
+            return url.toString();
+        } catch (OSSException oe) {
+            System.out.println("Caught an OSSException, which means your request made it to OSS, "
+                    + "but was rejected with an error response for some reason.");
+            System.out.println("Error Message:" + oe.getErrorMessage());
+            System.out.println("Error Code:" + oe.getErrorCode());
+            System.out.println("Request ID:" + oe.getRequestId());
+            System.out.println("Host ID:" + oe.getHostId());
+        } catch (ClientException ce) {
+            System.out.println("Caught an ClientException, which means the client encountered "
+                    + "a serious internal problem while trying to communicate with OSS, "
+                    + "such as not being able to access the network.");
+            System.out.println("Error Message:" + ce.getMessage());
+        } finally {
+            ossClient.shutdown();
+        }
+        return null;
+    }
+
+
 }
