@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.smartcourse.mapper.QuestionMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into question(
@@ -12,6 +15,32 @@
         )
     </insert>
 
+    <!-- 结果映射：将选择题的选项列表正确映射 -->
+    <resultMap id="ChoiceQuestionResultMap" type="com.smartcourse.pojo.vo.exam.question.StudentExamChoiceQuestionVO">
+        <id property="questionId" column="question_id"/>
+        <result property="questionStem" column="question_stem"/>
+        <result property="score" column="score"/>
+        <collection property="options" ofType="com.smartcourse.pojo.vo.exam.question.StudentExamChoiceQuestionVO$Option">
+            <result property="optionId" column="option_id"/>
+            <result property="content" column="content"/>
+        </collection>
+    </resultMap>
+
+    <select id="getChoice" resultMap="ChoiceQuestionResultMap">
+        SELECT
+        q.id AS question_id,
+        q.stem AS question_stem,
+        e.score AS score,
+        o.id AS option_id,
+        o.content AS content
+        FROM evaluation_expert.question q
+        LEFT JOIN evaluation_expert.question_option o ON q.id = o.question_id
+        LEFT JOIN evaluation_expert.exam_item e ON q.id = e.question_id
+        WHERE q.id IN
+        <foreach collection="choiceQuestionIds" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
+    </select>
     <select id="pageList" resultType="com.smartcourse.pojo.vo.QuestionQueryVO">
         select id, type, course_id, stem, analysis, difficulty,
             teacher_id, active, deleted, create_time, update_time
@@ -35,6 +64,21 @@
         limit #{pageSize} offset #{offset}
     </select>
 
+    <select id="getFill" resultType="com.smartcourse.pojo.vo.exam.question.StudentExamFillBlankQuestionVO">
+        SELECT
+        q.id AS question_id,
+        q.stem AS question_stem,
+        e.score AS score,
+        COUNT(f.blank_index) AS blankCount
+        FROM evaluation_expert.question q
+        LEFT JOIN evaluation_expert.question_fill_blank f ON q.id = f.question_id
+        LEFT JOIN evaluation_expert.exam_item e ON q.id = e.question_id
+        WHERE q.id IN
+        <foreach collection="fillBlankIds" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
+        GROUP BY q.id, q.stem, e.score
+    </select>
     <select id="count" resultType="long">
         select count(1)
         from question
@@ -55,6 +99,18 @@
         </where>
     </select>
 
+    <select id="getShort" resultType="com.smartcourse.pojo.vo.exam.question.StudentExamShortAnswerQuestionVO">
+        SELECT
+        q.id AS question_id,
+        q.stem AS question_stem,
+        e.score AS score
+        FROM evaluation_expert.question q
+        LEFT JOIN evaluation_expert.exam_item e ON q.id = e.question_id
+        WHERE q.id IN
+        <foreach collection="shortanswerIds" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
+    </select>
     <select id="selectById" resultType="com.smartcourse.pojo.entity.Question">
         select id, type, course_id, stem, analysis, difficulty,
                teacher_id, active, deleted, create_time, update_time

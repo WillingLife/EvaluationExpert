@@ -24,7 +24,7 @@ public interface AssignmentService {
      * @param teacherGradeDTO 评分信息
      * @return 作业评分ID
      */
-    AssignmentScoreIdVO gradeAssignment(TeacherGradeDTO teacherGradeDTO);
+    AssignmentScoreIdVO gradeAssignment(TeacherGradeAssignmentDTO teacherGradeDTO);
 
     /**
      * 学生提交作业

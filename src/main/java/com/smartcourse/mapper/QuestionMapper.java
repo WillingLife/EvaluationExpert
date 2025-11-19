@@ -2,9 +2,17 @@ package com.smartcourse.mapper;
 
 import com.smartcourse.pojo.entity.Question;
 import com.smartcourse.pojo.vo.QuestionQueryVO;
+import com.smartcourse.pojo.vo.exam.StudentScoreQuestionVO;
+import com.smartcourse.pojo.vo.exam.question.StudentExamChoiceQuestionVO;
+import com.smartcourse.pojo.vo.exam.question.StudentExamFillBlankQuestionVO;
+import com.smartcourse.pojo.vo.exam.question.StudentExamShortAnswerQuestionVO;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Mapper
 public interface QuestionMapper {
@@ -19,20 +27,44 @@ public interface QuestionMapper {
      */
     List<QuestionQueryVO> pageList(Long courseId, String stem, Integer difficulty,
                                    Integer type, Integer offset, Integer pageSize);
+    List<StudentExamChoiceQuestionVO> getChoice(List<Long> choiceQuestionIds);
+
+    List<StudentExamFillBlankQuestionVO> getFill(List<Long> fillBlankIds);
+
+    List<StudentExamShortAnswerQuestionVO> getShort(List<Long> shortanswerIds);
+
+    @Select("select answer from evaluation_expert.question_short_answer where question_id = #{questionId}")
+    String getShortAnswer(Long questionId);
+
+    @Select("select answer from evaluation_expert.question_fill_blank where question_id = #{questionId}")
+    List<String> getFillAnswer(Long questionId);
 
     /**
      * 统计题目数量
      */
     Long count(Long courseId, String stem, Integer difficulty, Integer type);
+    @Select("select correct from evaluation_expert.question_option where question_id = #{questionId}")
+    Set<Integer> getChoiceAnswer(Long questionId);
 
     /**
      * 根据ID查询题目
      */
     Question selectById(Long id);
+    @Select("select sort_order as optionId, content from evaluation_expert.question_option where question_id = #{questionId}")
+    List<StudentScoreQuestionVO.Option> getOptions(Long questionId);
 
     /**
      * 更新题目信息
      * @param question 新题目信息
      */
     void update(Question question);
+    @Select("select blank_index, answer from evaluation_expert.question_fill_blank where question_id = #{questionId}")
+    @MapKey("blankIndex")
+    Map<Integer, List<String>> getFAnswer(Long questionId);
+
+    @Select("select id from evaluation_expert.question_option where question_id = #{questionId} and correct = 1")
+    Long getCAnswer(Long questionId);
+
+    @Select("select id from evaluation_expert.question_option where question_id = #{questionId} and correct = 1")
+    List<Long> getCAnswers(Long questionId);
 }

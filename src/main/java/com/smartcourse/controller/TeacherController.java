@@ -120,7 +120,7 @@ public class TeacherController {
      * @return 作业评分ID
      */
     @PostMapping("/assignment/grade")
-    public Result gradeAssignment(@RequestBody TeacherGradeDTO teacherGradeDTO) {
+    public Result gradeAssignment(@RequestBody TeacherGradeAssignmentDTO teacherGradeDTO) {
         log.info("教师评价作业：{}", teacherGradeDTO);
         AssignmentScoreIdVO assignmentScoreIdVO = assignmentService.gradeAssignment(teacherGradeDTO);
 

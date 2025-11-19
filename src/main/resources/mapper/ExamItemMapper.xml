@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartcourse.mapper.ExamItemMapper">
+
+    <insert id="insertExamItemsByExamSections"
+            parameterType="java.util.List"
+            useGeneratedKeys="false">
+        INSERT INTO evaluation_expert.exam_item (
+        section_id, question_id, score, order_no, question_type
+        )
+        VALUES
+        <trim suffixOverrides=",">
+            <foreach collection="sections" item="section">
+                <if test="section.examItems != null and section.examItems.size() > 0">
+                    <foreach collection="section.examItems" item="item">
+                        (
+                        <choose>
+                            <when test="item.sectionId != null">
+                                #{item.sectionId}
+                            </when>
+                            <otherwise>
+                                #{section.id}
+                            </otherwise>
+                        </choose>
+                        ,
+                        #{item.questionId},
+                        #{item.score},
+                        #{item.orderNo},
+                        #{section.questionType}
+                        ),
+                    </foreach>
+                </if>
+            </foreach>
+        </trim>
+    </insert>
+    <select id="getQuestion" resultType="com.smartcourse.pojo.vo.exam.StudentScoreQuestionVO">
+        SELECT e.question_id, e.score AS fullScore, s.score AS studentScore, q.stem AS questionStem, s.answer, s.remark
+        FROM evaluation_expert.exam_item e
+                 LEFT JOIN evaluation_expert.exam_score_item s ON s.exam_item_id = e.id
+                 LEFT JOIN evaluation_expert.question q ON q.id = e.question_id
+        WHERE e.section_id = #{sectionId}
+          AND s.score_id = #{scoerId}
+    </select>
+
+    <select id="getStudentAnswer" resultType="com.smartcourse.pojo.vo.exam.sql.GradeShortQuestionSqlVO">
+        SELECT
+            esi.id AS examScoreItemId,
+            q.stem AS question,
+            esi.answer AS solution,
+            ei.score AS score,
+            qsa.answer AS answer,
+            qsa.criteria AS criteria
+        FROM evaluation_expert.exam_score_item esi
+                 INNER JOIN evaluation_expert.exam_item ei ON ei.id = esi.exam_item_id
+                 INNER JOIN evaluation_expert.question q ON q.id = ei.question_id
+                 LEFT JOIN evaluation_expert.question_short_answer qsa ON qsa.question_id = q.id
+        WHERE esi.score_id = #{scoreId}
+          AND esi.exam_item_id = #{examItemId}
+    </select>
+
+</mapper>

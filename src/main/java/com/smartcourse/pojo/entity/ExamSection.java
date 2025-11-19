@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -32,4 +33,11 @@ public class ExamSection {
     private LocalDateTime createTime;        // 创建时间
     private LocalDateTime updateTime;        // 更新时间
     private Boolean deleted;                 // 逻辑删除标记
+    private List<ExamItem> examItems;
+
+    public void batchUpdateExamIdInSections() {
+        for (ExamItem examItem : examItems) {
+            examItem.setSectionId(this.id);
+        }
+    }
 }

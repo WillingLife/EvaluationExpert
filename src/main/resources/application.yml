@@ -1,7 +1,12 @@
 server:
   port: 8080
+  error:
+    include-stacktrace: always
+    include-message: always
 
 spring:
+  application:
+    name: EvaluationExpert
   main:
     allow-circular-references: true
   datasource:
@@ -9,6 +14,24 @@ spring:
     url: jdbc:mysql://172.22.120.47:13306/evaluation_expert?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: password
+  ai:
+    openai:
+      # embedding model configuration
+      api-key: ${CHAT_GLM_API_KEY}
+      base-url: https://open.bigmodel.cn/api/paas
+      embedding:
+        options:
+          model: embedding-3
+          dimensions: 1024
+        embeddings-path: /v4/embeddings
+  elasticsearch:
+    uris: http://localhost:9200
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 
 mybatis:
   #mapper配置文件
@@ -29,5 +52,16 @@ aliyun:
 logging:
   level:
     com.smartcourse.mapper: debug
-    com.smartcourse.service: info
-    com.smartcourse.controller: info
+    com.smartcourse.service: debug
+    com.smartcourse.controller: debug
+    org.springframework.web: DEBUG
+    org.springframework.http.converter: DEBUG
+    com.fasterxml.jackson.databind: DEBUG
+    com.your.package: TRACE
+dify:
+  base-url: http://localhost/v1/workflows/run
+  grade-short-question-key: app-VUZyLcX0EKv3yXAy513hnDtW
+
+
+
+

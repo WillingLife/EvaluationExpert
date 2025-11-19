@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -33,4 +34,50 @@ public class Exam {
     private LocalDateTime createTime;       // 创建时间
     private LocalDateTime updateTime;       // 更新时间
     private Boolean deleted;                // 逻辑删除标记
+    /**
+     * 该考卷对应的班级
+     */
+    private List<Long> classIds;
+    private List<ExamSection> sections;
+
+    public void batchUpdateExamIdIntoSections(){
+        for (ExamSection section : sections) {
+            section.setExamId(this.id);
+        }
+    }
+
+    public void batchUpdateSectionIdIntoExamItems(){
+        for (ExamSection section : sections) {
+            section.batchUpdateExamIdInSections();
+        }
+    }
+
+    public boolean hasExistingSections() {
+        if (sections == null) {
+            return false;
+        }
+        for (ExamSection section : sections) {
+            if (section != null && section.getId() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasExistingExamItems() {
+        if (sections == null) {
+            return false;
+        }
+        for (ExamSection section : sections) {
+            if (section == null || section.getExamItems() == null) {
+                continue;
+            }
+            for (ExamItem item : section.getExamItems()) {
+                if (item != null && item.getId() != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

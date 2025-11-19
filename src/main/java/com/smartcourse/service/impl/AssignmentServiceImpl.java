@@ -92,7 +92,7 @@ public class AssignmentServiceImpl implements AssignmentService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public AssignmentScoreIdVO gradeAssignment(TeacherGradeDTO teacherGradeDTO) {
+    public AssignmentScoreIdVO gradeAssignment(TeacherGradeAssignmentDTO teacherGradeDTO) {
         // 校验评分记录是否存在
         AssignmentScore assignmentScore = assignmentScoreMapper.selectById(teacherGradeDTO.getAssignmentScoreId());
         if (assignmentScore == null) {
