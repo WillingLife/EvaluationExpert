@@ -62,8 +62,7 @@ public class AliyunOSSOperator {
         }
 
         // 返回url
-        return endpoint.split("//")[0] + "//" + bucketName + "." +
-                endpoint.split("//")[1] + "/" + objectName;
+        return  bucketName+objectName;
     }
 
     /**

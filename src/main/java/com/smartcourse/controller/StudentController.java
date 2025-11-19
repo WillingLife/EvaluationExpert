@@ -25,7 +25,7 @@ public class StudentController {
     /**
      * 学生提交作业
      *
-     * @param meta 提交元数据（学生ID、作业ID等）
+     * @param studentSubmitMetaDTO 提交元数据（学生ID、作业ID等）
      * @param file 提交的作业文件（二进制流）
      * @return 作业评分ID与文件访问地址
      */
@@ -64,6 +64,7 @@ public class StudentController {
         java.util.List<AssignmentListItemVO> items = assignmentService.listStudentAssignments(dto);
         return Result.success(items);
     }
+
 
     @GetMapping("/assignment")
     public Result getAssignment(@RequestParam("assignment_id") Long assignmentId) {
