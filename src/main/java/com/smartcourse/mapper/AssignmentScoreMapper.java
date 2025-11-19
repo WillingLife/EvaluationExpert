@@ -3,7 +3,6 @@ package com.smartcourse.mapper;
 import com.smartcourse.pojo.entity.AssignmentScore;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

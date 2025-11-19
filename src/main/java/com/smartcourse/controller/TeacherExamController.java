@@ -63,6 +63,4 @@ public class TeacherExamController {
         teacherExamService.deleteExam(teacherDeleteExamDTO);
         return Result.success("success");
     }
-
-
 }

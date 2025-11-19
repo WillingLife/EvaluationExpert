@@ -147,10 +147,10 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         // 上传文件到 OSS，获取访问地址
         String uploadFileName = studentSubmitMetaDTO.getFileName();
-        String uploadedFileUrl;
+        String fileName;
 
         try {
-            uploadedFileUrl = aliyunOSSOperator.upload(file.getBytes(), uploadFileName);
+            fileName = aliyunOSSOperator.upload(file.getBytes(), uploadFileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -161,7 +161,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignmentScoreRecord.setStudentId(studentSubmitMetaDTO.getStudentId());
         assignmentScoreRecord.setStatus(StatusConstant.ASSIGNMENT_SCORE_SUBMITTED);
         assignmentScoreRecord.setSubmitNo(nextSubmitNo);
-        assignmentScoreRecord.setSubmitFileUrl(uploadedFileUrl);
+        assignmentScoreRecord.setSubmitFileUrl(fileName);
         assignmentScoreRecord.setCreateTime(LocalDateTime.now());
         assignmentScoreRecord.setUpdateTime(LocalDateTime.now());
         assignmentScoreRecord.setDeleted(false);
@@ -172,7 +172,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         // 返回评分ID与文件URL
         return AssignmentScoreUploadVO.builder()
                 .assignmentScoreId(assignmentScoreRecord.getId())
-                .fileUrl(uploadedFileUrl)
+                .fileUrl(null)
                 .build();
     }
 
