@@ -62,7 +62,7 @@ public class AliyunOSSOperator {
         }
 
         // 返回url
-        return  bucketName+objectName;
+        return  objectName;
     }
 
     /**
