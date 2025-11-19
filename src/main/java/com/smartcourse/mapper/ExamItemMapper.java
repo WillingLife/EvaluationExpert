@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Mapper
@@ -14,4 +15,7 @@ public interface ExamItemMapper {
     int insertExamItemsByExamSections(@Param("sections") List<ExamSection> sections);
 
     List<StudentScoreQuestionVO> getQuestion(Long sectionId, Long scoreId);
+
+    @Select("select score from evaluation_expert.exam_item where section_id = #{sectionId}")
+    BigDecimal getScore(Long sectionId);
 }

@@ -13,20 +13,22 @@ import com.smartcourse.pojo.vo.exam.*;
 import com.smartcourse.pojo.vo.exam.question.*;
 import com.smartcourse.service.AsyncQuestionService;
 import com.smartcourse.service.StudentExamService;
+import com.smartcourse.utils.MultipleChoiceScoreCalculator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class StudentExamServiceImpl implements StudentExamService {
     @Autowired
@@ -202,23 +204,62 @@ public class StudentExamServiceImpl implements StudentExamService {
 
         examScoreMapper.submit(examScore);
         Long scoreId = examScore.getId();
+        BigDecimal totalScore = new BigDecimal(0);
 
         List<ExamScoreItemDTO> examScoreItems = new ArrayList<>();
         for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
             String questionType = section.getQuestionType().getValue();
+            Long sectionId = section.getSectionId();
+            BigDecimal questionScore = examItemMapper.getScore(sectionId);
             for (StudentExamQuestionDTO question : section.getQuestions()) {
                 ExamScoreItemDTO examScoreItem = new ExamScoreItemDTO();
+                Long questionId = question.getQuestionId();
                 String answerJson = null;
+                BigDecimal score = BigDecimal.valueOf(0);
                 try {
                     answerJson = switch (questionType) {
-                        case "single", "multiple" -> {
+                        case "single" -> {
                             // 处理选择题
-                            List<Integer> choices = question.getChoiceAnswer();
+                            List<Long> choices = question.getChoiceAnswer();
+                            Long optionId = questionMapper.getCAnswer(questionId);
+                            if (optionId.equals(choices.get(0))) {
+                                score = questionScore;
+                            }
+                            yield objectMapper.writeValueAsString(choices);
+                        }
+                        case "multiple" -> {
+                            // 处理多选题
+                            List<Long> choices = question.getChoiceAnswer();
+                            String multipleStrategy = examSectionMapper.get(sectionId);
+                            String multipleStrategyConf = examSectionMapper.getConf(sectionId);
+                            // 解析策略配置
+                            Map<String, Object> strategyConfig = parseStrategyConfig(multipleStrategyConf);
+
+                            // 获取正确答案和用户答案
+                            List<Long> correctAnswers = questionMapper.getCAnswers(questionId);
+                            List<Long> userAnswers = choices != null ? choices : Collections.emptyList();
+
+                            // 计算各项统计指标
+                            MultipleChoiceScoreCalculator.MultipleChoiceStrategyContext context =
+                                    calculateChoiceStatistics(correctAnswers, userAnswers, questionScore, strategyConfig);
+
+                            // 计算得分
+                            score = MultipleChoiceScoreCalculator.calculate(multipleStrategy, context);
                             yield objectMapper.writeValueAsString(choices);
                         }
                         case "fill_blank" -> {
                             // 处理填空题
                             List<String> blanks = question.getFillBlankAnswer();
+                            int length = blanks.size();
+                            int i = 1;
+                            BigDecimal scoreBank = questionScore.divide(new BigDecimal(length), 2, RoundingMode.HALF_UP);
+                            Map<Integer, List<String>> fAnswer = questionMapper.getFAnswer(questionId);
+                            for (String blank : blanks) {
+                                List<String> answers = fAnswer.get(i);
+                                if (answers.contains(blank)) {
+                                    score = score.add(scoreBank);
+                                }
+                            }
                             yield objectMapper.writeValueAsString(blanks);
                         }
                         case "short_answer" -> {
@@ -237,11 +278,14 @@ public class StudentExamServiceImpl implements StudentExamService {
                 examScoreItem.setCreateTime(LocalDateTime.now());
                 examScoreItem.setUpdateTime(LocalDateTime.now());
                 examScoreItem.setQuestionId(question.getQuestionId());
+                examScoreItem.setScore(score);
                 examScoreItems.add(examScoreItem);
+                totalScore = totalScore.add(score);
             }
         }
 
         examScoreItemMapper.submit(examScoreItems);
+        examScoreMapper.addScore(scoreId, totalScore);
     }
 
     @Override
@@ -298,5 +342,71 @@ public class StudentExamServiceImpl implements StudentExamService {
         studentExamListVO.setCourseId(courseId);
         studentExamListVO.setList(list);
         return studentExamListVO;
+    }
+
+    private Map<String, Object> parseStrategyConfig(String strategyConf) {
+        if (strategyConf == null || strategyConf.isBlank()) {
+            return Collections.emptyMap();
+        }
+
+        try {
+            return objectMapper.readValue(strategyConf, new TypeReference<Map<String, Object>>() {});
+        } catch (Exception e) {
+            log.warn("Failed to parse strategy config: {}", strategyConf, e);
+            return Collections.emptyMap();
+        }
+    }
+
+    private MultipleChoiceScoreCalculator.MultipleChoiceStrategyContext calculateChoiceStatistics(
+            List<Long> correctAnswers, List<Long> userAnswers, BigDecimal fullScore,
+            Map<String, Object> strategyConfig) {
+
+        // 确保列表不为null
+        correctAnswers = correctAnswers != null ? correctAnswers : Collections.emptyList();
+        userAnswers = userAnswers != null ? userAnswers : Collections.emptyList();
+
+        // 计算各项统计
+        int correctlySelected = 0;  // 正确选中的选项
+        int missedCorrect = 0;      // 漏选的正确选项
+        int incorrectlySelected = 0; // 错选的错误选项
+
+        // 统计正确选中的和漏选的
+        for (Long correctAnswer : correctAnswers) {
+            if (userAnswers.contains(correctAnswer)) {
+                correctlySelected++;
+            } else {
+                missedCorrect++;
+            }
+        }
+
+        // 统计错选的
+        for (Long userAnswer : userAnswers) {
+            if (!correctAnswers.contains(userAnswer)) {
+                incorrectlySelected++;
+            }
+        }
+
+        // 总选项数（可能需要从数据库获取）
+        int totalOptions = getTotalOptionCount(correctAnswers, userAnswers);
+
+        return MultipleChoiceScoreCalculator.MultipleChoiceStrategyContext.builder()
+                .fullScore(fullScore)
+                .totalOptionCount(totalOptions)
+                .correctlySelectedCount(correctlySelected)
+                .missedCorrectCount(missedCorrect)
+                .incorrectlySelectedCount(incorrectlySelected)
+                .strategyConfig(strategyConfig)
+                .build();
+    }
+
+    private int getTotalOptionCount(List<Long> correctAnswers, List<Long> userAnswers) {
+        // 方法1: 从数据库查询该题目的总选项数
+        // return questionMapper.getOptionCount(questionId);
+
+        // 方法2: 根据正确答案和用户答案推导（可能有误差）
+        Set<Long> allOptions = new HashSet<>();
+        allOptions.addAll(correctAnswers);
+        allOptions.addAll(userAnswers);
+        return allOptions.size();
     }
 }
