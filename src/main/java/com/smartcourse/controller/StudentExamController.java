@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("student/exam")
+@CrossOrigin
 public class StudentExamController {
 
     private final StudentExamService studentExamService;
 
-    @GetMapping("/exam-paper")
+    @PostMapping("/exam-paper")
     public Result<StudentExamVO> getStudentExamPaper(@RequestBody StudentGetExamDTO studentGetExamDTO) {
         StudentExamVO studentExamPaper = studentExamService.getStudentExamPaper(studentGetExamDTO);
         return Result.success(studentExamPaper);
@@ -46,7 +47,7 @@ public class StudentExamController {
     }
 
     @GetMapping("/list")
-    public Result<StudentExamListVO> getExamList(Long courseId) {
+    public Result<StudentExamListVO> getExamList(@RequestParam("course_id") Long courseId) {
         StudentExamListVO studentExamListVO = studentExamService.getList(courseId);
         return Result.success(studentExamListVO);
     }

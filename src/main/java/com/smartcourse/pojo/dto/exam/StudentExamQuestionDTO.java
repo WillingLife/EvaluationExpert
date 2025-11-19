@@ -18,9 +18,9 @@ public class StudentExamQuestionDTO {
      * 获取单选/多选答案（选项ID列表）
      */
     @SuppressWarnings("unchecked")
-    public List<Integer> getChoiceAnswer() {
+    public List<Long> getChoiceAnswer() {
         if (studentAnswer instanceof List) {
-            return (List<Integer>) studentAnswer;
+            return (List<Long>) studentAnswer;
         }
         return null;
     }

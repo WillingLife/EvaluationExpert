@@ -22,7 +22,7 @@
             s.create_time AS createTime,
             s.update_time AS updateTime,
             s.deleted,
-            i.id AS questionId
+            i.question_id AS questionId
         FROM evaluation_expert.exam_section s
                  LEFT JOIN evaluation_expert.exam_item i ON s.id = i.section_id
         WHERE s.exam_id = #{examId}
