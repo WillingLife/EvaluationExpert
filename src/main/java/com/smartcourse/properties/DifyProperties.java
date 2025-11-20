@@ -14,4 +14,8 @@ public class DifyProperties {
      * 简答题评分系统key
      */
     private String gradeShortQuestionKey;
+    /**
+     * 润色作业key
+     */
+    private String polishAssignmentKey;
 }

@@ -4,6 +4,7 @@ import com.smartcourse.exception.IllegalOperationException;
 import com.smartcourse.mapper.AssignmentMapper;
 import com.smartcourse.mapper.AssignmentScoreMapper;
 import com.smartcourse.pojo.dto.teacher.assignment.TeacherGetAssignmentDTO;
+import com.smartcourse.pojo.dto.teacher.assignment.TeacherPolishAssignmentDTO;
 import com.smartcourse.pojo.entity.AssignmentScore;
 import com.smartcourse.pojo.vo.AssignmentVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TeacherGetAssignmentVO;
@@ -39,5 +40,11 @@ public class TeacherAssignmentServiceImpl implements TeacherAssignmentService {
                 .description(assignment.getDescription())
                 .assignmentUrl(url)
                 .build();
+    }
+
+    @Override
+    public String polishAssignment(TeacherPolishAssignmentDTO dto) {
+
+        return "";
     }
 }

@@ -1,0 +1,1002 @@
+[
+  {
+    "type": "short_answer",
+    "stem": "简述软件项目的两个最本质特征。",
+    "difficulty": 1,
+    "analysis": "考察对项目定义的理解。项目区别于日常运作（Operation）的关键在于其非重复性和有明确的起止时间。",
+    "details": {
+      "answer": "软件项目的两个最本质特征是：1. 临时性（Temporary）：有明确的开始和结束时间；2. 独特性（Unique）：创造的产品、服务或成果是独一无二的。",
+      "criteria": "答出“临时性”得50%；答出“独特性”得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是项目管理的“铁三角”（Triple Constraint）？请列出其包含的三个要素。",
+    "difficulty": 2,
+    "analysis": "考察项目管理中最核心的约束关系。任何一个要素的变化都会影响其他要素。",
+    "details": {
+      "answer": "项目管理的铁三角是指范围（Scope）、时间（Time/Schedule）和成本（Cost）。这三个因素相互制约，通常质量（Quality）位于三角形的中心或作为第四个维度。",
+      "criteria": "准确列出范围、时间、成本三个要素即可满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "请简述项目章程（Project Charter）的主要作用。",
+    "difficulty": 3,
+    "analysis": "项目章程是启动过程组最重要的产出，标志着项目的正式确立。",
+    "details": {
+      "answer": "项目章程的作用包括：1. 正式批准项目成立；2. 任命项目经理并授予其使用组织资源的权力；3. 记录项目的高层级需求、目的和目标。",
+      "criteria": "答出“正式批准项目”得40%；答出“授权项目经理”得40%；答出“高层级需求/目标”得20%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是工作分解结构（WBS）？",
+    "difficulty": 3,
+    "analysis": "WBS是范围管理的核心工具，用于将复杂项目分解为可管理的部分。",
+    "details": {
+      "answer": "WBS（Work Breakdown Structure）是将项目可交付成果和项目工作进行面向交付物的、层次化的分解。它将项目工作分解为较小的、更易于管理的部分，最底层称为工作包。",
+      "criteria": "关键词：层次化分解（40%）、面向交付物（30%）、工作包（30%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "请解释“范围蔓延”（Scope Creep）的含义及其危害。",
+    "difficulty": 3,
+    "analysis": "范围蔓延是项目失败的常见原因，考察对变更控制的理解。",
+    "details": {
+      "answer": "范围蔓延是指在未对时间、成本和资源进行相应调整，且未经正式变更控制程序批准的情况下，项目范围的非受控扩展。其危害包括导致项目延期、预算超支甚至项目失败。",
+      "criteria": "答出“未经正式批准/非受控”得50%；答出“未调整时间成本”得30%；答出危害得20%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述瀑布模型（Waterfall Model）的主要优缺点。",
+    "difficulty": 2,
+    "analysis": "考察经典软件开发生命周期模型的理解。",
+    "details": {
+      "answer": "优点：阶段清晰，文档规范，易于管理和控制，适合需求明确的项目。缺点：灵活性差，难以应对需求变更，直到项目后期才能看到可运行的软件，风险后置。",
+      "criteria": "优缺点各答出两点即可。优点（50%），缺点（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是项目干系人（Stakeholder）？请举例说明。",
+    "difficulty": 1,
+    "analysis": "考察对项目影响者的认知。",
+    "details": {
+      "answer": "项目干系人是指积极参与项目，或其利益可能受项目执行或完成影响的个人或组织。例如：客户、用户、项目经理、开发团队、发起人（Sponsor）等。",
+      "criteria": "定义准确得60%；举出至少两个例子得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在软件项目管理中，功能性需求与非功能性需求有何区别？",
+    "difficulty": 2,
+    "analysis": "需求工程的基础概念，非功能性需求常被忽视。",
+    "details": {
+      "answer": "功能性需求描述系统“做什么”，即系统必须提供的行为或功能（如登录、报表生成）。非功能性需求描述系统“怎么做”或“表现如何”，即系统的质量属性（如性能、安全性、可靠性、可维护性）。",
+      "criteria": "准确区分“做什么”和“表现如何/质量属性”即可满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是敏捷开发中的“用户故事”（User Story）？其标准格式通常是什么？",
+    "difficulty": 3,
+    "analysis": "考察敏捷范围管理的基本单位。",
+    "details": {
+      "answer": "用户故事是从用户角度描述的简短需求，用于捕捉功能的价值。标准格式通常为：“作为一个<角色>，我想要<功能>，以便于<商业价值/目的>”。",
+      "criteria": "定义得40%；格式（角色、功能、价值）得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "请简述“滚动式规划”（Rolling Wave Planning）的概念。",
+    "difficulty": 4,
+    "analysis": "考察渐进明细的规划方法，常用于长周期项目。",
+    "details": {
+      "answer": "滚动式规划是一种迭代式的规划技术，即近期要完成的工作在工作分解结构（WBS）最下层详细规划，而远期工作则在WBS较高层粗略规划，随着项目进展再逐步详细规划。",
+      "criteria": "答出“近期详细、远期粗略”得60%；答出“随着进展逐步详细/渐进明细”得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "项目管理计划（Project Management Plan）包含哪些主要内容？（列举至少3项）",
+    "difficulty": 3,
+    "analysis": "项目管理计划是整合管理的核心产出，是指导项目执行的综合性文件。",
+    "details": {
+      "answer": "项目管理计划包含各子管理计划（如范围、进度、成本、质量管理计划等），以及基准（范围基准、进度基准、成本基准）。",
+      "criteria": "列举出任意3个子计划或基准名称即可满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“镀金”（Gold Plating）？为什么在项目管理中通常不提倡镀金？",
+    "difficulty": 3,
+    "analysis": "镀金与范围蔓延类似，但通常源自团队内部的主动行为。",
+    "details": {
+      "answer": "镀金是指开发人员在未获批准的情况下，主动为产品增加额外功能或高质量属性的行为。不提倡是因为这增加了成本和风险，且未必增加客户认可的价值，偏离了既定的范围基准。",
+      "criteria": "定义（额外功能/未批准）得50%；原因（增加成本风险/偏离基准）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述变更控制委员会（CCB）的职责。",
+    "difficulty": 4,
+    "analysis": "考察整体变更控制流程中的核心决策机构。",
+    "details": {
+      "answer": "CCB（Change Control Board）是由主要干系人代表组成的正式团体，负责审议、评价、批准、推迟或否决项目变更请求，并记录和传达变更决策。",
+      "criteria": "关键词：批准或否决变更（50%）、代表干系人利益（30%）、记录决策（20%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "请列出PMBOK指南中定义的5大项目管理过程组。",
+    "difficulty": 1,
+    "analysis": "考察项目管理最基础的框架结构。",
+    "details": {
+      "answer": "5大过程组包括：1. 启动过程组；2. 规划过程组；3. 执行过程组；4. 监控过程组；5. 收尾过程组。",
+      "criteria": "写对5个名称得满分，错一个扣20%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是里程碑（Milestone）？它在进度管理中有什么作用？",
+    "difficulty": 2,
+    "analysis": "里程碑是进度表中的重要标记。",
+    "details": {
+      "answer": "里程碑是项目中的重要时点或事件，通常指代某个可交付成果的完成。里程碑本身持续时间为零。作用是用于监控项目进度，标记关键阶段的结束。",
+      "criteria": "定义（重要时点/持续时间为零）得60%；作用（监控进度/标记阶段）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在需求工程中，“需求跟踪矩阵”（RTM）的作用是什么？",
+    "difficulty": 4,
+    "analysis": "考察需求管理和验证的重要工具。",
+    "details": {
+      "answer": "需求跟踪矩阵是一个表格，用于将产品需求从其来源（如业务目标）连接到能满足需求的可交付成果（如设计、代码、测试用例）。作用是确保每个需求都有测试验证，防止需求遗漏，并用于变更影响分析。",
+      "criteria": "答出“连接需求与成果/双向跟踪”得50%；答出“防止遗漏/确保测试覆盖”得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "Scrum敏捷框架中的三个核心角色分别是什么？",
+    "difficulty": 2,
+    "analysis": "考察敏捷Scrum框架的基础知识。",
+    "details": {
+      "answer": "Scrum的三个核心角色是：1. 产品负责人（Product Owner）；2. Scrum主管/敏捷教练（Scrum Master）；3. 开发团队（Development Team）。",
+      "criteria": "写对三个角色名称得满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是基准（Baseline）？在项目管理中通常包含哪三大基准？",
+    "difficulty": 3,
+    "analysis": "基准是监控过程组进行偏差分析的依据。",
+    "details": {
+      "answer": "基准是经过批准的计划，只能通过正式的变更控制程序进行修改，用作与实际结果进行比较的依据。三大基准通常指：范围基准、进度基准、成本基准。",
+      "criteria": "定义（经批准的计划/比较依据）得50%；列出三大基准得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述软件配置管理（SCM）的主要目的。",
+    "difficulty": 4,
+    "analysis": "配置管理是软件项目中保证产品完整性和可追溯性的关键活动。",
+    "details": {
+      "answer": "软件配置管理的目的是标识和控制软件生命周期内的所有配置项（如代码、文档），管理变更，记录配置状态，并确保配置的一致性、完整性和可追溯性，防止版本混乱。",
+      "criteria": "关键词：版本控制/防止混乱（40%）、标识配置项（30%）、变更管理（30%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "确认范围（Validate Scope）与控制质量（Control Quality）有什么区别？",
+    "difficulty": 5,
+    "analysis": "这是PMP考试中的经典易混淆点。一个关注验收，一个关注正确性。",
+    "details": {
+      "answer": "控制质量主要关注核实可交付成果的正确性，即是否满足质量标准（由内部团队进行）；确认范围主要关注可交付成果的验收，即是否满足客户需求（由客户或发起人进行）。通常先进行控制质量，后进行确认范围。",
+      "criteria": "区分关注点（正确性vs验收）得60%；区分执行主体（内部vs客户）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在项目进度管理中，关键路径（Critical Path）是什么？",
+    "difficulty": 3,
+    "analysis": "关键路径法（CPM）是进度网络分析的核心技术。",
+    "details": {
+      "answer": "关键路径是项目中时间最长的活动顺序，决定了项目完成的最短时间。关键路径上的活动通常浮动时间（Float）为零，任何延迟都会直接导致项目结束日期的推迟。",
+      "criteria": "答出“时间最长的路径”得50%；答出“决定项目最短工期”得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述“赶工”（Crashing）与“快速跟进”（Fast Tracking）的区别。",
+    "difficulty": 4,
+    "analysis": "考察进度压缩技术的两种主要手段及其代价。",
+    "details": {
+      "answer": "赶工是通过增加资源（如加班、加人）来缩短工期，通常会增加成本；快速跟进是将原本顺序进行的活动改为并行进行，通常会增加风险和返工的概率。",
+      "criteria": "赶工：增加资源/增加成本（50%）；快速跟进：并行/增加风险（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是三点估算（Three-Point Estimating）？请写出贝塔分布（PERT）的计算公式。",
+    "difficulty": 3,
+    "analysis": "考察应对估算不确定性的常用方法。",
+    "details": {
+      "answer": "三点估算通过考虑估算中的不确定性与风险，使用最乐观（O）、最悲观（P）和最可能（M）三个值来界定活动持续时间。PERT（贝塔分布）公式为：期望值 = (O + 4M + P) / 6。",
+      "criteria": "解释概念得40%；写对公式得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "解释“总浮动时间”（Total Float）和“自由浮动时间”（Free Float）的区别。",
+    "difficulty": 5,
+    "analysis": "进度网络图分析中的高频考点，概念容易混淆。",
+    "details": {
+      "answer": "总浮动时间是指在不延误项目完工日期的情况下，活动可以推迟的时间；自由浮动时间是指在不延误紧后活动最早开始日期的情况下，活动可以推迟的时间。",
+      "criteria": "总浮动：不影响项目结束（50%）；自由浮动：不影响紧后活动（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "请简述类比估算（Analogous Estimating）的适用场景及其优缺点。",
+    "difficulty": 2,
+    "analysis": "考察常用估算方法的特点。",
+    "details": {
+      "answer": "类比估算参考过去类似项目的实际数值进行估算。适用场景：项目早期信息不足时。优点：速度快、成本低。缺点：准确性较低，依赖于项目的相似程度。",
+      "criteria": "场景（早期/信息少）得30%；优点（快/省钱）得35%；缺点（不准）得35%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是RACI矩阵？其中R、A、C、I分别代表什么？",
+    "difficulty": 3,
+    "analysis": "资源管理中明确角色职责的工具。",
+    "details": {
+      "answer": "RACI矩阵是一种责任分配矩阵。R代表执行（Responsible），A代表负责/问责（Accountable），C代表咨询（Consult），I代表知情（Inform）。注意：A通常只能有一个。",
+      "criteria": "写对全称或中文含义即可。每个字母含义占25%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在项目成本管理中，应急储备（Contingency Reserve）与管理储备（Management Reserve）有何不同？",
+    "difficulty": 5,
+    "analysis": "考察对风险预算的分类管理。",
+    "details": {
+      "answer": "应急储备用于应对“已知-未知”风险（已识别的风险），包含在成本基准中；管理储备用于应对“未知-未知”风险（未识别的风险），不包含在成本基准中，使用需经高层批准。",
+      "criteria": "应急储备：已知风险/基准内（50%）；管理储备：未知风险/基准外（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "请解释挣值管理（EVM）中CPI和SPI的含义及判读标准。",
+    "difficulty": 4,
+    "analysis": "EVM是成本和进度监控的核心工具。",
+    "details": {
+      "answer": "CPI（成本绩效指数）= EV/AC，CPI<1代表成本超支，CPI>1代表成本节约；SPI（进度绩效指数）= EV/PV，SPI<1代表进度滞后，SPI>1代表进度超前。",
+      "criteria": "含义解释正确得40%；判读标准（大于小于1的含义）正确得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述“质量”（Quality）与“等级”（Grade）的区别。",
+    "difficulty": 3,
+    "analysis": "质量管理的基本概念辨析。",
+    "details": {
+      "answer": "质量是指满足需求或标准的一致性程度；等级是对功能用途相同但技术特性不同的产品的分类。低等级不是问题（如经济型酒店），但低质量是问题（如服务差）。",
+      "criteria": "定义区分清晰得60%；指出“低等级可接受，低质量不可接受”得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "质量保证（Quality Assurance）与质量控制（Quality Control）的主要区别是什么？",
+    "difficulty": 4,
+    "analysis": "过程质量与产品质量的区别。",
+    "details": {
+      "answer": "质量保证（QA）关注过程，旨在改进开发流程以防止缺陷产生（事前/事中预防）；质量控制（QC）关注产品，旨在发现并纠正可交付成果中的缺陷（事后检查）。",
+      "criteria": "QA：关注过程/预防（50%）；QC：关注产品/检查（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是帕累托法则（Pareto Principle）在质量管理中的应用？",
+    "difficulty": 2,
+    "analysis": "即二八定律。",
+    "details": {
+      "answer": "帕累托法则（80/20法则）指出，80%的问题通常是由20%的原因造成的。在质量管理中，利用帕累托图可以识别造成大多数质量问题的少数关键原因，从而优先解决。",
+      "criteria": "解释80/20法则得50%；提及优先解决关键原因得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是因果图（Cause-and-Effect Diagram）？它又被称为什么？",
+    "difficulty": 1,
+    "analysis": "常用质量管理工具。",
+    "details": {
+      "answer": "因果图用于将问题与其根本原因联系起来，通过头脑风暴识别潜在原因。它又被称为鱼骨图（Fishbone Diagram）或石川图（Ishikawa Diagram）。",
+      "criteria": "定义得50%；别名答出一个即可得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在成本估算中，自下而上估算（Bottom-up Estimating）的特点是什么？",
+    "difficulty": 3,
+    "analysis": "最准确但最耗时的估算方法。",
+    "details": {
+      "answer": "自下而上估算是对工作分解结构（WBS）最底层的工作包进行详细估算，然后向上汇总。优点是准确度高，缺点是耗时费力，成本较高。",
+      "criteria": "描述方法（从底层汇总）得40%；优点（准确）得30%；缺点（耗时）得30%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是敏捷开发中的“燃尽图”（Burndown Chart）？",
+    "difficulty": 2,
+    "analysis": "敏捷项目中核心的进度监控工具。",
+    "details": {
+      "answer": "燃尽图是用于展示剩余工作量与时间关系的图表。横轴表示时间（Sprint天数），纵轴表示剩余工作量（通常是Story Points）。它可以直观地反映团队是否能按时完成Sprint目标。",
+      "criteria": "定义（剩余工作量vs时间）得60%；作用（预测是否按时完成）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "解释“质量成本”（Cost of Quality, COQ）包含的两大类成本。",
+    "difficulty": 4,
+    "analysis": "考察对预防成本和失败成本的理解。",
+    "details": {
+      "answer": "质量成本包括：1. 一致性成本（预防成本和评估成本），用于防止失败；2. 非一致性成本（内部失败成本和外部失败成本），即缺陷造成的影响。",
+      "criteria": "答出一致性成本/预防成本得50%；答出非一致性成本/失败成本得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在软件项目中，Brooks法则（Brooks' Law）的主要内容是什么？",
+    "difficulty": 3,
+    "analysis": "《人月神话》中的经典理论，涉及资源与进度的关系。",
+    "details": {
+      "answer": "Brooks法则指出：“向进度落后的软件项目增加人手，只会让项目更加落后。”这是因为新人的沟通成本和培训成本往往抵消了其带来的生产力。",
+      "criteria": "核心内容（加人导致更慢）得60%；简述原因（沟通成本）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是敏捷团队的“速度”（Velocity）？",
+    "difficulty": 2,
+    "analysis": "敏捷规划的重要指标。",
+    "details": {
+      "answer": "速度是指敏捷团队在单个迭代（Sprint）中能够完成的用户故事点数（Story Points）的总和。它用于预测团队在未来迭代中的交付能力。",
+      "criteria": "定义（单迭代完成的点数）得60%；作用（预测交付能力）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "项目进度网络图中，FS（Finish-to-Start）和SS（Start-to-Start）分别代表什么逻辑关系？",
+    "difficulty": 2,
+    "analysis": "PDM（紧前关系绘图法）的基础。",
+    "details": {
+      "answer": "FS（完成到开始）：只有紧前活动完成后，紧后活动才能开始（最常见）。SS（开始到开始）：只有紧前活动开始后，紧后活动才能开始。",
+      "criteria": "FS解释正确得50%；SS解释正确得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是全生命周期成本（Life Cycle Costing）？",
+    "difficulty": 3,
+    "analysis": "考察项目决策的长远视角。",
+    "details": {
+      "answer": "全生命周期成本不仅考虑项目建设期的成本，还考虑项目交付后运营、维护直至报废的全过程成本。项目决策应基于全生命周期成本最低，而不仅仅是建设成本最低。",
+      "criteria": "涵盖建设+运维/全过程得60%；决策依据得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述塔克曼（Tuckman）阶梯理论中团队发展的五个阶段。",
+    "difficulty": 3,
+    "analysis": "资源管理中团队建设的经典理论。",
+    "details": {
+      "answer": "团队发展的五个阶段是：1. 形成期（Forming）；2. 震荡期（Storming）；3. 规范期（Norming）；4. 成熟期（Performing）；5. 解散期（Adjourning）。",
+      "criteria": "写对5个阶段名称得满分，错一个扣20%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在风险管理中，风险应对的四种消极策略（针对威胁）分别是什么？",
+    "difficulty": 4,
+    "analysis": "考察对负面风险应对机制的掌握。",
+    "details": {
+      "answer": "针对威胁的四种策略是：1. 规避（Avoid）：消除威胁或保护项目免受影响；2. 减轻（Mitigate）：降低发生的概率或影响；3. 转移（Transfer）：将责任转移给第三方（如购买保险、外包）；4. 接受（Accept）：主动或被动地接受风险后果。",
+      "criteria": "写对四个策略名称得满分，每少一个扣25%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是技术债务（Technical Debt）？它对软件项目有什么影响？",
+    "difficulty": 3,
+    "analysis": "软件工程管理中非常独特的概念，涉及长期的维护成本。",
+    "details": {
+      "answer": "技术债务是指为了短期速度或由于设计不当，在代码或架构中留下的“不完美”解决方案，未来需要花费额外的时间去重构或修复。影响包括：增加维护成本、降低开发速度、增加系统缺陷风险。",
+      "criteria": "定义（短期妥协导致长期成本）得50%；影响（维护难/速度慢）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "计算沟通渠道数量的公式是什么？如果团队有10人，有多少条沟通渠道？",
+    "difficulty": 3,
+    "analysis": "沟通管理中的经典计算题。",
+    "details": {
+      "answer": "公式是 N*(N-1)/2，其中N是干系人数量。如果N=10，沟通渠道数量 = 10*(9)/2 = 45条。",
+      "criteria": "公式正确得50%；计算结果正确得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述麦格雷戈的X理论和Y理论（Theory X and Theory Y）。",
+    "difficulty": 3,
+    "analysis": "资源管理中关于人性的假设，影响管理风格。",
+    "details": {
+      "answer": "X理论假设员工天生懒惰、逃避工作，需要严格监督和惩罚（集权管理）；Y理论假设员工积极进取、愿意承担责任，能够自我管理（授权管理）。",
+      "criteria": "X理论（性恶/需监督）得50%；Y理论（性善/自主）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在采购管理中，总价合同（Fixed Price）和成本补偿合同（Cost Reimbursable）对买方和卖方的风险分布有何不同？",
+    "difficulty": 4,
+    "analysis": "考察合同类型与风险承担的关系。",
+    "details": {
+      "answer": "总价合同中，卖方承担主要风险（成本超支由卖方吸收），买方风险最小；成本补偿合同中，买方承担主要风险（需支付实际成本及可能的增加），卖方风险较小。",
+      "criteria": "指出总价合同卖方风险大得50%；指出成本补偿合同买方风险大得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是敏捷开发中的“完成的定义”（Definition of Done, DoD）？",
+    "difficulty": 3,
+    "analysis": "敏捷质量管理的关键标准。",
+    "details": {
+      "answer": "DoD是团队对“工作完成”的一致标准，包含了一系列必须满足的条件（如代码编写完成、通过单元测试、代码审查通过、文档更新等），只有满足DoD，用户故事才能被视为完成。",
+      "criteria": "定义（一致标准/条件列表）得60%；举例或说明作用得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述冲突管理的五种常用策略。",
+    "difficulty": 4,
+    "analysis": "资源管理中解决团队冲突的方法。",
+    "details": {
+      "answer": "1. 撤退/回避（Withdraw/Avoid）；2. 缓和/包容（Smooth/Accommodate）；3. 妥协/调解（Compromise/Reconcile）；4. 强迫/命令（Force/Direct）；5. 合作/解决问题（Collaborate/Problem Solve）。",
+      "criteria": "写对任意4种即可得满分，或者答出“合作是最好的长期策略”可作为补充得分点。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是SWOT分析？它主要用于哪个管理过程？",
+    "difficulty": 2,
+    "analysis": "风险识别和战略规划工具。",
+    "details": {
+      "answer": "SWOT分析从优势（Strengths）、劣势（Weaknesses）、机会（Opportunities）和威胁（Threats）四个维度分析项目或组织。它主要用于风险识别过程（或战略规划）。",
+      "criteria": "解释四个字母含义得60%；指出风险识别或规划过程得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "持续集成（CI）和持续交付（CD）的主要目的是什么？",
+    "difficulty": 3,
+    "analysis": "现代软件工程流程的核心。",
+    "details": {
+      "answer": "CI的目的是频繁地将代码集成到主干，并通过自动化测试尽早发现集成错误；CD的目的是确保软件可以随时发布到生产环境，自动化部署流程，缩短交付周期。",
+      "criteria": "CI（频繁集成/早发现错误）得50%；CD（自动化部署/随时发布）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在风险定量分析中，预期货币价值（EMV）如何计算？",
+    "difficulty": 5,
+    "analysis": "风险量化分析的核心指标。",
+    "details": {
+      "answer": "EMV是风险发生的概率与风险发生时的货币影响的乘积。公式：EMV = 概率 × 影响（Probability × Impact）。通常将所有风险的EMV相加得到项目的总风险敞口。",
+      "criteria": "公式正确得100%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是项目“启动会”（Kick-off Meeting）？其主要目标是什么？",
+    "difficulty": 2,
+    "analysis": "项目规划阶段结束、执行阶段开始时的重要会议。",
+    "details": {
+      "answer": "启动会是在规划阶段结束、执行阶段开始前召开的会议。目标是介绍项目团队，传达项目目标，获得干系人的承诺，并确保所有人对项目计划达成共识。",
+      "criteria": "时间点（规划后执行前）得40%；目标（共识/承诺/介绍）得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述赫兹伯格的双因素理论（Two-Factor Theory）。",
+    "difficulty": 4,
+    "analysis": "激励理论中的难点，区分满意与不满意。",
+    "details": {
+      "answer": "双因素理论包括：1. 保健因素（Hygiene Factors），如薪资、工作环境，缺乏会导致不满意，但具备不会带来激励；2. 激励因素（Motivators），如成就感、晋升，具备会带来满意和动力。",
+      "criteria": "区分保健因素和激励因素得60%；解释其作用（消除不满意vs带来满意）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在敏捷Scrum中，Sprint Review（评审会）和Sprint Retrospective（回顾会）的区别是什么？",
+    "difficulty": 4,
+    "analysis": "Scrum仪式的核心区别。",
+    "details": {
+      "answer": "Sprint Review关注“产品”，演示已完成的功能，获取客户反馈；Sprint Retrospective关注“过程”和“团队”，总结做得好的和需要改进的地方，旨在改进后续的开发流程。",
+      "criteria": "Review：演示产品/客户反馈（50%）；Retrospective：改进过程/团队反思（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“自制或外购分析”（Make-or-Buy Analysis）？",
+    "difficulty": 2,
+    "analysis": "采购规划的工具。",
+    "details": {
+      "answer": "自制或外购分析是决定某项工作最好是由项目团队自己完成，还是从外部购买的分析技术。通常需要比较内部生产成本与外部采购成本（含直接成本和间接成本）。",
+      "criteria": "定义（内部做还是外部买）得60%；考虑因素（成本比较）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述沟通管理中的“推式”、“拉式”和“交互式”沟通。",
+    "difficulty": 3,
+    "analysis": "沟通方法的分类。",
+    "details": {
+      "answer": "交互式：双方实时交换信息（如会议、电话）；推式：发送方主动发送，确保发送但不确保理解（如邮件、报告）；拉式：接收方主动自行访问信息库（如内网知识库、在线课程）。",
+      "criteria": "解释三种方式各得33%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是风险登记册（Risk Register）？它通常包含哪些信息？",
+    "difficulty": 3,
+    "analysis": "风险管理的主要产出。",
+    "details": {
+      "answer": "风险登记册是记录已识别风险及其详细信息的文档。内容通常包括：风险描述、潜在原因、概率、影响、风险等级、责任人及拟定的应对措施。",
+      "criteria": "定义得40%；列举至少3项内容得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "解释DevOps文化中的“基础设施即代码”（Infrastructure as Code, IaC）。",
+    "difficulty": 4,
+    "analysis": "现代软件项目运维管理的趋势。",
+    "details": {
+      "answer": "IaC是指通过机器可读的定义文件（代码）而不是物理硬件配置或交互式配置工具来管理和配置计算基础设施。它使得环境搭建可以自动化、版本化和可重复。",
+      "criteria": "定义（用代码管理基建）得60%；好处（自动化/一致性）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是蒙特卡洛模拟（Monte Carlo Simulation）？在项目管理中有什么用？",
+    "difficulty": 5,
+    "analysis": "高级风险定量分析工具。",
+    "details": {
+      "answer": "蒙特卡洛模拟是一种通过计算机多次迭代（模拟成千上万次）来计算项目结果概率分布的技术。它用于评估风险对项目整体目标（如总成本或总工期）的潜在影响，生成完成项目的概率分布图。",
+      "criteria": "原理（多次迭代模拟）得50%；用途（评估整体风险/概率分布）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是干系人参与度评估矩阵？",
+    "difficulty": 4,
+    "analysis": "干系人管理的规划工具。",
+    "details": {
+      "answer": "它是用于记录干系人当前参与程度与所需参与程度的矩阵。通常将参与度分为：不了解、抵制、中立、支持、领导。通过比较“当前（C）”和“期望（D）”状态，制定沟通策略。",
+      "criteria": "定义得40%；列出分类（不了解到领导）得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在软件代码审查（Code Review）中，主要目的是什么？",
+    "difficulty": 2,
+    "analysis": "软件质量控制的具体活动。",
+    "details": {
+      "answer": "代码审查的主要目的是在代码合并之前发现逻辑错误、安全漏洞和规范性问题，同时促进团队成员之间的知识共享和技术交流。",
+      "criteria": "发现错误/质量控制得60%；知识共享得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述强矩阵（Strong Matrix）和弱矩阵（Weak Matrix）组织结构中项目经理权力的区别。",
+    "difficulty": 3,
+    "analysis": "考察组织结构对项目管理的影响。",
+    "details": {
+      "answer": "在强矩阵中，项目经理拥有较高到全权的权力，拥有专职的项目团队成员；在弱矩阵中，项目经理的权力很小，通常扮演协调员或联络员的角色，职能经理掌握主要资源和决策权。",
+      "criteria": "强矩阵：权力大/专职（50%）；弱矩阵：权力小/协调员（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是最小可行性产品（MVP）？",
+    "difficulty": 2,
+    "analysis": "敏捷开发和精益创业的核心概念。",
+    "details": {
+      "answer": "MVP（Minimum Viable Product）是指具有刚好满足早期用户使用（并能提供反馈）所需的最少功能集的版本。其目的是以最小的成本验证市场需求和产品假设。",
+      "criteria": "定义（最少功能/满足早期使用）得50%；目的（验证假设/获取反馈）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在项目资源管理中，“资源平滑”（Resource Smoothing）与“资源平衡”（Resource Leveling）的核心区别是什么？",
+    "difficulty": 5,
+    "analysis": "资源优化技术的易混淆点。",
+    "details": {
+      "answer": "资源平衡通常会改变关键路径，导致项目工期延长（为了解决资源过度分配）；资源平滑是在利用浮动时间优化资源，不会改变关键路径，也不会延长项目完工日期。",
+      "criteria": "平衡：改变关键路径/延长工期（50%）；平滑：不改变关键路径/利用浮动时间（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是显性知识（Explicit Knowledge）与隐性知识（Tacit Knowledge）？",
+    "difficulty": 4,
+    "analysis": "项目知识管理的关键分类。",
+    "details": {
+      "answer": "显性知识是易于编码、记录和分享的知识（如文档、手册、代码）；隐性知识是基于个人经验、直觉和洞察力的知识，难以编纂，通常通过人际互动和实践分享。",
+      "criteria": "显性：易记录/文档（50%）；隐性：个人经验/难记录（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "看板（Kanban）方法中的“WIP限制”是指什么？有什么作用？",
+    "difficulty": 3,
+    "analysis": "精益/敏捷开发中的流控制工具。",
+    "details": {
+      "answer": "WIP（Work In Progress）限制是指限制在特定工作流程阶段中同时进行的任务数量。作用是暴露瓶颈、减少任务切换成本、缩短交付周期（Lead Time），促进流动。",
+      "criteria": "定义（限制进行中任务数）得50%；作用（暴露瓶颈/加速流动）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述黑盒测试（Black-box Testing）与白盒测试（White-box Testing）的区别。",
+    "difficulty": 2,
+    "analysis": "软件工程基础测试理论。",
+    "details": {
+      "answer": "黑盒测试不考虑程序内部结构，只依据需求规格检查输入输出是否正确（功能测试）；白盒测试需要了解程序内部逻辑结构，检查代码路径、分支和逻辑（结构测试）。",
+      "criteria": "黑盒：不看代码/关注功能输入输出（50%）；白盒：看代码/关注内部逻辑（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“沉没成本”（Sunk Cost）？在项目决策中应如何对待它？",
+    "difficulty": 3,
+    "analysis": "成本管理中的心理陷阱。",
+    "details": {
+      "answer": "沉没成本是指已经发生且无法回收的成本。在进行未来的项目决策时，不应考虑沉没成本，而应仅基于当前情况和未来可能发生的成本与收益进行判断。",
+      "criteria": "定义（已发生无法回收）得50%；对待方式（决策时不予考虑）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在风险管理中，“残余风险”（Residual Risk）和“次生风险”（Secondary Risk）有什么区别？",
+    "difficulty": 5,
+    "analysis": "风险应对后的两种结果。",
+    "details": {
+      "answer": "残余风险是采取风险应对措施后仍然存在的风险；次生风险是由于实施风险应对措施而直接导致产生的新风险。",
+      "criteria": "残余：应对后剩下的（50%）；次生：应对措施引发的（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是敏捷中的“探针”（Spike）？",
+    "difficulty": 4,
+    "analysis": "敏捷中处理技术不确定性的方法。",
+    "details": {
+      "answer": "Spike是一个专门用于研究、探索或原型设计的任务，通常有时间盒限制。目的是为了降低技术风险、评估工作量或在正式开发前验证技术方案的可行性。",
+      "criteria": "定义（研究/原型/探索任务）得60%；目的（降低风险/评估可行性）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述项目经理权力的5种来源（French & Raven权力模型）。",
+    "difficulty": 4,
+    "analysis": "领导力理论的基础。",
+    "details": {
+      "answer": "1. 正式权力（Legitimate）：来自职位；2. 奖励权力（Reward）：给予奖励的能力；3. 惩罚权力（Coercive）：施加惩罚的能力；4. 专家权力（Expert）：来自专业知识或技能；5. 参照权力（Referent）：来自个人魅力或人际关系。",
+      "criteria": "列出5种名称得满分，少一个扣20%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是回归测试（Regression Testing）？",
+    "difficulty": 2,
+    "analysis": "软件维护和迭代中的关键测试。",
+    "details": {
+      "answer": "回归测试是指修改了旧代码后，重新进行测试以确认修改没有引入新的错误或导致原有功能失效。它确保了软件变更的安全性。",
+      "criteria": "核心点：修改后重测（50%）；确认无新错误/原有功能正常（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "解释产品范围（Product Scope）与项目范围（Project Scope）的区别。",
+    "difficulty": 3,
+    "analysis": "范围管理的两个维度。",
+    "details": {
+      "answer": "产品范围指产品、服务或成果具有的特性和功能；项目范围指为交付具有规定特性与功能的产品、服务或成果而必须完成的工作。项目范围包含产品范围。",
+      "criteria": "产品范围：特性功能（50%）；项目范围：必须完成的工作（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在Scrum中，每日站会（Daily Scrum）通常回答哪三个问题（经典模式）？",
+    "difficulty": 2,
+    "analysis": "最常见的敏捷实践。",
+    "details": {
+      "answer": "1. 昨天我做了什么去帮助团队实现Sprint目标？2. 今天我打算做什么去帮助团队实现Sprint目标？3. 我遇到了什么阻碍或困难？",
+      "criteria": "昨天做了啥、今天做啥、有什么障碍。答对三点得满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是功能点分析（Function Point Analysis, FPA）？",
+    "difficulty": 5,
+    "analysis": "软件项目特有的估算方法。",
+    "details": {
+      "answer": "功能点分析是一种通过评估软件系统为用户提供的功能逻辑（如输入、输出、查询、文件等）数量和复杂度来估算软件规模的方法，与编程语言无关。",
+      "criteria": "关键词：估算软件规模（40%）、基于功能逻辑/用户视角（30%）、与语言无关（30%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "干系人显著性模型（Salience Model）根据哪三个维度对干系人进行分类？",
+    "difficulty": 5,
+    "analysis": "复杂的干系人分类工具。",
+    "details": {
+      "answer": "根据三个维度：1. 权力（Power）：施加影响的能力；2. 紧迫性（Urgency）：对即时关注的要求；3. 合法性（Legitimacy）：参与项目的合理性或法律依据。",
+      "criteria": "写对权力、紧迫性、合法性三个词得满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是经验教训登记册（Lessons Learned Register）？它主要何时创建和更新？",
+    "difficulty": 3,
+    "analysis": "持续改进的载体。",
+    "details": {
+      "answer": "经验教训登记册记录了项目过程中遇到的问题、挑战、风险和机会及其处理结果。它在项目早期（启动或规划）创建，并在整个项目期间不断更新，最后归档到组织过程资产中。",
+      "criteria": "定义得50%；时间点（早期创建，全程更新）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述“光环效应”（Halo Effect）在招聘或提拔项目经理时的负面影响。",
+    "difficulty": 3,
+    "analysis": "资源管理中的认知偏差。",
+    "details": {
+      "answer": "光环效应是指基于一个人在某个特定领域（如技术编程）的优秀表现，错误地推断他在其他领域（如项目管理）也同样优秀。这常导致将优秀的技术人员提拔为不合格的项目经理。",
+      "criteria": "解释定义（一点好代表全都好）得50%；举例后果（技术好≠管理好）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是总成本加激励费用合同（FPIF）中的“总体假设点”（Point of Total Assumption, PTA）？",
+    "difficulty": 5,
+    "analysis": "采购管理中最高难度的概念之一。",
+    "details": {
+      "answer": "PTA是总价加激励费用合同中的一个成本点，当实际成本超过该点时，后续所有成本超支将完全由卖方承担（即买方不再分担）。PTA = 目标成本 + (最高限价 - 目标价格) / 买方分担比例。",
+      "criteria": "定义（卖方开始全额承担成本的点）得60%；公式或逻辑描述正确得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "敏捷中的Product Backlog（产品待办列表）和Sprint Backlog（迭代待办列表）由谁负责管理？",
+    "difficulty": 3,
+    "analysis": "角色职责划分。",
+    "details": {
+      "answer": "Product Backlog由产品负责人（Product Owner）负责管理和优先级排序；Sprint Backlog由开发团队（Development Team）负责管理和维护。",
+      "criteria": "Product Backlog -> PO (50%)；Sprint Backlog -> Team (50%)。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“引导式研讨会”（Facilitated Workshops）？它在收集需求时有什么优势？",
+    "difficulty": 3,
+    "analysis": "收集需求的工具技术。",
+    "details": {
+      "answer": "引导式研讨会是把主要干系人召集在一起，通过集中讨论来定义产品需求。优势包括：能够快速达成跨职能的共识，解决意见分歧，比单对单访谈效率更高。",
+      "criteria": "定义（集中讨论）得40%；优势（达成共识/解决分歧/效率高）得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述CMMI（能力成熟度模型集成）的5个成熟度等级。",
+    "difficulty": 4,
+    "analysis": "软件行业经典的流程改进框架。",
+    "details": {
+      "answer": "1. 初始级（Initial）：过程不可预测，受控差；2. 已管理级（Managed）：针对项目进行管理；3. 已定义级（Defined）：过程标准化；4. 量化管理级（Quantitatively Managed）：过程可度量和控制；5. 优化级（Optimizing）：关注持续过程改进。",
+      "criteria": "写对5个等级名称得满分，每错一个扣20%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是净现值（NPV）？在项目选择中，NPV>0意味着什么？",
+    "difficulty": 3,
+    "analysis": "项目立项时的财务筛选指标。",
+    "details": {
+      "answer": "NPV是将项目未来的现金流折现到当前的价值减去初始投资成本。NPV > 0 意味着项目的收益超过成本，项目在财务上是可行的，通常应予以接受。",
+      "criteria": "定义（未来现金流折现）得50%；判读（大于0可行/盈利）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在敏捷（特别是极限编程XP）中，“结对编程”（Pair Programming）的两个角色分别是什么？",
+    "difficulty": 2,
+    "analysis": "敏捷工程实践。",
+    "details": {
+      "answer": "两个角色是：1. 驾驶员（Driver）：负责编写代码，控制键盘和鼠标；2. 领航员/观察员（Navigator/Observer）：负责审查代码，思考整体设计和潜在问题。",
+      "criteria": "写对两个角色名称得50%；描述职责得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "项目收尾阶段的“行政收尾”主要包含哪些工作？",
+    "difficulty": 3,
+    "analysis": "项目生命周期的最后一步。",
+    "details": {
+      "answer": "行政收尾包括：移交最终产品或服务、收集和归档项目记录、更新组织过程资产（如经验教训）、释放项目资源、编写最终项目报告。",
+      "criteria": "移交产品、归档记录、释放资源、总结经验。答出任意3点得满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“敏感性分析”（Sensitivity Analysis）？最常用的图表工具是什么？",
+    "difficulty": 5,
+    "analysis": "风险定量分析工具。",
+    "details": {
+      "answer": "敏感性分析用于确定哪些风险对项目具有最大的潜在影响，它考察当其他不确定因素保持基准值不变时，单个项目风险的变化对目标的影响。最常用的图表是龙卷风图（Tornado Diagram）。",
+      "criteria": "原理（单个风险对整体影响）得50%；工具（龙卷风图）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "根据权力/利益方格（Power/Interest Grid），对于“高权力、高利益”的干系人，应采取什么管理策略？",
+    "difficulty": 3,
+    "analysis": "干系人分类策略。",
+    "details": {
+      "answer": "对于高权力、高利益的干系人（如大客户、核心发起人），应采取“重点管理”（Manage Closely）的策略，需充分互动并确保其满意。",
+      "criteria": "答出“重点管理”或“紧密管理”得100%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“重构”（Refactoring）？它应在何时进行？",
+    "difficulty": 2,
+    "analysis": "软件工程核心概念。",
+    "details": {
+      "answer": "重构是在不改变软件外部行为（功能）的前提下，改善其内部结构（如提高可读性、降低复杂度）的过程。它应该贯穿于整个开发过程中，持续进行。",
+      "criteria": "定义（不改功能改结构）得60%；时机（持续/随时）得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述“仆人式领导”（Servant Leadership）在敏捷项目中的核心理念。",
+    "difficulty": 2,
+    "analysis": "敏捷项目经理（Scrum Master）的领导风格。",
+    "details": {
+      "answer": "核心理念是领导者服务于团队，而不是指挥团队。主要职责是移除团队遇到的障碍（Impediments），提供资源支持，并促进团队的自我组织和成长。",
+      "criteria": "核心（服务而非指挥）得50%；职责（移除障碍/支持）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在变更管理中，“纠正措施”（Corrective Action）与“预防措施”（Preventive Action）有何区别？",
+    "difficulty": 4,
+    "analysis": "变更请求的类型。",
+    "details": {
+      "answer": "纠正措施是为了使项目工作的未来绩效重新与项目管理计划一致（针对已发生的偏差）；预防措施是为了确保项目工作的未来绩效符合项目管理计划（针对可能发生的偏差）。",
+      "criteria": "纠正：针对已发生偏差/拉回正轨（50%）；预防：针对潜在偏差/防患未然（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是六西格玛（Six Sigma）管理中的DMAIC流程？",
+    "difficulty": 4,
+    "analysis": "质量改进方法论。",
+    "details": {
+      "answer": "DMAIC是六西格玛改进现有流程的方法，包括：定义（Define）、测量（Measure）、分析（Analyze）、改进（Improve）、控制（Control）。",
+      "criteria": "写对5个单词（中文或英文）得满分，错一个扣20%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述马斯洛需求层次理论（Maslow's Hierarchy of Needs）的五个层次（从低到高）。",
+    "difficulty": 2,
+    "analysis": "基础激励理论。",
+    "details": {
+      "answer": "1. 生理需求；2. 安全需求；3. 社交（归属与爱）需求；4. 尊重需求；5. 自我实现需求。",
+      "criteria": "顺序正确且名称正确得满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“敏捷估算扑克”（Planning Poker）？其主要目的是什么？",
+    "difficulty": 3,
+    "analysis": "敏捷团队估算工具。",
+    "details": {
+      "answer": "一种基于共识的博弈化估算技术。团队成员使用扑克牌同时出示估算值（通常是斐波那契数列）。目的是避免锚定效应（跟风），促进团队对需求理解的讨论，最终达成共识。",
+      "criteria": "描述（同时出牌/基于共识）得50%；目的（避免锚定/促进讨论）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在采购争议解决中，什么是ADR（替代争议解决方法）？",
+    "difficulty": 5,
+    "analysis": "合同管理的法律/行政知识。",
+    "details": {
+      "answer": "ADR是指在诉讼之前，通过非司法手段解决合同争议的方法。主要包括谈判（Negotiation）、调解（Mediation）和仲裁（Arbitration）。通常首选谈判。",
+      "criteria": "定义（非司法手段）得40%；列举（谈判/调解/仲裁）得60%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是“信息发射源”（Information Radiator）？举一个例子。",
+    "difficulty": 2,
+    "analysis": "敏捷沟通管理。",
+    "details": {
+      "answer": "信息发射源是指放置在显眼位置的、高度可见的显示图表，用于向路过的人即时共享项目状态信息，无需接收者主动挖掘。例子：看板墙、燃尽图、CI/CD状态显示器。",
+      "criteria": "定义（高度可见/被动接收）得60%；举例得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "软件维护通常分为哪四种类型？",
+    "difficulty": 4,
+    "analysis": "软件生命周期后期知识。",
+    "details": {
+      "answer": "1. 改正性维护（修复Bug）；2. 适应性维护（适应环境变化，如OS升级）；3. 完善性维护（增加新功能或优化）；4. 预防性维护（重构以防未来出错）。",
+      "criteria": "写对4种类型名称得满分。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在风险管理中，什么是“观察清单”（Watch List）？",
+    "difficulty": 3,
+    "analysis": "低优先级风险的处理。",
+    "details": {
+      "answer": "观察清单是风险登记册的一部分，用于记录那些优先级较低、近期发生概率小或影响不大的风险。这些风险不需要立即制定主动应对措施，但需要定期监控以防其状态发生变化。",
+      "criteria": "对象（低优先级风险）得50%；操作（定期监控/暂不行动）得50%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "项目商业论证（Business Case）和效益管理计划（Benefits Management Plan）有什么区别？",
+    "difficulty": 5,
+    "analysis": "项目立项前的商业文件。",
+    "details": {
+      "answer": "商业论证主要记录项目的经济可行性和立项理由（为什么要做）；效益管理计划主要描述项目效益（价值）将在何时、如何产生以及如何衡量（如何获取价值）。",
+      "criteria": "商业论证：可行性/理由（50%）；效益计划：如何实现和衡量价值（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "什么是沟通模型中的“噪声”（Noise）？",
+    "difficulty": 2,
+    "analysis": "沟通过程的基本要素。",
+    "details": {
+      "answer": "噪声是指在沟通过程中，干扰信息传递、导致信息被曲解或丢失的任何因素。包括物理噪声（噪音）、心理噪声（偏见）、语义噪声（语言不通）等。",
+      "criteria": "定义（干扰因素）得60%；举例得40%。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "简述“逐步完善”（Progressive Elaboration）的含义。",
+    "difficulty": 3,
+    "analysis": "项目规划的核心属性。",
+    "details": {
+      "answer": "逐步完善是指随着信息越来越详细、估算越来越准确，不断改进和细化计划的过程。它体现了项目计划从宏观到微观、从粗略到详细的动态演进特性。",
+      "criteria": "关键词：随信息增加而细化（50%）、动态演进（50%）。"
+    }
+  },
+  {
+    "type": "short_answer",
+    "stem": "在软件项目中，什么是“冒烟测试”（Smoke Testing）？",
+    "difficulty": 2,
+    "analysis": "软件测试常用术语。",
+    "details": {
+      "answer": "冒烟测试是对软件主要功能进行的一种预测试，通常在代码构建后进行。目的是确认程序具备基本的可运行性，未发生灾难性崩溃（“冒烟”），从而决定是否进入正式测试阶段。",
+      "criteria": "定义（构建后的预测试/基本功能）得60%；目的（决定是否继续测试）得40%。"
+    }
+  }
+]

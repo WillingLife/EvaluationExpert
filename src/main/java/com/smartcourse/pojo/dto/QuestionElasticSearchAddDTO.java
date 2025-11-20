@@ -1,8 +1,10 @@
 package com.smartcourse.pojo.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class QuestionElasticSearchAddDTO {
     /**
      * 文档的唯一ID,使用数据库中的主键。

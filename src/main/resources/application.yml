@@ -3,6 +3,8 @@ server:
   error:
     include-stacktrace: always
     include-message: always
+  tomcat:
+    keep-alive-timeout: 300000
 
 spring:
   application:
@@ -61,6 +63,7 @@ logging:
 dify:
   base-url: http://localhost/v1/workflows/run
   grade-short-question-key: app-VUZyLcX0EKv3yXAy513hnDtW
+  polish-assignment-key: app-76EbJHw5ftOwuHbRIG19VlgU
 
 
 
