@@ -20,6 +20,8 @@
 
 [9. 教师获取学生作业](#9教师获取学生作业)
 
+[10. 教师润色作业要求](#10教师润色作业要求)
+
 ## 1.教师新增作业
 
 请求路径: /teacher/assignment/add
@@ -242,5 +244,26 @@ Content-Type:application/octet-stream
       "assignment_url":"文档地址"
     }
   ]
+}
+```
+## 10.教师润色作业要求
+
+请求路径: `teacher/assignment/polish`
+
+请求方法：POST
+
+请求体：
+```jaon
+{
+    "assignment":"我想让学生画一张甘特图，使用敏捷和迭代的思路画"
+}
+```
+
+返回体：
+```
+{
+    "code": 200,
+    "msg": null,
+    "data": "作业题目"
 }
 ```
