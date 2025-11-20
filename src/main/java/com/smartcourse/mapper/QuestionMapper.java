@@ -1,5 +1,6 @@
 package com.smartcourse.mapper;
 
+import com.smartcourse.pojo.dto.FillBlankAnswerDTO;
 import com.smartcourse.pojo.entity.Question;
 import com.smartcourse.pojo.vo.QuestionQueryVO;
 import com.smartcourse.pojo.vo.exam.StudentScoreQuestionVO;
@@ -58,9 +59,9 @@ public interface QuestionMapper {
      * @param question 新题目信息
      */
     void update(Question question);
-    @Select("select blank_index, answer from evaluation_expert.question_fill_blank where question_id = #{questionId}")
-    @MapKey("blankIndex")
-    Map<Integer, List<String>> getFAnswer(Long questionId);
+
+    @Select("select blank_index as blankIndex, answer from evaluation_expert.question_fill_blank where question_id = #{questionId}")
+    List<FillBlankAnswerDTO> getFAnswer(Long questionId);
 
     @Select("select id from evaluation_expert.question_option where question_id = #{questionId} and correct = 1")
     Long getCAnswer(Long questionId);

@@ -130,222 +130,224 @@
             update_time = NOW(),
         </trim>
         WHERE id = #{id}
-          AND (
-            SELECT CASE
-                WHEN #{id} IS NULL THEN 1/0
-                ELSE 1
-            END
-          ) = 1
-          AND (
-            SELECT CASE
-                WHEN COUNT(1) = 1 THEN 1
-                ELSE 1/0
-            END
-            FROM (
-                SELECT e.id
-                FROM evaluation_expert.exam e
-                WHERE e.id = #{id}
-            ) exam_exists
-          ) = 1;
+        AND (
+        SELECT CASE
+        WHEN #{id} IS NULL THEN 1/0
+        ELSE 1
+        END
+        ) = 1
+        AND (
+        SELECT CASE
+        WHEN COUNT(1) = 1 THEN 1
+        ELSE 1/0
+        END
+        FROM (
+        SELECT e.id
+        FROM evaluation_expert.exam e
+        WHERE e.id = #{id}
+        ) exam_exists
+        ) = 1;
 
         <if test="hasExistingSections()">
             UPDATE evaluation_expert.exam_section
             <trim prefix="SET" suffixOverrides=",">
                 title = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.title != null">
-                            WHEN #{section.id} THEN #{section.title}
-                        </if>
-                    </foreach>
-                    ELSE title
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.title != null">
+                        WHEN #{section.id} THEN #{section.title}
+                    </if>
+                </foreach>
+                ELSE title
                 END,
                 question_type = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.questionType != null">
-                            WHEN #{section.id} THEN #{section.questionType}
-                        </if>
-                    </foreach>
-                    ELSE question_type
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.questionType != null">
+                        WHEN #{section.id} THEN #{section.questionType}
+                    </if>
+                </foreach>
+                ELSE question_type
                 END,
                 description = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.description != null">
-                            WHEN #{section.id} THEN #{section.description}
-                        </if>
-                    </foreach>
-                    ELSE description
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.description != null">
+                        WHEN #{section.id} THEN #{section.description}
+                    </if>
+                </foreach>
+                ELSE description
                 END,
                 choice_score = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.choiceScore != null">
-                            WHEN #{section.id} THEN #{section.choiceScore}
-                        </if>
-                    </foreach>
-                    ELSE choice_score
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.choiceScore != null">
+                        WHEN #{section.id} THEN #{section.choiceScore}
+                    </if>
+                </foreach>
+                ELSE choice_score
                 END,
                 order_no = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.orderNo != null">
-                            WHEN #{section.id} THEN #{section.orderNo}
-                        </if>
-                    </foreach>
-                    ELSE order_no
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.orderNo != null">
+                        WHEN #{section.id} THEN #{section.orderNo}
+                    </if>
+                </foreach>
+                ELSE order_no
                 END,
                 note = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.note != null">
-                            WHEN #{section.id} THEN #{section.note}
-                        </if>
-                    </foreach>
-                    ELSE note
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.note != null">
+                        WHEN #{section.id} THEN #{section.note}
+                    </if>
+                </foreach>
+                ELSE note
                 END,
                 choice_negative_score = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.choiceNegativeScore != null">
-                            WHEN #{section.id} THEN #{section.choiceNegativeScore}
-                        </if>
-                    </foreach>
-                    ELSE choice_negative_score
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.choiceNegativeScore != null">
+                        WHEN #{section.id} THEN #{section.choiceNegativeScore}
+                    </if>
+                </foreach>
+                ELSE choice_negative_score
                 END,
                 multiple_strategy = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.multipleStrategy != null">
-                            WHEN #{section.id} THEN #{section.multipleStrategy}
-                        </if>
-                    </foreach>
-                    ELSE multiple_strategy
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.multipleStrategy != null">
+                        WHEN #{section.id} THEN #{section.multipleStrategy}
+                    </if>
+                </foreach>
+                ELSE multiple_strategy
                 END,
                 multiple_strategy_conf = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null and section.multipleStrategyConf != null">
-                            WHEN #{section.id} THEN #{section.multipleStrategyConf}
-                        </if>
-                    </foreach>
-                    ELSE multiple_strategy_conf
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null and section.multipleStrategyConf != null">
+                        WHEN #{section.id} THEN #{section.multipleStrategyConf}
+                    </if>
+                </foreach>
+                ELSE multiple_strategy_conf
                 END,
                 update_time = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.id != null">
-                            WHEN #{section.id} THEN NOW()
-                        </if>
-                    </foreach>
-                    ELSE update_time
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.id != null">
+                        WHEN #{section.id} THEN NOW()
+                    </if>
+                </foreach>
+                ELSE update_time
                 END
             </trim>
             WHERE exam_id = #{id}
-              AND id IN <include refid="SectionIdInClause"/>
-              AND (
-                SELECT CASE
-                    WHEN EXISTS (
-                        SELECT 1
-                        FROM (
-                            <include refid="SectionIdSource"/>
-                        ) section_ids
-                        LEFT JOIN (
-                            SELECT s.id, s.exam_id
-                            FROM evaluation_expert.exam_section s
-                        ) sec ON sec.id = section_ids.id
-                        WHERE sec.id IS NULL OR sec.exam_id &lt;&gt; #{id}
-                    ) THEN 1/0
-                    ELSE 1
-                END
-              ) = 1;
+            AND id IN
+            <include refid="SectionIdInClause"/>
+            AND (
+            SELECT CASE
+            WHEN EXISTS (
+            SELECT 1
+            FROM (
+            <include refid="SectionIdSource"/>
+            ) section_ids
+            LEFT JOIN (
+            SELECT s.id, s.exam_id
+            FROM evaluation_expert.exam_section s
+            ) sec ON sec.id = section_ids.id
+            WHERE sec.id IS NULL OR sec.exam_id &lt;&gt; #{id}
+            ) THEN 1/0
+            ELSE 1
+            END
+            ) = 1;
         </if>
 
         <if test="hasExistingExamItems()">
             UPDATE evaluation_expert.exam_item
             <trim prefix="SET" suffixOverrides=",">
                 section_id = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.examItems != null and section.examItems.size() > 0">
-                            <foreach collection="section.examItems" item="item">
-                                <if test="item != null and item.id != null">
-                                    WHEN #{item.id}
-                                    THEN
-                                    <choose>
-                                        <when test="item.sectionId != null">
-                                            #{item.sectionId}
-                                        </when>
-                                        <otherwise>
-                                            #{section.id}
-                                        </otherwise>
-                                    </choose>
-                                </if>
-                            </foreach>
-                        </if>
-                    </foreach>
-                    ELSE section_id
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.examItems != null and section.examItems.size() > 0">
+                        <foreach collection="section.examItems" item="item">
+                            <if test="item != null and item.id != null">
+                                WHEN #{item.id}
+                                THEN
+                                <choose>
+                                    <when test="item.sectionId != null">
+                                        #{item.sectionId}
+                                    </when>
+                                    <otherwise>
+                                        #{section.id}
+                                    </otherwise>
+                                </choose>
+                            </if>
+                        </foreach>
+                    </if>
+                </foreach>
+                ELSE section_id
                 END,
                 question_id = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.examItems != null and section.examItems.size() > 0">
-                            <foreach collection="section.examItems" item="item">
-                                <if test="item != null and item.id != null and item.questionId != null">
-                                    WHEN #{item.id} THEN #{item.questionId}
-                                </if>
-                            </foreach>
-                        </if>
-                    </foreach>
-                    ELSE question_id
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.examItems != null and section.examItems.size() > 0">
+                        <foreach collection="section.examItems" item="item">
+                            <if test="item != null and item.id != null and item.questionId != null">
+                                WHEN #{item.id} THEN #{item.questionId}
+                            </if>
+                        </foreach>
+                    </if>
+                </foreach>
+                ELSE question_id
                 END,
                 score = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.examItems != null and section.examItems.size() > 0">
-                            <foreach collection="section.examItems" item="item">
-                                <if test="item != null and item.id != null and item.score != null">
-                                    WHEN #{item.id} THEN #{item.score}
-                                </if>
-                            </foreach>
-                        </if>
-                    </foreach>
-                    ELSE score
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.examItems != null and section.examItems.size() > 0">
+                        <foreach collection="section.examItems" item="item">
+                            <if test="item != null and item.id != null and item.score != null">
+                                WHEN #{item.id} THEN #{item.score}
+                            </if>
+                        </foreach>
+                    </if>
+                </foreach>
+                ELSE score
                 END,
                 order_no = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.examItems != null and section.examItems.size() > 0">
-                            <foreach collection="section.examItems" item="item">
-                                <if test="item != null and item.id != null and item.orderNo != null">
-                                    WHEN #{item.id} THEN #{item.orderNo}
-                                </if>
-                            </foreach>
-                        </if>
-                    </foreach>
-                    ELSE order_no
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.examItems != null and section.examItems.size() > 0">
+                        <foreach collection="section.examItems" item="item">
+                            <if test="item != null and item.id != null and item.orderNo != null">
+                                WHEN #{item.id} THEN #{item.orderNo}
+                            </if>
+                        </foreach>
+                    </if>
+                </foreach>
+                ELSE order_no
                 END,
                 question_type = CASE id
-                    <foreach collection="sections" item="section">
-                        <if test="section != null and section.examItems != null and section.examItems.size() > 0 and section.questionType != null">
-                            <foreach collection="section.examItems" item="item">
-                                <if test="item != null and item.id != null">
-                                    WHEN #{item.id} THEN #{section.questionType}
-                                </if>
-                            </foreach>
-                        </if>
-                    </foreach>
-                    ELSE question_type
+                <foreach collection="sections" item="section">
+                    <if test="section != null and section.examItems != null and section.examItems.size() > 0 and section.questionType != null">
+                        <foreach collection="section.examItems" item="item">
+                            <if test="item != null and item.id != null">
+                                WHEN #{item.id} THEN #{section.questionType}
+                            </if>
+                        </foreach>
+                    </if>
+                </foreach>
+                ELSE question_type
                 END
             </trim>
-            WHERE id IN <include refid="ExamItemIdInClause"/>
-              AND (
-                SELECT CASE
-                    WHEN EXISTS (
-                        SELECT 1
-                        FROM (
-                            <include refid="ExamItemIdSource"/>
-                        ) item_ids
-                        LEFT JOIN (
-                            SELECT ei.id, ei.section_id
-                            FROM evaluation_expert.exam_item ei
-                        ) ex_item ON ex_item.id = item_ids.id
-                        LEFT JOIN (
-                            SELECT s.id, s.exam_id
-                            FROM evaluation_expert.exam_section s
-                        ) section_ref ON section_ref.id = ex_item.section_id
-                        WHERE ex_item.id IS NULL OR section_ref.exam_id  &lt;&gt; #{id}
-                    ) THEN 1/0
-                    ELSE 1
-                END
-              ) = 1;
+            WHERE id IN
+            <include refid="ExamItemIdInClause"/>
+            AND (
+            SELECT CASE
+            WHEN EXISTS (
+            SELECT 1
+            FROM (
+            <include refid="ExamItemIdSource"/>
+            ) item_ids
+            LEFT JOIN (
+            SELECT ei.id, ei.section_id
+            FROM evaluation_expert.exam_item ei
+            ) ex_item ON ex_item.id = item_ids.id
+            LEFT JOIN (
+            SELECT s.id, s.exam_id
+            FROM evaluation_expert.exam_section s
+            ) section_ref ON section_ref.id = ex_item.section_id
+            WHERE ex_item.id IS NULL OR section_ref.exam_id &lt;&gt; #{id}
+            ) THEN 1/0
+            ELSE 1
+            END
+            ) = 1;
         </if>
     </update>
 
@@ -402,22 +404,24 @@
     <select id="getList" resultType="com.smartcourse.pojo.vo.exam.ExamList">
         SELECT e.id AS examId, e.name AS examName, e.status, s.total_score AS score
         FROM evaluation_expert.exam e
-                 LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id AND e.status = 'graded'
-        WHERE course_id = #{courseId}
+                 LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id
+        WHERE e.course_id = #{courseId}
+          AND (e.status = 'published' OR e.status = 'progressing')
+          AND s.exam_id IS NULL
     </select>
 
     <select id="getTeacherGetExamItemVOListByCourseId"
             parameterType="long"
             resultMap="TeacherGetExamItemResultMap">
-        SELECT e.id          AS exam_id,
-               e.name        AS exam_name,
-               e.description AS description,
-               e.total_score AS total_score,
-               e.start_time  AS start_time,
+        SELECT e.id               AS exam_id,
+               e.name             AS exam_name,
+               e.description      AS description,
+               e.total_score      AS total_score,
+               e.start_time       AS start_time,
                e.duration_minutes AS duration_minutes,
-               e.status      AS status,
-               e.create_time AS create_time,
-               e.update_time AS update_time
+               e.status           AS status,
+               e.create_time      AS create_time,
+               e.update_time      AS update_time
         FROM evaluation_expert.exam e
         WHERE e.course_id = #{courseId}
           AND e.deleted = 0

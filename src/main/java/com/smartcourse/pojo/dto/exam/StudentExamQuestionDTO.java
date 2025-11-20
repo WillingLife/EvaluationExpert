@@ -17,10 +17,27 @@ public class StudentExamQuestionDTO {
     /**
      * 获取单选/多选答案（选项ID列表）
      */
-    @SuppressWarnings("unchecked")
     public List<Long> getChoiceAnswer() {
-        if (studentAnswer instanceof List) {
-            return (List<Long>) studentAnswer;
+        if (studentAnswer instanceof List<?> rawList) {
+            // 安全地转换为Long列表
+            return rawList.stream()
+                    .map(this::convertToLong)
+                    .filter(java.util.Objects::nonNull)
+                    .collect(java.util.stream.Collectors.toList());
+        }
+        return null;
+    }
+
+    private Long convertToLong(Object obj) {
+        if (obj == null) return null;
+        if (obj instanceof Long) return (Long) obj;
+        if (obj instanceof Integer) return ((Integer) obj).longValue();
+        if (obj instanceof String) {
+            try {
+                return Long.valueOf((String) obj);
+            } catch (NumberFormatException e) {
+                return null;
+            }
         }
         return null;
     }
