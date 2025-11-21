@@ -402,7 +402,13 @@
     </update>
 
     <select id="getList" resultType="com.smartcourse.pojo.vo.exam.ExamList">
-        SELECT e.id AS examId, e.name AS examName, e.status, s.total_score AS score
+        SELECT e.id   AS examId,
+               e.name AS examName,
+               e.status,
+               e.total_score,
+               e.duration_minutes,
+               e.pass_score,
+               e.start_time
         FROM evaluation_expert.exam e
                  LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id
         WHERE e.course_id = #{courseId}

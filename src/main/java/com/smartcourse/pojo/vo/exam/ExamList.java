@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -12,5 +13,8 @@ public class ExamList {
     private Long examId;
     private String examName;
     private String status;
-    private BigDecimal score;
+    private BigDecimal totalScore;
+    private String durationMinutes;
+    private String passScore;
+    private LocalDateTime startTime;
 }
