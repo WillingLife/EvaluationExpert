@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartcourse.enums.QuestionTypeEnum;
 import com.smartcourse.mapper.*;
+import com.smartcourse.pojo.dto.FillBlankAnswerDTO;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.dto.exam.*;
 import com.smartcourse.pojo.entity.Exam;
@@ -213,7 +214,7 @@ public class StudentExamServiceImpl implements StudentExamService {
             for (StudentExamQuestionDTO question : section.getQuestions()) {
                 ExamScoreItemDTO examScoreItem = new ExamScoreItemDTO();
                 Long questionId = question.getQuestionId();
-                Long examItemId = examItemMapper.getId(sectionId,questionId);
+                Long examItemId = examItemMapper.getId(sectionId, questionId);
                 String answerJson = null;
                 BigDecimal score = BigDecimal.valueOf(0);
                 try {
@@ -222,8 +223,11 @@ public class StudentExamServiceImpl implements StudentExamService {
                             // 处理选择题
                             List<Long> choices = question.getChoiceAnswer();
                             Long optionId = questionMapper.getCAnswer(questionId);
-                            if (optionId.equals(choices.get(0))) {
-                                score = questionScore;
+                            if (!choices.isEmpty()) {
+                                Long choice = choices.get(0);
+                                if (Objects.equals(optionId, choice)) {
+                                    score = questionScore;
+                                }
                             }
                             yield objectMapper.writeValueAsString(choices);
                         }
@@ -251,19 +255,28 @@ public class StudentExamServiceImpl implements StudentExamService {
                             // 处理填空题
                             List<String> blanks = question.getFillBlankAnswer();
                             int length = blanks.size();
+                            if (length == 0) {
+                                yield objectMapper.writeValueAsString(blanks);
+                            }
                             int i = 1;
                             BigDecimal scoreBank = questionScore.divide(new BigDecimal(length), 2, RoundingMode.HALF_UP);
-                            Map<Integer, List<String>> fAnswer = questionMapper.getFAnswer(questionId);
+                            List<FillBlankAnswerDTO> answers = questionMapper.getFAnswer(questionId);
+                            Map<Integer, List<String>> fAnswer = answers.stream()
+                                    .collect(Collectors.groupingBy(
+                                            FillBlankAnswerDTO::getBlankIndex,
+                                            Collectors.mapping(FillBlankAnswerDTO::getAnswer, Collectors.toList())
+                                    ));
                             for (String blank : blanks) {
-                                List<String> answers = fAnswer.get(i);
-                                if (answers.contains(blank)) {
+                                List<String> answer = fAnswer.get(i);
+                                if (answer.contains(blank)) {
                                     score = score.add(scoreBank);
                                 }
+                                i++;
                             }
                             yield objectMapper.writeValueAsString(blanks);
                         }
                         case "short_answer" -> {
-                            // TODO 简答题AI通用 function(scoreId,examItemId)
+                            // TODO 简答题AI通用 function(scoreId,examItemId) 学生答案可能为空
                             // 处理简答题
                             String answer = question.getShortAnswer();
                             yield objectMapper.writeValueAsString(answer);
@@ -349,7 +362,8 @@ public class StudentExamServiceImpl implements StudentExamService {
         }
 
         try {
-            return objectMapper.readValue(strategyConf, new TypeReference<Map<String, Object>>() {});
+            return objectMapper.readValue(strategyConf, new TypeReference<Map<String, Object>>() {
+            });
         } catch (Exception e) {
             log.warn("Failed to parse strategy config: {}", strategyConf, e);
             return Collections.emptyMap();

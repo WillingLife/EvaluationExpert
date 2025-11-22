@@ -7,7 +7,7 @@
             deadline, create_time, update_time, `delete`
         ) values (
             #{name}, #{description}, #{courseId}, #{submitLimit}, #{status}, #{version}, #{creator},
-            #{deadline}, #{createTime}, #{updateTime}, #{delete}
+            #{deadline}, #{createTime}, #{updateTime}, #{deleted}
         )
     </insert>
 
@@ -24,7 +24,7 @@
             <if test="deadline != null">deadline = #{deadline},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
-            <if test="delete != null">`delete` = #{delete},</if>
+            <if test="delete != null">`delete` = #{deleted},</if>
         </set>
         where id = #{id}
     </update>
@@ -32,7 +32,7 @@
     <select id="selectById" resultType="com.smartcourse.pojo.entity.Assignment">
         select id, name, description, course_id as courseId, submit_limit as submitLimit,
                status, version, creator, deadline, create_time as createTime,
-               update_time as updateTime, `delete` as `delete`
+               update_time as updateTime, `delete` as deleted
         from assignment
         where id = #{id}
         limit 1
@@ -41,7 +41,7 @@
     <select id="selectByTeacherAndCourse" resultType="com.smartcourse.pojo.entity.Assignment">
         select id, name, description, course_id as courseId, submit_limit as submitLimit,
                status, version, creator, deadline, create_time as createTime,
-               update_time as updateTime, `delete` as `delete`
+               update_time as updateTime, `delete` as deleted
         from assignment
         where creator = #{creator} and course_id = #{courseId}
           and ( `delete` is null or `delete` = false )
@@ -70,5 +70,18 @@
         where a.course_id = #{courseId}
           and (a.`delete` is null or a.`delete` = false)
         order by a.update_time desc, a.id desc
+    </select>
+
+    <select id="getStudents" resultType="com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO">
+        SELECT s.id,
+               s.name                                                        AS studentName,
+               CASE WHEN ss.id IS NOT NULL THEN ss.status ELSE 'pending' END AS status,
+               ss.score
+        FROM evaluation_expert.assignment a
+                 LEFT JOIN evaluation_expert.student_course sc ON a.course_id = sc.course_id
+                 LEFT JOIN evaluation_expert.student s ON s.id = sc.student_id
+                 LEFT JOIN evaluation_expert.assignment_score ss
+                           ON a.id = ss.assignment_id AND ss.student_id = sc.student_id
+        WHERE a.id = #{assignmentId}
     </select>
 </mapper>

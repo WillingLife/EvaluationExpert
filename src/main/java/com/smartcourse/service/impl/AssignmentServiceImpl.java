@@ -34,6 +34,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     /**
      * 新增作业
+     *
      * @param assignmentAddDTO 作业新增信息
      * @return 作业ID
      */
@@ -45,6 +46,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         BeanUtils.copyProperties(assignmentAddDTO, assignment);
 
         // 补全默认字段
+        assignment.setCreator(assignmentAddDTO.getTeacherId());
         assignment.setStatus(StatusConstant.ASSIGNMENT_DRAFT);
         assignment.setVersion(1);
         assignment.setCreateTime(LocalDateTime.now());
@@ -53,13 +55,14 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         // 写入数据库
         assignmentMapper.insert(assignment);
-        
+
         // 返回作业ID
         return AssignmentIdVO.builder().assignmentId(assignment.getId()).build();
     }
 
     /**
      * 修改作业
+     *
      * @param assignmentUpdateDTO 作业修改信息
      * @return 作业ID
      */
@@ -76,7 +79,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         Assignment assignment = new Assignment();
         BeanUtils.copyProperties(assignmentUpdateDTO, assignment);
         assignment.setId(assignmentUpdateDTO.getAssignmentId());
-        assignment.setDeadline(assignmentUpdateDTO.getDeadline() != null ? assignmentUpdateDTO.getDeadline().toLocalDateTime() : null);
+        assignment.setDeadline(assignmentUpdateDTO.getDeadline() != null ? assignmentUpdateDTO.getDeadline() : null);
         assignment.setUpdateTime(LocalDateTime.now());
 
         // 更新数据库
@@ -87,6 +90,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     /**
      * 教师评价学生作业
+     *
      * @param teacherGradeDTO 评分信息
      * @return 作业评分ID
      */
@@ -94,7 +98,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Transactional(rollbackFor = Exception.class)
     public AssignmentScoreIdVO gradeAssignment(TeacherGradeAssignmentDTO teacherGradeDTO) {
         // 校验评分记录是否存在
-        AssignmentScore assignmentScore = assignmentScoreMapper.selectById(teacherGradeDTO.getAssignmentScoreId());
+        AssignmentScore assignmentScore = assignmentScoreMapper.select(teacherGradeDTO);
         if (assignmentScore == null) {
             throw new IllegalArgumentException(MessageConstant.ASSIGNMENT_SCORE_NOT_EXIST);
         }
@@ -110,8 +114,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         // 记录教师评语
         AssignmentRemark assignmentRemark = new AssignmentRemark();
-        assignmentRemark.setAssignmentScoreId(teacherGradeDTO.getAssignmentScoreId());
-        assignmentRemark.setTeacherRemark(teacherGradeDTO.getTeacherRemark());
+        assignmentRemark.setAssignmentScoreId(assignmentScore.getId());
+        assignmentRemark.setTeacherRemark(teacherGradeDTO.getComment());
         assignmentRemark.setCreateTime(LocalDateTime.now());
         assignmentRemark.setUpdateTime(LocalDateTime.now());
         assignmentRemark.setDeleted(false);
@@ -125,8 +129,9 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     /**
      * 学生提交作业
+     *
      * @param studentSubmitMetaDTO 提交元数据
-     * @param file 作业文件
+     * @param file                 作业文件
      * @return 评分ID与文件URL
      */
     @Override
@@ -166,7 +171,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignmentScoreRecord.setUpdateTime(LocalDateTime.now());
         assignmentScoreRecord.setDeleted(false);
 
-        assignmentScoreMapper.deleted(studentSubmitMetaDTO.getAssignmentId(),studentSubmitMetaDTO.getStudentId());
+        assignmentScoreMapper.deleted(studentSubmitMetaDTO.getAssignmentId(), studentSubmitMetaDTO.getStudentId());
         assignmentScoreMapper.insert(assignmentScoreRecord);
 
         // 返回评分ID与文件URL
@@ -178,7 +183,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     /**
      * 获取作业反馈
-     * @param studentId 学生ID
+     *
+     * @param studentId    学生ID
      * @param assignmentId 作业ID
      * @return 反馈信息
      */
@@ -219,6 +225,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     /**
      * 教师按课程查询作业列表
+     *
      * @param teacherAssignmentListDTO 查询条件
      * @return 作业列表
      */
@@ -227,15 +234,11 @@ public class AssignmentServiceImpl implements AssignmentService {
         List<Assignment> assignments = assignmentMapper.selectByTeacherAndCourse(teacherAssignmentListDTO.getTeacherId(), teacherAssignmentListDTO.getCourseId());
         List<AssignmentListItemVO> items = new ArrayList<>();
         for (Assignment assignment : assignments) {
-            String deadlineStr = null;
-            if (assignment.getDeadline() != null) {
-                deadlineStr = assignment.getDeadline().atOffset(java.time.ZoneOffset.UTC).toInstant().toString();
-            }
             items.add(AssignmentListItemVO.builder()
                     .assignmentId(assignment.getId())
                     .name(assignment.getName())
                     .status(assignment.getStatus())
-                    .deadline(deadlineStr)
+                    .deadline(assignment.getDeadline())
                     .build());
         }
         return items;
@@ -243,6 +246,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     /**
      * 学生按课程查询作业列表
+     *
      * @param studentAssignmentListDTO 查询条件
      * @return 作业列表
      */
@@ -251,15 +255,11 @@ public class AssignmentServiceImpl implements AssignmentService {
         List<Assignment> assignments = assignmentMapper.selectByCourse(studentAssignmentListDTO.getCourseId());
         List<AssignmentListItemVO> items = new ArrayList<>();
         for (Assignment assignment : assignments) {
-            String deadlineStr = null;
-            if (assignment.getDeadline() != null) {
-                deadlineStr = assignment.getDeadline().atOffset(java.time.ZoneOffset.UTC).toInstant().toString();
-            }
             items.add(AssignmentListItemVO.builder()
                     .assignmentId(assignment.getId())
                     .name(assignment.getName())
                     .status(assignment.getStatus())
-                    .deadline(deadlineStr)
+                    .deadline(assignment.getDeadline())
                     .build());
         }
         return items;
@@ -267,6 +267,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     /**
      * 教师删除作业（逻辑删除）
+     *
      * @param assignmentDeleteDTO 删除条件
      */
     @Override

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Data
@@ -17,5 +18,5 @@ public class AssignmentAddDTO {
     private String description;
     @JsonProperty("submit_limit")
     private Integer submitLimit;
-    private OffsetDateTime deadline;
+    private LocalDateTime deadline;
 }

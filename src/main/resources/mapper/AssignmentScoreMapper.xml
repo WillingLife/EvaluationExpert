@@ -29,12 +29,22 @@
         where id = #{id}
     </update>
 
-    <select id="selectById" resultType="com.smartcourse.pojo.entity.AssignmentScore">
-        select id, assignment_id as assignmentId, student_id as studentId, score, status, submit_no as submitNo,
-               submit_file_url as submitFileUrl, grader, note, create_time as createTime, update_time as updateTime,
+    <select id="select" resultType="com.smartcourse.pojo.entity.AssignmentScore">
+        select id,
+               assignment_id   as assignmentId,
+               student_id      as studentId,
+               score,
+               status,
+               submit_no       as submitNo,
+               submit_file_url as submitFileUrl,
+               grader,
+               note,
+               create_time     as createTime,
+               update_time     as updateTime,
                deleted
-        from assignment_score
-        where id = #{id}
+        from evaluation_expert.assignment_score
+        where assignment_id = #{assignmentId}
+          and student_id = #{studentId}
         limit 1
     </select>
 

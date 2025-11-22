@@ -13,12 +13,14 @@ import com.smartcourse.pojo.dto.teacher.assignment.TeacherPolishAssignmentDTO;
 import com.smartcourse.pojo.entity.AssignmentScore;
 import com.smartcourse.pojo.vo.AssignmentVO;
 import com.smartcourse.pojo.vo.dify.DifyPolishAssignmentVO;
+import com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TeacherGetAssignmentVO;
 import com.smartcourse.service.TeacherAssignmentService;
 import com.smartcourse.utils.AliyunOSSOperator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class TeacherAssignmentServiceImpl implements TeacherAssignmentService {
         AssignmentScore latest = list.stream()
                 .max(Comparator.comparing(AssignmentScore::getSubmitNo))
                 .orElse(null);
-        if(latest == null) {
+        if (latest == null) {
             throw new IllegalOperationException("operation fail");
         }
         AssignmentVO assignment = assignmentMapper.getAssignment(dto.getAssignmentId());
@@ -48,6 +50,11 @@ public class TeacherAssignmentServiceImpl implements TeacherAssignmentService {
                 .description(assignment.getDescription())
                 .assignmentUrl(url)
                 .build();
+    }
+
+    @Override
+    public List<TaskStudentListVO> getStudents(Integer assignmentId) {
+        return assignmentMapper.getStudents(assignmentId);
     }
 
     @Override

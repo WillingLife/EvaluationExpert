@@ -43,14 +43,15 @@
     </update>
 
     <insert id="submit">
-        INSERT INTO evaluation_expert.exam_score_item(score_id, exam_item_id, answer, create_time, update_time)
+        INSERT INTO evaluation_expert.exam_score_item(score_id, exam_item_id, answer, create_time, update_time,score)
         <foreach collection="examScoreItems" item="i" separator=" UNION ALL ">
             SELECT
             #{i.scoreId} as score_id,
             (SELECT id FROM evaluation_expert.exam_item WHERE question_id = #{i.questionId}) as exam_item_id,
             #{i.answer} as answer,
             #{i.createTime} as create_time,
-            #{i.updateTime} as update_time
+            #{i.updateTime} as update_time,
+            #{i.score}
         </foreach>
     </insert>
 
