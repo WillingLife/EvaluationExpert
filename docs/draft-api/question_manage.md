@@ -151,7 +151,7 @@
     "search_answer":false,
     "use_vector":true,
     "author_id":null,
-    "useKnowledge_args":true,
+    "use_knowledge_args":true,
     "knowledge":[],
     "reranker":
     {
