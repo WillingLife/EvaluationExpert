@@ -1,8 +1,6 @@
 package com.smartcourse.service;
 
-import com.smartcourse.infra.es.vo.QuestionEsSearchResult;
 import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
-import com.smartcourse.pojo.dto.QuestionElasticSearchQueryDTO;
 
 public interface QuestionElasticSearchService {
 
@@ -13,5 +11,5 @@ public interface QuestionElasticSearchService {
      */
     void addQuestionDocument(QuestionElasticSearchAddDTO dto);
 
-    QuestionEsSearchResult queryQuestionDocument(QuestionElasticSearchQueryDTO dto);
+
 }

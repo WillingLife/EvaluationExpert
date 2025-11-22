@@ -1,7 +1,9 @@
 package com.smartcourse.listener;
 
 import com.smartcourse.infra.rabbitmq.GradeShortQuestionTaskMessage;
+import com.smartcourse.infra.rabbitmq.MappingKnowledgeTaskMessage;
 import com.smartcourse.infra.rabbitmq.RabbitTaskConstants;
+import com.smartcourse.service.DifyService;
 import com.smartcourse.service.GradeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TaskWorker {
     private final GradeService gradeService;
+    private final DifyService difyService;
 
     @RabbitListener(queues = RabbitTaskConstants.GRADE_SHORT_QUESTION_QUEUE)
     public void handleGradeShortQuestionTask(GradeShortQuestionTaskMessage message) {
@@ -25,5 +28,16 @@ public class TaskWorker {
                 message.getExamItemId()
         );
         gradeService.gradeShortQuestion(message.getScoreId(), message.getExamItemId());
+    }
+
+    @RabbitListener(queues = RabbitTaskConstants.MAPPING_KNOWLEDGE_QUEUE)
+    public void handleMappingKnowledgeTask(MappingKnowledgeTaskMessage message) {
+        log.info(
+                "Received mappingKnowledge task with questionId={} courseId={} question={}",
+                message.getQuestionId(),
+                message.getCourseId(),
+                message.getQuestion()
+        );
+        difyService.mappingKnowledge(message.getCourseId(), message.getQuestionId(), message.getQuestion());
     }
 }

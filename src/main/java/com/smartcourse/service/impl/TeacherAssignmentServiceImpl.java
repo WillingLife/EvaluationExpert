@@ -1,11 +1,18 @@
 package com.smartcourse.service.impl;
 
+import com.smartcourse.converter.DifyConverter;
 import com.smartcourse.exception.IllegalOperationException;
+import com.smartcourse.infra.http.dify.DifyClientGateway;
 import com.smartcourse.mapper.AssignmentMapper;
 import com.smartcourse.mapper.AssignmentScoreMapper;
+import com.smartcourse.pojo.dto.dify.base.blocked.DifyCompletionResponse;
+import com.smartcourse.pojo.dto.dify.DifyPolishAssignmentDTO;
+import com.smartcourse.pojo.dto.dify.base.blocked.DifyRequestBaseDTO;
 import com.smartcourse.pojo.dto.teacher.assignment.TeacherGetAssignmentDTO;
+import com.smartcourse.pojo.dto.teacher.assignment.TeacherPolishAssignmentDTO;
 import com.smartcourse.pojo.entity.AssignmentScore;
 import com.smartcourse.pojo.vo.AssignmentVO;
+import com.smartcourse.pojo.vo.dify.DifyPolishAssignmentVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TeacherGetAssignmentVO;
 import com.smartcourse.service.TeacherAssignmentService;
@@ -20,9 +27,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TeacherAssignmentServiceImpl implements TeacherAssignmentService {
-    private final AssignmentScoreMapper assignmentScoreMapper;
+    private final DifyConverter  difyConverter;
+    private final AssignmentScoreMapper  assignmentScoreMapper;
     private final AssignmentMapper assignmentMapper;
     private final AliyunOSSOperator aliyunOSSOperator;
+    private final DifyClientGateway difyClientGateway;
 
     @Override
     @Transactional
@@ -46,5 +55,14 @@ public class TeacherAssignmentServiceImpl implements TeacherAssignmentService {
     @Override
     public List<TaskStudentListVO> getStudents(Integer assignmentId) {
         return assignmentMapper.getStudents(assignmentId);
+    }
+
+    @Override
+    public String polishAssignment(TeacherPolishAssignmentDTO dto) {
+        DifyPolishAssignmentDTO difyDTO = difyConverter.polishAssignmentDTOToDifyDTO(dto);
+        DifyCompletionResponse<DifyPolishAssignmentVO> response = difyClientGateway.polishAssignmentClient()
+                .polishAssignment(new DifyRequestBaseDTO<>("user", difyDTO));
+
+        return response.getData().getOutputs().getResult();
     }
 }

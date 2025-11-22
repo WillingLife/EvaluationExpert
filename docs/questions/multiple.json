@@ -1,0 +1,1402 @@
+[
+  {
+    "type": "multiple",
+    "stem": "在软件项目管理中，关于“项目”特性的描述，下列哪些是正确的？",
+    "difficulty": 5,
+    "analysis": "项目的核心特性包括临时性（有明确的开始和结束时间）和独特性（创造独特的产品、服务或成果）。渐进明细也是项目的特点之一，意味着随着项目的进行，细节会越来越清晰。重复性通常是运营的特点，而非项目的特点。",
+    "details": {
+      "options": [
+        { "content": "临时性", "correct": true, "sort_order": 1 },
+        { "content": "独特性", "correct": true, "sort_order": 2 },
+        { "content": "重复性", "correct": false, "sort_order": 3 },
+        { "content": "渐进明细", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "以下关于敏捷开发（Agile）与瀑布模型（Waterfall）的区别，描述正确的有哪些？",
+    "difficulty": 5,
+    "analysis": "敏捷开发强调迭代和增量交付，拥抱变化，且客户深度参与开发过程。瀑布模型则是严格的阶段性开发，通常在项目初期冻结需求，变更成本较高。敏捷并不意味着没有文档，而是强调“工作的软件高于详尽的文档”。",
+    "details": {
+      "options": [
+        { "content": "敏捷开发更强调对变更的响应，而非遵循通过的计划", "correct": true, "sort_order": 1 },
+        { "content": "瀑布模型通常在项目初期就需要明确并冻结大部分需求", "correct": true, "sort_order": 2 },
+        { "content": "敏捷开发不需要任何文档", "correct": false, "sort_order": 3 },
+        { "content": "敏捷开发通过短周期的迭代来交付可工作的软件", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目章程（Project Charter）是项目整合管理中的重要文件，其主要作用包括哪些？",
+    "difficulty": 5,
+    "analysis": "项目章程正式批准项目成立，授权项目经理使用组织资源，并记录项目的高层级需求和总体目标。详细的WBS和进度计划是在规划阶段制定的，不属于章程内容。",
+    "details": {
+      "options": [
+        { "content": "正式批准项目成立", "correct": true, "sort_order": 1 },
+        { "content": "授权项目经理动用组织资源", "correct": true, "sort_order": 2 },
+        { "content": "规定项目的详细WBS分解结构", "correct": false, "sort_order": 3 },
+        { "content": "记录项目的高层级需求和总体目标", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在收集软件项目需求时，常用的技术和方法包括哪些？",
+    "difficulty": 5,
+    "analysis": "收集需求的常用方法包括访谈（一对一交流）、原型法（制作模型获得反馈）、德尔菲技术（专家匿名达成共识）等。蒙特卡洛分析通常用于风险或进度估算，不用于收集需求。",
+    "details": {
+      "options": [
+        { "content": "访谈", "correct": true, "sort_order": 1 },
+        { "content": "原型法", "correct": true, "sort_order": 2 },
+        { "content": "德尔菲技术", "correct": true, "sort_order": 3 },
+        { "content": "蒙特卡洛分析", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于工作分解结构（WBS），以下说法正确的有哪些？",
+    "difficulty": 5,
+    "analysis": "WBS必须遵循100%原则，包含所有项目工作。WBS的最底层是工作包。WBS是面向可交付成果的分解，不仅仅是任务列表。WBS字典是对WBS中要素的详细描述。",
+    "details": {
+      "options": [
+        { "content": "WBS应包含项目的所有工作（100%原则）", "correct": true, "sort_order": 1 },
+        { "content": "WBS的最底层通常称为工作包", "correct": true, "sort_order": 2 },
+        { "content": "WBS就是项目进度计划表", "correct": false, "sort_order": 3 },
+        { "content": "WBS是面向可交付成果的层次化分解", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目范围蔓延（Scope Creep）是软件项目中常见的问题，导致范围蔓延的原因通常包括？",
+    "difficulty": 5,
+    "analysis": "范围蔓延指未对时间、成本和资源做相应调整，未经控制的产品或项目范围的扩大。原因通常包括缺乏正式的变更控制流程、需求定义不清晰、客户与团队沟通不畅等。项目经理严格执行变更控制是防止蔓延的手段，而非原因。",
+    "details": {
+      "options": [
+        { "content": "缺乏有效的变更控制过程", "correct": true, "sort_order": 1 },
+        { "content": "项目初期需求定义模糊不清", "correct": true, "sort_order": 2 },
+        { "content": "直接响应客户的所有临时新增要求而未评估影响", "correct": true, "sort_order": 3 },
+        { "content": "项目经理严格执行变更审批", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在软件项目进度管理中，估算活动持续时间的常用技术有？",
+    "difficulty": 5,
+    "analysis": "常用的估算技术包括：类比估算（参考类似历史项目）、参数估算（利用统计关系）、三点估算（考虑最乐观、最悲观、最可能）。SWOT分析是用于战略或风险识别的工具，不用于时间估算。",
+    "details": {
+      "options": [
+        { "content": "类比估算", "correct": true, "sort_order": 1 },
+        { "content": "参数估算", "correct": true, "sort_order": 2 },
+        { "content": "三点估算", "correct": true, "sort_order": 3 },
+        { "content": "SWOT分析", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关键路径法（CPM）是进度网络分析的重要技术，关于关键路径，下列描述正确的是？",
+    "difficulty": 5,
+    "analysis": "关键路径是项目中时间最长的路径，决定了项目的最短工期。关键路径上的活动总浮动时间通常为零。一个项目可能存在多条关键路径。关键路径上的活动延误会导致项目整体延误，但非关键路径活动延误不一定导致项目延误（取决于其浮动时间）。",
+    "details": {
+      "options": [
+        { "content": "关键路径是网络图中总持续时间最长的路径", "correct": true, "sort_order": 1 },
+        { "content": "关键路径上的活动总浮动时间通常为零", "correct": true, "sort_order": 2 },
+        { "content": "项目中只能有一条关键路径", "correct": false, "sort_order": 3 },
+        { "content": "缩短关键路径的长度可以缩短项目工期", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "当软件项目进度滞后时，项目经理可以采取的进度压缩技术包括哪些？",
+    "difficulty": 5,
+    "analysis": "进度压缩技术主要包括赶工（投入更多资源，以成本换时间）和快速跟进（并行执行原本按顺序进行的活动，以风险换时间）。减少项目范围虽然能加快进度，但属于范围调整，不属于标准的“进度压缩”技术定义。资源平衡通常会延长工期。",
+    "details": {
+      "options": [
+        { "content": "赶工（Crashing）", "correct": true, "sort_order": 1 },
+        { "content": "快速跟进（Fast Tracking）", "correct": true, "sort_order": 2 },
+        { "content": "资源平衡（Resource Leveling）", "correct": false, "sort_order": 3 },
+        { "content": "增加项目范围", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在项目变更管理中，变更控制委员会（CCB）的主要职责包括？",
+    "difficulty": 5,
+    "analysis": "CCB负责评审、批准、推迟或否决变更请求，并记录变更决定。提出变更申请通常是项目干系人（团队、客户等）的权利，而非CCB的职责。执行变更实施通常由项目团队完成。",
+    "details": {
+      "options": [
+        { "content": "评审变更请求", "correct": true, "sort_order": 1 },
+        { "content": "批准或否决变更请求", "correct": true, "sort_order": 2 },
+        { "content": "提出所有的变更申请", "correct": false, "sort_order": 3 },
+        { "content": "实施变更涉及的具体开发工作", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目管理计划是项目的主计划，它通常包含以下哪些子计划？",
+    "difficulty": 5,
+    "analysis": "项目管理计划整合了所有子计划，包括范围管理计划、进度管理计划、成本管理计划、质量管理计划、沟通管理计划等。需求跟踪矩阵和风险登记册是重要的项目文件，但通常被视为项目文件而非管理计划的直接子组件（尽管它们紧密相关，但在PMBOK体系中分类不同，不过本题主要考察包含的“管理类”计划）。",
+    "details": {
+      "options": [
+        { "content": "范围管理计划", "correct": true, "sort_order": 1 },
+        { "content": "沟通管理计划", "correct": true, "sort_order": 2 },
+        { "content": "风险管理计划", "correct": true, "sort_order": 3 },
+        { "content": "源代码版本控制计划", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在Scrum敏捷框架中，包含的角色主要有？",
+    "difficulty": 5,
+    "analysis": "Scrum的三个核心角色是：产品负责人（Product Owner）、Scrum Master（敏捷教练/流程主管）和开发团队（Development Team）。项目经理（Project Manager）不是Scrum框架中的标准角色（虽然在混合型组织中可能存在）。",
+    "details": {
+      "options": [
+        { "content": "Product Owner", "correct": true, "sort_order": 1 },
+        { "content": "Scrum Master", "correct": true, "sort_order": 2 },
+        { "content": "Project Manager", "correct": false, "sort_order": 3 },
+        { "content": "Development Team", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于确认范围（Validate Scope）和控制质量（Control Quality）的区别，下列说法正确的是？",
+    "difficulty": 5,
+    "analysis": "控制质量关注可交付成果的正确性（是否满足质量标准），通常由内部质量部门执行；确认范围关注可交付成果的验收（是否满足客户需求），由客户或发起人执行。确认范围通常在控制质量之后进行（或并行）。",
+    "details": {
+      "options": [
+        { "content": "控制质量主要关注可交付成果的正确性和质量标准", "correct": true, "sort_order": 1 },
+        { "content": "确认范围主要关注可交付成果的验收", "correct": true, "sort_order": 2 },
+        { "content": "控制质量通常由客户进行", "correct": false, "sort_order": 3 },
+        { "content": "确认范围通常在控制质量之前完成", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "配置管理（Configuration Management）在软件项目中至关重要，其核心活动包括？",
+    "difficulty": 5,
+    "analysis": "配置管理包括配置识别、配置状态记录、配置核实与审计。它确保产品的功能和物理特征与需求、设计和操作信息保持一致。编写测试用例是测试活动，不属于配置管理的核心定义。",
+    "details": {
+      "options": [
+        { "content": "配置识别", "correct": true, "sort_order": 1 },
+        { "content": "配置状态记录", "correct": true, "sort_order": 2 },
+        { "content": "配置核实与审计", "correct": true, "sort_order": 3 },
+        { "content": "编写测试用例", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在项目收尾阶段，项目经理需要完成的工作包括？",
+    "difficulty": 5,
+    "analysis": "收尾阶段包括：移交最终产品、收集经验教训（Lessons Learned）、释放项目资源、更新组织过程资产。启动下一阶段的规划属于新项目的规划过程，不是当前项目的收尾工作。",
+    "details": {
+      "options": [
+        { "content": "获得客户或发起人的正式验收", "correct": true, "sort_order": 1 },
+        { "content": "总结经验教训并更新知识库", "correct": true, "sort_order": 2 },
+        { "content": "释放项目团队资源", "correct": true, "sort_order": 3 },
+        { "content": "启动下一阶段的详细规划", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "DevOps是软件项目管理中的一种文化和实践，它强调的是？",
+    "difficulty": 5,
+    "analysis": "DevOps强调开发（Dev）和运维（Ops）的协作与整合，通过自动化流程（CI/CD）加快交付速度，提高发布质量。它打破了部门墙，而非隔离。它通常采用敏捷方法，而非传统的瀑布流。",
+    "details": {
+      "options": [
+        { "content": "开发部门与运维部门的紧密协作", "correct": true, "sort_order": 1 },
+        { "content": "软件交付流程的自动化（CI/CD）", "correct": true, "sort_order": 2 },
+        { "content": "开发与运维的严格隔离", "correct": false, "sort_order": 3 },
+        { "content": "持续集成与持续部署", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于需求跟踪矩阵（RTM），以下描述正确的有哪些？",
+    "difficulty": 5,
+    "analysis": "RTM用于连接需求与可交付成果，确保每个需求都有对应的测试用例和实现，有助于防止范围蔓延。它不用于估算成本。",
+    "details": {
+      "options": [
+        { "content": "连接了需求来源和可交付成果", "correct": true, "sort_order": 1 },
+        { "content": "确保每个需求都被测试和验证", "correct": true, "sort_order": 2 },
+        { "content": "有助于防止范围蔓延（Gold Plating）", "correct": true, "sort_order": 3 },
+        { "content": "主要用于估算项目成本", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "下列哪些情况可能导致软件项目的“技术债务”（Technical Debt）增加？",
+    "difficulty": 5,
+    "analysis": "技术债务通常由为了短期速度而牺牲长期质量的行为引起，如缺乏文档、代码质量差、跳过测试等。重构代码是偿还技术债务的行为，而非增加债务。",
+    "details": {
+      "options": [
+        { "content": "为了赶进度而牺牲代码质量", "correct": true, "sort_order": 1 },
+        { "content": "缺乏必要的自动化测试", "correct": true, "sort_order": 2 },
+        { "content": "文档缺失或长期不更新", "correct": true, "sort_order": 3 },
+        { "content": "定期进行代码重构", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "挣值管理（EVM）中，如果CPI（成本绩效指数）< 1 且 SPI（进度绩效指数）> 1，这表示项目状态如何？",
+    "difficulty": 5,
+    "analysis": "CPI < 1 表示成本超支（花费大于预算），SPI > 1 表示进度超前（实际完成量大于计划量）。",
+    "details": {
+      "options": [
+        { "content": "成本超支", "correct": true, "sort_order": 1 },
+        { "content": "成本节约", "correct": false, "sort_order": 2 },
+        { "content": "进度超前", "correct": true, "sort_order": 3 },
+        { "content": "进度落后", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "制定软件项目进度计划时，前导图法（PDM）中定义的逻辑关系包括？",
+    "difficulty": 5,
+    "analysis": "PDM（紧前关系绘图法）包含四种逻辑关系：完成到开始（FS）、开始到开始（SS）、完成到完成（FF）、开始到完成（SF）。",
+    "details": {
+      "options": [
+        { "content": "完成到开始（FS）", "correct": true, "sort_order": 1 },
+        { "content": "开始到开始（SS）", "correct": true, "sort_order": 2 },
+        { "content": "完成到完成（FF）", "correct": true, "sort_order": 3 },
+        { "content": "包含与被包含（IE）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在软件项目成本管理中，关于“质量成本（COQ）”的分类，属于“一致性成本（Cost of Conformance）”的有哪些？",
+    "difficulty": 5,
+    "analysis": "一致性成本是为了防止失败而花费的资金，包括预防成本（如培训、设备、文档）和评估成本（如测试、检查）。失败成本（内部和外部）属于非一致性成本。缺陷修复和保修属于失败成本。",
+    "details": {
+      "options": [
+        { "content": "员工培训费", "correct": true, "sort_order": 1 },
+        { "content": "测试与检查费", "correct": true, "sort_order": 2 },
+        { "content": "返工修复费", "correct": false, "sort_order": 3 },
+        { "content": "保修服务费", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在软件规模估算中，常用的方法包括？",
+    "difficulty": 5,
+    "analysis": "软件规模估算常用方法包括功能点分析（Function Point Analysis）、代码行（LOC/SLOC）估算、故事点（Story Points，敏捷常用）。关键路径法是进度规划方法，不是规模估算方法。",
+    "details": {
+      "options": [
+        { "content": "功能点分析（FPA）", "correct": true, "sort_order": 1 },
+        { "content": "源代码行（LOC）", "correct": true, "sort_order": 2 },
+        { "content": "故事点（Story Points）", "correct": true, "sort_order": 3 },
+        { "content": "关键路径法（CPM）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "挣值管理（EVM）中，如果进度偏差 SV < 0 且 成本偏差 CV < 0，这说明项目处于什么状态？",
+    "difficulty": 5,
+    "analysis": "SV = EV - PV，小于0表示进度落后；CV = EV - AC，小于0表示成本超支。",
+    "details": {
+      "options": [
+        { "content": "进度落后", "correct": true, "sort_order": 1 },
+        { "content": "进度超前", "correct": false, "sort_order": 2 },
+        { "content": "成本超支", "correct": true, "sort_order": 3 },
+        { "content": "成本节约", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于项目预算中的“储备分析”，下列描述正确的有哪些？",
+    "difficulty": 5,
+    "analysis": "应急储备用于应对“已知-未知”风险，包含在成本基准中。管理储备用于应对“未知-未知”风险，不包含在成本基准中，但属于项目总预算的一部分。使用管理储备通常需要变更控制程序的批准。",
+    "details": {
+      "options": [
+        { "content": "应急储备用于应对已识别的风险（已知-未知）", "correct": true, "sort_order": 1 },
+        { "content": "管理储备用于应对未发现的风险（未知-未知）", "correct": true, "sort_order": 2 },
+        { "content": "应急储备包含在成本基准（Cost Baseline）内", "correct": true, "sort_order": 3 },
+        { "content": "管理储备由项目经理随意支配，无需审批", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "软件质量管理中，“验证（Verification）”与“确认（Validation）”的区别在于？",
+    "difficulty": 5,
+    "analysis": "经典的V&V定义：验证是关注过程和规范，“我们是否在正确地制造产品？”（Are we building the product right?）；确认是关注需求和用户，“我们是否制造了正确的产品？”（Are we building the right product?）。",
+    "details": {
+      "options": [
+        { "content": "验证关注是否正确地构造了产品（过程合规性）", "correct": true, "sort_order": 1 },
+        { "content": "确认关注是否构造了正确的产品（满足用户需求）", "correct": true, "sort_order": 2 },
+        { "content": "验证通常在确认之后进行", "correct": false, "sort_order": 3 },
+        { "content": "单元测试属于验证，用户验收测试（UAT）属于确认", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在质量控制工具中，用于寻找根本原因和识别主要问题的工具分别是？",
+    "difficulty": 5,
+    "analysis": "因果图（鱼骨图/石川图）用于追溯问题来源，寻找根本原因。帕累托图（80/20法则）用于识别造成大多数问题的主要原因，以便优先解决。控制图用于判断过程是否稳定。",
+    "details": {
+      "options": [
+        { "content": "因果图（鱼骨图）", "correct": true, "sort_order": 1 },
+        { "content": "帕累托图", "correct": true, "sort_order": 2 },
+        { "content": "散点图", "correct": false, "sort_order": 3 },
+        { "content": "流程图", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于软件测试阶段，以下排序或描述通常正确的有哪些？",
+    "difficulty": 5,
+    "analysis": "一般测试顺序：单元测试（模块内）-> 集成测试（模块间接口）-> 系统测试（整体功能）-> 验收测试（用户确认）。回归测试是在修改代码后进行的，以确保没有引入新错误。",
+    "details": {
+      "options": [
+        { "content": "集成测试通常在单元测试之后进行", "correct": true, "sort_order": 1 },
+        { "content": "验收测试（UAT）通常是交付前的最后一个测试阶段", "correct": true, "sort_order": 2 },
+        { "content": "回归测试仅在项目结束时进行一次", "correct": false, "sort_order": 3 },
+        { "content": "系统测试应在真实或模拟的运行环境中进行", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "塔克曼（Tuckman）团队发展阶梯模型包括哪几个阶段？",
+    "difficulty": 5,
+    "analysis": "塔克曼模型包含5个阶段：形成（Forming）、震荡（Storming）、规范（Norming）、成熟/执行（Performing）、解散（Adjourning）。",
+    "details": {
+      "options": [
+        { "content": "形成阶段（Forming）", "correct": true, "sort_order": 1 },
+        { "content": "震荡阶段（Storming）", "correct": true, "sort_order": 2 },
+        { "content": "规范阶段（Norming）", "correct": true, "sort_order": 3 },
+        { "content": "成熟阶段（Performing）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "面对项目团队内部冲突，项目经理可以采用的冲突解决策略包括？",
+    "difficulty": 5,
+    "analysis": "常用的冲突解决策略包括：合作/解决问题（双赢）、妥协/调解（各退一步）、强迫/命令（利用权力）、撤退/回避（暂时搁置）、缓和/包容（强调一致性）。指责不是一种管理策略。",
+    "details": {
+      "options": [
+        { "content": "合作/解决问题（Collaborate/Problem Solve）", "correct": true, "sort_order": 1 },
+        { "content": "强迫/命令（Force/Direct）", "correct": true, "sort_order": 2 },
+        { "content": "撤退/回避（Withdraw/Avoid）", "correct": true, "sort_order": 3 },
+        { "content": "妥协/调解（Compromise/Reconcile）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "RACI矩阵是责任分配矩阵的一种常见形式，其中R、A、C、I分别代表？",
+    "difficulty": 5,
+    "analysis": "R=Responsible（执行/负责），A=Accountable（问责/批准），C=Consulted（咨询），I=Informed（知情）。",
+    "details": {
+      "options": [
+        { "content": "Responsible（执行人）", "correct": true, "sort_order": 1 },
+        { "content": "Accountable（问责人）", "correct": true, "sort_order": 2 },
+        { "content": "Consulted（咨询对象）", "correct": true, "sort_order": 3 },
+        { "content": "Informed（知情对象）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "根据赫兹伯格（Herzberg）的双因素理论，以下属于“激励因素（Motivators）”而非“保健因素（Hygiene Factors）”的是？",
+    "difficulty": 5,
+    "analysis": "保健因素（如薪水、工作环境、公司政策）处理不好会导致不满，但处理好不会产生巨大激励。激励因素（如成就感、认可、工作本身的挑战、责任、晋升）才能真正提升员工满意度和动力。",
+    "details": {
+      "options": [
+        { "content": "工作的成就感", "correct": true, "sort_order": 1 },
+        { "content": "责任与晋升机会", "correct": true, "sort_order": 2 },
+        { "content": "薪水与福利", "correct": false, "sort_order": 3 },
+        { "content": "工作环境与安全", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在项目沟通管理中，沟通方法主要分为哪几类？",
+    "difficulty": 5,
+    "analysis": "沟通方法主要分为：推式沟通（Push，如群发邮件、备忘录）、拉式沟通（Pull，如知识库、内网下载）、互动沟通（Interactive，如会议、电话、即时通讯）。",
+    "details": {
+      "options": [
+        { "content": "推式沟通（Push）", "correct": true, "sort_order": 1 },
+        { "content": "拉式沟通（Pull）", "correct": true, "sort_order": 2 },
+        { "content": "互动沟通（Interactive）", "correct": true, "sort_order": 3 },
+        { "content": "加密沟通（Encrypted）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "某软件项目团队有10人，新增了2人后，沟通渠道数量增加了多少条？",
+    "difficulty": 5,
+    "analysis": "沟通渠道公式 N*(N-1)/2。10人时：10*9/2=45条。12人时：12*11/2=66条。增加量 = 66 - 45 = 21条。",
+    "details": {
+      "options": [
+        { "content": "由45条增加到66条", "correct": true, "sort_order": 1 },
+        { "content": "增加了21条", "correct": true, "sort_order": 2 },
+        { "content": "增加了2条", "correct": false, "sort_order": 3 },
+        { "content": "总量变为66条", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在敏捷项目中，用于展示项目剩余工作量随时间变化趋势的图表是？",
+    "difficulty": 5,
+    "analysis": "燃尽图（Burn-down Chart）展示剩余工作量随时间的递减，用于预测何时完成工作。燃起图（Burn-up Chart）展示已完成工作量。甘特图主要用于传统计划。",
+    "details": {
+      "options": [
+        { "content": "燃尽图（Burn-down Chart）", "correct": true, "sort_order": 1 },
+        { "content": "燃起图（Burn-up Chart）", "correct": false, "sort_order": 2 },
+        { "content": "甘特图", "correct": false, "sort_order": 3 },
+        { "content": "控制图", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "权利/利益方格（Power/Interest Grid）是干系人分析的重要工具，对于“高权利、高利益”的干系人，应采取的策略是？",
+    "difficulty": 5,
+    "analysis": "高权利高利益（重点管理）：需密切管理。高权利低利益（令其满意）：防止其破坏。低权利高利益（随时告知）：保持信息同步。低权利低利益（监督）：花费最少精力。",
+    "details": {
+      "options": [
+        { "content": "重点管理（Manage Closely）", "correct": true, "sort_order": 1 },
+        { "content": "令其满意（Keep Satisfied）", "correct": false, "sort_order": 2 },
+        { "content": "随时告知（Keep Informed）", "correct": false, "sort_order": 3 },
+        { "content": "监督（Monitor）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在代码评审（Code Review）中，同行评审（Peer Review）的主要目的包括？",
+    "difficulty": 5,
+    "analysis": "代码评审旨在尽早发现缺陷（质量控制），促进团队成员间的知识共享，确保代码规范。它通常由开发人员互查，而非通过处罚。它是一种静态测试形式。",
+    "details": {
+      "options": [
+        { "content": "尽早发现代码中的缺陷", "correct": true, "sort_order": 1 },
+        { "content": "促进团队成员间的知识共享", "correct": true, "sort_order": 2 },
+        { "content": "确保代码符合团队编码规范", "correct": true, "sort_order": 3 },
+        { "content": "评估开发人员的绩效以进行处罚", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "麦格雷戈（McGregor）的X理论和Y理论对人性做出了不同假设，以下属于Y理论假设的是？",
+    "difficulty": 5,
+    "analysis": "X理论假设员工天生懒惰、逃避责任，需要严格监督。Y理论假设员工愿意工作、能自我激励、寻求责任、具有创造力。敏捷管理更倾向于Y理论。",
+    "details": {
+      "options": [
+        { "content": "员工视工作如休息或娱乐一般自然", "correct": true, "sort_order": 1 },
+        { "content": "员工具有自我指导和自我控制的能力", "correct": true, "sort_order": 2 },
+        { "content": "员工天生厌恶工作，尽可能逃避", "correct": false, "sort_order": 3 },
+        { "content": "在适当条件下，员工会主动寻求责任", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "敏捷团队常用的估算技术“计划扑克（Planning Poker）”的特点包括？",
+    "difficulty": 5,
+    "analysis": "计划扑克利用斐波那契数列（1, 2, 3, 5, 8...）避免虚假的精确性，是一种宽带德尔菲技术（汇集团队智慧），通过全员参与讨论来达成共识。它通常估算相对大小（故事点），而非绝对时间。",
+    "details": {
+      "options": [
+        { "content": "使用斐波那契数列来评估相对规模", "correct": true, "sort_order": 1 },
+        { "content": "结合了专家意见和团队讨论（宽带德尔菲法）", "correct": true, "sort_order": 2 },
+        { "content": "避免了锚定效应（Anchoring Effect）", "correct": true, "sort_order": 3 },
+        { "content": "由产品负责人（PO）独自决定估算值", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "虚拟团队（Virtual Teams）在现代软件开发中很常见，其面临的主要挑战包括？",
+    "difficulty": 5,
+    "analysis": "虚拟团队面临时区差异、文化差异、缺乏面对面交流导致的沟通误解、以及建立信任较难等挑战。节省办公场地成本是其优势，而非挑战。",
+    "details": {
+      "options": [
+        { "content": "时区差异导致同步沟通困难", "correct": true, "sort_order": 1 },
+        { "content": "文化差异可能引发误解", "correct": true, "sort_order": 2 },
+        { "content": "缺乏非语言沟通线索（如肢体语言）", "correct": true, "sort_order": 3 },
+        { "content": "高昂的办公场地租赁成本", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于资源平衡（Resource Leveling）和资源平滑（Resource Smoothing），下列描述正确的是？",
+    "difficulty": 5,
+    "analysis": "资源平衡是为了解决资源过度分配，往往会改变关键路径，导致项目延期。资源平滑是在浮动时间（Float）内调整资源，不改变关键路径，也不改变完工日期，但可能无法完全解决资源冲突。",
+    "details": {
+      "options": [
+        { "content": "资源平衡可能会改变项目的关键路径", "correct": true, "sort_order": 1 },
+        { "content": "资源平滑不会改变项目的完工日期", "correct": true, "sort_order": 2 },
+        { "content": "资源平衡主要用于解决资源过度分配问题", "correct": true, "sort_order": 3 },
+        { "content": "资源平滑可以解决所有的资源冲突", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在软件项目风险管理中，针对“威胁（负面风险）”的应对策略包括哪些？",
+    "difficulty": 4,
+    "analysis": "针对威胁的四种常见策略是：规避（改变计划以消除风险）、转移（通过合同或保险转嫁风险）、减轻（降低概率或影响）、接受（主动或被动承担后果）。开拓和提高是针对机会（正面风险）的策略。",
+    "details": {
+      "options": [
+        { "content": "规避（Avoid）", "correct": true, "sort_order": 1 },
+        { "content": "转移（Transfer）", "correct": true, "sort_order": 2 },
+        { "content": "减轻（Mitigate）", "correct": true, "sort_order": 3 },
+        { "content": "开拓（Exploit）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "相反地，针对项目“机会（正面风险）”的应对策略有哪些？",
+    "difficulty": 4,
+    "analysis": "针对机会的策略旨在提高机会发生的概率或影响，包括：开拓（确保机会肯定发生）、分享（分配给第三方以增加机会收益）、提高（增加发生的概率或积极影响）、接受（当机会发生时乐意利用，但不主动追求）。",
+    "details": {
+      "options": [
+        { "content": "开拓（Exploit）", "correct": true, "sort_order": 1 },
+        { "content": "分享（Share）", "correct": true, "sort_order": 2 },
+        { "content": "提高（Enhance）", "correct": true, "sort_order": 3 },
+        { "content": "减轻（Mitigate）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于定性风险分析（Qualitative Risk Analysis）和定量风险分析（Quantitative Risk Analysis），以下说法正确的是？",
+    "difficulty": 5,
+    "analysis": "定性分析通过概率和影响矩阵对风险进行优先级排序（主观评估），是必做的。定量分析使用数值模型（如蒙特卡洛、决策树）分析对项目目标的具体数值影响，通常仅针对高优先级风险进行，并非所有项目都必须做。",
+    "details": {
+      "options": [
+        { "content": "定性分析主要评估风险发生的概率和影响级别，进行优先级排序", "correct": true, "sort_order": 1 },
+        { "content": "定量分析试图数值化风险对项目整体目标的影响（如成本或进度的具体金额/天数）", "correct": true, "sort_order": 2 },
+        { "content": "所有项目都必须进行复杂的定量风险分析", "correct": false, "sort_order": 3 },
+        { "content": "定性分析通常在定量分析之前进行", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在软件外包采购中，合同类型决定了风险如何在买方和卖方之间分配。关于合同类型，下列描述正确的是？",
+    "difficulty": 4,
+    "analysis": "总价合同（FP）明确规定了价格，卖方承担成本超支风险，买方风险最小。成本补偿合同（CR）买方支付成本加利润，买方承担成本风险。工料合同（T&M）是两者的混合，常用于范围不明确的短期服务。",
+    "details": {
+      "options": [
+        { "content": "固定总价合同（FFP）下，卖方（乙方）承担的成本风险最大", "correct": true, "sort_order": 1 },
+        { "content": "成本加固定费用合同（CPFF）下，买方（甲方）承担的成本风险较大", "correct": true, "sort_order": 2 },
+        { "content": "工料合同（T&M）通常适用于范围明确、工期很长的项目", "correct": false, "sort_order": 3 },
+        { "content": "固定总价合同对买方（甲方）来说财务风险最小", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "自制或外购分析（Make-or-Buy Analysis）是采购规划中的重要技术，决定是否外购时通常考虑的因素包括？",
+    "difficulty": 3,
+    "analysis": "决策因素包括：核心技术保护（保密性）、现有产能和技能是否不足、外购的成本是否更低、供应商的可靠性等。通常不会仅仅因为想花掉预算而外购。",
+    "details": {
+      "options": [
+        { "content": "组织内部是否具备相应的技能和产能", "correct": true, "sort_order": 1 },
+        { "content": "知识产权保护和保密需求", "correct": true, "sort_order": 2 },
+        { "content": "直接成本与间接成本的比较", "correct": true, "sort_order": 3 },
+        { "content": "为了单纯增加项目干系人数量", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于组织结构对项目管理的影响，以下描述正确的有哪些？",
+    "difficulty": 4,
+    "analysis": "职能型组织中，职能经理掌握权力，项目经理权力很小（通常是协调员）。项目型组织中，项目经理拥有全权。矩阵型组织介于两者之间，强矩阵中PM权力大于职能经理，弱矩阵中PM权力小于职能经理。",
+    "details": {
+      "options": [
+        { "content": "在职能型组织中，项目经理的职权通常很小或没有", "correct": true, "sort_order": 1 },
+        { "content": "在项目型组织中，团队成员通常全职归属于项目，项目经理拥有最高职权", "correct": true, "sort_order": 2 },
+        { "content": "强矩阵组织中，项目经理的职权高于职能经理", "correct": true, "sort_order": 3 },
+        { "content": "弱矩阵组织中，项目经理通常全权负责资源分配", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目管理办公室（PMO）在组织中扮演不同的角色，常见的PMO类型包括？",
+    "difficulty": 3,
+    "analysis": "PMO主要分为三类：支持型（提供模板、培训，控制力低）、控制型（要求合规、审计，控制力中等）、指令型（直接管理项目和PM，控制力高）。",
+    "details": {
+      "options": [
+        { "content": "支持型（Supportive）", "correct": true, "sort_order": 1 },
+        { "content": "控制型（Controlling）", "correct": true, "sort_order": 2 },
+        { "content": "指令型（Directive）", "correct": true, "sort_order": 3 },
+        { "content": "分散型（Distributed）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "看板方法（Kanban）是精益软件开发的重要实践，其核心原则包括？",
+    "difficulty": 4,
+    "analysis": "Kanban的核心实践：可视化工作流（看板墙）、限制在制品（WIP Limits）、管理流动（度量周期时间）、显示化流程规则。Kanban不强调固定周期的迭代（这是Scrum的特点，Kanban是持续流）。",
+    "details": {
+      "options": [
+        { "content": "可视化工作流程（Visualize the workflow）", "correct": true, "sort_order": 1 },
+        { "content": "限制在制品数量（Limit WIP）", "correct": true, "sort_order": 2 },
+        { "content": "管理工作流动（Manage Flow）", "correct": true, "sort_order": 3 },
+        { "content": "必须采用固定长度的Sprint迭代", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "极限编程（XP, Extreme Programming）强调技术卓越，其核心工程实践包括？",
+    "difficulty": 4,
+    "analysis": "XP的核心实践包括：结对编程、测试驱动开发（TDD）、持续集成（CI）、重构、集体代码所有权、现场客户等。每日站会是Scrum的典型仪式（虽然XP也有类似沟通，但前三者是XP最具标志性的工程实践）。",
+    "details": {
+      "options": [
+        { "content": "结对编程（Pair Programming）", "correct": true, "sort_order": 1 },
+        { "content": "测试驱动开发（TDD）", "correct": true, "sort_order": 2 },
+        { "content": "持续集成（Continuous Integration）", "correct": true, "sort_order": 3 },
+        { "content": "详细的预先设计文档", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "干系人参与度评估矩阵（Stakeholder Engagement Assessment Matrix）用于比较干系人的当前状态与期望状态，状态分类通常包括？",
+    "difficulty": 3,
+    "analysis": "干系人参与状态通常分为：不知晓（Unaware）、抵制（Resistant）、中立（Neutral）、支持（Supportive）、领导（Leading）。",
+    "details": {
+      "options": [
+        { "content": "不知晓（Unaware）", "correct": true, "sort_order": 1 },
+        { "content": "抵制（Resistant）", "correct": true, "sort_order": 2 },
+        { "content": "支持（Supportive）", "correct": true, "sort_order": 3 },
+        { "content": "领导（Leading）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "蒙特卡洛模拟（Monte Carlo Simulation）在项目管理中的主要应用场景是？",
+    "difficulty": 5,
+    "analysis": "蒙特卡洛模拟通过多次随机迭代来计算项目结果的概率分布，主要用于估算项目总成本或总工期的风险范围（如“有80%的概率在200万内完成”）。它不用于编写代码或团队建设。",
+    "details": {
+      "options": [
+        { "content": "估算项目进度的完成概率", "correct": true, "sort_order": 1 },
+        { "content": "估算项目成本超支的风险", "correct": true, "sort_order": 2 },
+        { "content": "编写自动化测试脚本", "correct": false, "sort_order": 3 },
+        { "content": "进行团队性格测试", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "决策树分析（Decision Tree Analysis）中使用“预期货币价值（EMV）”来辅助决策，关于EMV，下列说法正确的是？",
+    "difficulty": 5,
+    "analysis": "EMV = 概率 × 影响（金额）。机会的EMV是正值，风险（威胁）的EMV是负值。它是一种统计概念，用于在不确定性环境下比较不同决策路径的平均结果。",
+    "details": {
+      "options": [
+        { "content": "EMV等于事件发生的概率乘以该事件带来的损益值", "correct": true, "sort_order": 1 },
+        { "content": "EMV可以是正值（机会）也可以是负值（威胁）", "correct": true, "sort_order": 2 },
+        { "content": "EMV通过累加各路径的值来辅助选择最优路径", "correct": true, "sort_order": 3 },
+        { "content": "EMV主要用于定性风险分析", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "马斯洛（Maslow）需求层次理论将人类需求分为五个层次，其中包括？",
+    "difficulty": 3,
+    "analysis": "马斯洛需求从低到高：生理需求、安全需求、社交（归属与爱）需求、尊重需求、自我实现需求。",
+    "details": {
+      "options": [
+        { "content": "生理需求", "correct": true, "sort_order": 1 },
+        { "content": "安全需求", "correct": true, "sort_order": 2 },
+        { "content": "社交需求（归属与爱）", "correct": true, "sort_order": 3 },
+        { "content": "权力需求", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在敏捷开发中，“完成的定义（Definition of Done, DoD）”非常关键，其作用包括？",
+    "difficulty": 4,
+    "analysis": "DoD是一组检查清单，定义了什么样的工作才算完成。它确保团队对质量标准有统一认识，保证增量是可发布的，避免“完成了但没完全完成”的情况（如没写测试、没过代码审查）。它主要用于质量门禁，而非定义产品功能范围（那是Backlog的事）。",
+    "details": {
+      "options": [
+        { "content": "确保团队对“完成”有统一的标准", "correct": true, "sort_order": 1 },
+        { "content": "作为产品增量发布的质量门禁", "correct": true, "sort_order": 2 },
+        { "content": "防止技术债务的累积（如规定必须通过测试）", "correct": true, "sort_order": 3 },
+        { "content": "定义产品的所有功能特性列表", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "最小可行性产品（MVP）是精益创业和敏捷中的重要概念，其特征包括？",
+    "difficulty": 3,
+    "analysis": "MVP是指包含刚好足够的功能以满足早期用户并收集反馈的产品版本。目的是以最小的成本验证假设，通过学习来迭代，而不是一次性构建完美产品。",
+    "details": {
+      "options": [
+        { "content": "包含能够满足早期客户使用的最少功能集", "correct": true, "sort_order": 1 },
+        { "content": "主要目的是为了验证假设和收集反馈", "correct": true, "sort_order": 2 },
+        { "content": "是功能最全、质量最完美的最终产品", "correct": false, "sort_order": 3 },
+        { "content": "有助于减少开发错误产品的浪费", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "CMMI（能力成熟度模型集成）将组织的软件过程成熟度划分为5个等级，下列属于这5个等级的是？",
+    "difficulty": 5,
+    "analysis": "CMMI 5级：1. 初始级（Initial，混乱）；2. 已管理级（Managed，项目级管理）；3. 已定义级（Defined，组织级标准）；4. 量化管理级（Quantitatively Managed，数据驱动）；5. 优化级（Optimizing，持续改进）。",
+    "details": {
+      "options": [
+        { "content": "初始级（Initial）", "correct": true, "sort_order": 1 },
+        { "content": "已管理级（Managed）", "correct": true, "sort_order": 2 },
+        { "content": "已定义级（Defined）", "correct": true, "sort_order": 3 },
+        { "content": "优化级（Optimizing）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "仆人式领导（Servant Leadership）是敏捷项目经理（或Scrum Master）推崇的领导风格，其行为特征包括？",
+    "difficulty": 4,
+    "analysis": "仆人式领导专注于服务团队，移除障碍，提供资源和指导，促进团队成长，而不是传统的命令和控制。指派具体任务是传统微观管理的特征。",
+    "details": {
+      "options": [
+        { "content": "为团队移除障碍", "correct": true, "sort_order": 1 },
+        { "content": "保护团队免受外部干扰", "correct": true, "sort_order": 2 },
+        { "content": "促进团队成员的个人成长", "correct": true, "sort_order": 3 },
+        { "content": "每日给每个成员指派具体的细微任务", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在项目选择和投资评估中，常用的财务指标包括？",
+    "difficulty": 5,
+    "analysis": "常用财务指标：净现值（NPV，越大越好）、内部收益率（IRR，越大越好）、投资回报率（ROI，越大越好）、投资回收期（Payback Period，越短越好）。WBS是范围管理工具，不是财务指标。",
+    "details": {
+      "options": [
+        { "content": "净现值（NPV）", "correct": true, "sort_order": 1 },
+        { "content": "内部收益率（IRR）", "correct": true, "sort_order": 2 },
+        { "content": "投资回收期（Payback Period）", "correct": true, "sort_order": 3 },
+        { "content": "工作分解结构（WBS）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "根据沟通模型，沟通过程中可能导致信息误解的“噪声（Noise）”包括？",
+    "difficulty": 3,
+    "analysis": "噪声是干扰信息传递和理解的因素，包括物理噪声（环境噪音）、文化差异、语言障碍、情绪状态、技术故障等。清晰的编码是减少噪声的手段，本身不是噪声。",
+    "details": {
+      "options": [
+        { "content": "文化差异", "correct": true, "sort_order": 1 },
+        { "content": "专业术语的使用不当", "correct": true, "sort_order": 2 },
+        { "content": "物理环境的嘈杂", "correct": true, "sort_order": 3 },
+        { "content": "发送方清晰准确的编码", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "风险登记册（Risk Register）是风险管理的主要文件，随着项目进展，它通常包含的内容有？",
+    "difficulty": 4,
+    "analysis": "风险登记册在识别阶段记录风险列表和潜在责任人，在分析和应对阶段记录概率、影响、风险等级、应对措施、残余风险等。它是一个活文件，贯穿项目始终。",
+    "details": {
+      "options": [
+        { "content": "已识别的风险列表", "correct": true, "sort_order": 1 },
+        { "content": "风险责任人（Risk Owners）", "correct": true, "sort_order": 2 },
+        { "content": "商定的风险应对措施", "correct": true, "sort_order": 3 },
+        { "content": "项目的详细代码实现", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在敏捷开发中，编写高质量用户故事（User Story）通常遵循INVEST原则，以下属于INVEST原则要素的是？",
+    "difficulty": 5,
+    "analysis": "INVEST原则是指：Independent（独立的）、Negotiable（可协商的）、Valuable（有价值的）、Estimable（可估算的）、Small（小的）、Testable（可测试的）。",
+    "details": {
+      "options": [
+        { "content": "Independent（独立的）", "correct": true, "sort_order": 1 },
+        { "content": "Valuable（有价值的）", "correct": true, "sort_order": 2 },
+        { "content": "Testable（可测试的）", "correct": true, "sort_order": 3 },
+        { "content": "Vague（模糊的）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "软件需求通常分为功能需求和非功能需求。下列属于“非功能需求（Non-functional Requirements）”的是？",
+    "difficulty": 3,
+    "analysis": "功能需求描述系统“做什么”（如登录、计算、打印）。非功能需求描述系统“表现如何”或“具备什么特性”，如性能（响应时间）、安全性（加密）、可靠性（故障率）、可维护性。用户点击按钮跳转页面属于功能需求。",
+    "details": {
+      "options": [
+        { "content": "系统的响应时间不超过2秒", "correct": true, "sort_order": 1 },
+        { "content": "系统必须支持并发10000用户在线", "correct": true, "sort_order": 2 },
+        { "content": "数据传输必须经过SSL加密", "correct": true, "sort_order": 3 },
+        { "content": "用户点击“提交”按钮后保存订单数据", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在进度网络图中，关于“提前量（Lead）”和“滞后量（Lag）”的描述，正确的是？",
+    "difficulty": 4,
+    "analysis": "提前量（Lead）是相对于紧前活动，紧后活动可以提前开始的时间量（加速/并行）。滞后量（Lag）是紧前活动结束后，紧后活动必须等待的时间量（延误/等待）。",
+    "details": {
+      "options": [
+        { "content": "提前量允许紧后活动在紧前活动结束之前开始", "correct": true, "sort_order": 1 },
+        { "content": "滞后量是紧后活动开始前必须等待的时间", "correct": true, "sort_order": 2 },
+        { "content": "提前量通常用于压缩进度", "correct": true, "sort_order": 3 },
+        { "content": "滞后量即为项目的总浮动时间", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目采购管理中，常见的采购文件包括RFI、RFQ和RFP，关于它们的区别，下列说法正确的是？",
+    "difficulty": 4,
+    "analysis": "RFI（信息邀请书）用于收集供应商的一般能力信息；RFQ（报价邀请书）主要关注价格，适用于标准化产品；RFP（建议邀请书）要求供应商提供解决方案和详细建议，适用于复杂项目。",
+    "details": {
+      "options": [
+        { "content": "RFI（Request for Information）用于考察供应商的实力和初步意向", "correct": true, "sort_order": 1 },
+        { "content": "RFQ（Request for Quotation）主要依据价格进行选择，适用于标准产品", "correct": true, "sort_order": 2 },
+        { "content": "RFP（Request for Proposal）要求供应商提供详细的解决方案和方法", "correct": true, "sort_order": 3 },
+        { "content": "RFP通常只包含价格信息", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于“残余风险（Residual Risk）”和“次生风险（Secondary Risk）”，以下描述正确的是？",
+    "difficulty": 5,
+    "analysis": "残余风险是采取应对措施后仍然存在的风险。次生风险是由于实施风险应对措施而直接产生的新风险（例如，为了降低火灾风险安装喷淋系统，喷淋系统可能导致水损风险）。",
+    "details": {
+      "options": [
+        { "content": "残余风险是执行风险应对计划后仍然残留的风险", "correct": true, "sort_order": 1 },
+        { "content": "次生风险是实施风险应对措施直接导致的新风险", "correct": true, "sort_order": 2 },
+        { "content": "残余风险通常可以被接受或只需持续监督", "correct": true, "sort_order": 3 },
+        { "content": "次生风险不需要进行分析和应对", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "软件维护是软件生命周期的重要组成部分，根据维护的目的，软件维护类型包括？",
+    "difficulty": 4,
+    "analysis": "软件维护通常分为四类：纠正性维护（修Bug）、适应性维护（适应新环境/OS升级）、完善性维护（提升性能/增加功能，占比最大）、预防性维护（重构/文档更新以防未来问题）。",
+    "details": {
+      "options": [
+        { "content": "纠正性维护（Corrective）", "correct": true, "sort_order": 1 },
+        { "content": "适应性维护（Adaptive）", "correct": true, "sort_order": 2 },
+        { "content": "完善性维护（Perfective）", "correct": true, "sort_order": 3 },
+        { "content": "预防性维护（Preventive）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在项目质量管理中，质量保证（QA）与质量控制（QC）常被混淆，以下属于质量保证（QA）活动的有？",
+    "difficulty": 5,
+    "analysis": "QA关注“过程”，旨在防止缺陷产生，建立信心，如过程审计、流程改进、培训。QC关注“结果”，旨在发现并修复缺陷，如代码测试、产品检查、同行评审。",
+    "details": {
+      "options": [
+        { "content": "过程审计（Audit）", "correct": true, "sort_order": 1 },
+        { "content": "定义质量标准和流程", "correct": true, "sort_order": 2 },
+        { "content": "执行单元测试", "correct": false, "sort_order": 3 },
+        { "content": "持续的过程改进", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "敏捷团队在每个迭代结束时召开回顾会议（Retrospective），其主要目的包括？",
+    "difficulty": 3,
+    "analysis": "回顾会议的核心是“持续改进”。团队反思过去的工作，识别做得好的和需要改进的地方，并制定改进计划。它不是用来指责个人或仅展示产品的（展示产品是评审会议Review Meeting的目的）。",
+    "details": {
+      "options": [
+        { "content": "反思团队在流程、人际关系和工具方面的表现", "correct": true, "sort_order": 1 },
+        { "content": "识别并制定改进措施（Action Items）", "correct": true, "sort_order": 2 },
+        { "content": "展示已完成的软件功能给客户看", "correct": false, "sort_order": 3 },
+        { "content": "寻找替罪羊为失败负责", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于敏捷中的“速度（Velocity）”指标，下列说法正确的有哪些？",
+    "difficulty": 4,
+    "analysis": "速度是团队在一次迭代中完成的估算单位（如故事点）总和。它是经验数据，用于预测未来交付能力。速度是团队专属的，不同团队间比较速度没有意义（基准不同）。它不应被用作考核个人的KPI。",
+    "details": {
+      "options": [
+        { "content": "指团队在一次迭代中完成的故事点总数", "correct": true, "sort_order": 1 },
+        { "content": "主要用于预测团队未来的交付能力", "correct": true, "sort_order": 2 },
+        { "content": "可用于比较不同团队之间的工作效率", "correct": false, "sort_order": 3 },
+        { "content": "随着团队磨合，速度通常会趋于稳定", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目知识管理区分了“显性知识”和“隐性知识”，以下属于隐性知识（Tacit Knowledge）的是？",
+    "difficulty": 4,
+    "analysis": "显性知识易于编码和记录（如文档、数据库）。隐性知识存在于人的头脑中，基于经验、直觉和洞察力，难以编码，通常通过交流、观察和传帮带分享。",
+    "details": {
+      "options": [
+        { "content": "资深工程师的排错直觉", "correct": true, "sort_order": 1 },
+        { "content": "团队成员处理复杂人际关系的经验", "correct": true, "sort_order": 2 },
+        { "content": "详细的需求规格说明书", "correct": false, "sort_order": 3 },
+        { "content": "项目历史数据库中的成本记录", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "测试驱动开发（TDD）是敏捷编程的核心实践之一，其典型循环步骤包括？",
+    "difficulty": 4,
+    "analysis": "TDD遵循“红-绿-重构”循环：1. 先写一个会失败的测试（红）；2. 编写刚好能通过测试的代码（绿）；3. 优化代码结构（重构）。",
+    "details": {
+      "options": [
+        { "content": "在编写功能代码之前先编写测试用例", "correct": true, "sort_order": 1 },
+        { "content": "编写刚好能通过测试的代码", "correct": true, "sort_order": 2 },
+        { "content": "重构代码以优化结构", "correct": true, "sort_order": 3 },
+        { "content": "先编写完整功能代码，再补写测试", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于“镀金（Gold Plating）”现象，下列描述正确的是？",
+    "difficulty": 3,
+    "analysis": "镀金指团队主动给项目添加客户未要求的额外功能或高质量特性。虽然出发点可能也是为了客户好，但在项目管理中通常被视为负面做法，因为它增加了成本、风险和维护负担，且客户可能并不需要。",
+    "details": {
+      "options": [
+        { "content": "指团队主动添加客户未明确要求的额外功能", "correct": true, "sort_order": 1 },
+        { "content": "通常会增加项目成本和风险", "correct": true, "sort_order": 2 },
+        { "content": "是项目经理应鼓励的增值行为", "correct": false, "sort_order": 3 },
+        { "content": "可能导致“范围蔓延”的一种形式", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "六西格玛（Six Sigma）是质量管理的一种方法体系，其核心概念包括？",
+    "difficulty": 5,
+    "analysis": "六西格玛追求极低的缺陷率（每百万次机会3.4个缺陷）。常用改进模型是DMAIC（定义、测量、分析、改进、控制）。它强调数据驱动决策。",
+    "details": {
+      "options": [
+        { "content": "DMAIC改进循环（定义、测量、分析、改进、控制）", "correct": true, "sort_order": 1 },
+        { "content": "目标是将缺陷率降低到每百万机会3.4个", "correct": true, "sort_order": 2 },
+        { "content": "强调基于数据的决策", "correct": true, "sort_order": 3 },
+        { "content": "主要依赖管理者的直觉进行改进", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在项目沟通中，书面沟通的“5C原则”有助于提高沟通效率，这包括？",
+    "difficulty": 4,
+    "analysis": "5C原则通常指：Correct grammar/spelling（语法拼写正确）、Concise（简洁）、Clear purpose（目的清晰）、Coherent flow（逻辑连贯）、Controlling flow of words/ideas (Controlled) 或 Courteous（礼貌）。注：PMBOK中通常引用 Correct, Concise, Clear, Coherent, Controlling flow of words。另外一种常见说法包含Courteous。本题主要考察核心要素。",
+    "details": {
+      "options": [
+        { "content": "清晰（Clear）：目的明确，表述清楚", "correct": true, "sort_order": 1 },
+        { "content": "简洁（Concise）：无多余废话", "correct": true, "sort_order": 2 },
+        { "content": "正确（Correct）：语法和事实无误", "correct": true, "sort_order": 3 },
+        { "content": "复杂（Complex）：使用高深的词汇显示专业性", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目基准（Baseline）是项目控制的依据，通常包括哪三大基准？",
+    "difficulty": 3,
+    "analysis": "项目绩效测量基准（PMB）通常由三大基准组成：范围基准、进度基准、成本基准。质量标准属于计划，但不常被称为三大基准之一。",
+    "details": {
+      "options": [
+        { "content": "范围基准", "correct": true, "sort_order": 1 },
+        { "content": "进度基准", "correct": true, "sort_order": 2 },
+        { "content": "成本基准", "correct": true, "sort_order": 3 },
+        { "content": "沟通基准", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在采购过程中，投标人会议（Bidder Conferences）的主要目的是？",
+    "difficulty": 4,
+    "analysis": "投标人会议（也称承包商会议/标前会议）是在卖方提交建议书之前，买方召集的会议。目的是确保所有潜在卖方对采购要求有清晰、一致的理解，保证公平竞争，没有任何投标人享有特权信息。",
+    "details": {
+      "options": [
+        { "content": "确保所有潜在卖方对采购要求有清晰一致的理解", "correct": true, "sort_order": 1 },
+        { "content": "保证没有任何投标人获得排他性的信息", "correct": true, "sort_order": 2 },
+        { "content": "直接在会议上选定最终供应商", "correct": false, "sort_order": 3 },
+        { "content": "回答潜在卖方关于招标文件的疑问", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于S曲线（S-Curve）在项目管理中的应用，下列描述正确的是？",
+    "difficulty": 4,
+    "analysis": "S曲线通常用于表示累计成本、工时或百分比随时间的变化。项目初期投入少（曲线平缓），中期执行阶段投入大（曲线陡峭），末期收尾投入减少（曲线平缓），形成S形。它常用于分析项目进度和成本绩效。",
+    "details": {
+      "options": [
+        { "content": "常用于显示累计成本或工时随时间的变化", "correct": true, "sort_order": 1 },
+        { "content": "典型的S曲线呈现“慢-快-慢”的增长趋势", "correct": true, "sort_order": 2 },
+        { "content": "可用于对比计划值（PV）和实际成本（AC）", "correct": true, "sort_order": 3 },
+        { "content": "S曲线越陡峭，说明项目资源消耗越慢", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "持续改进（Kaizen）是精益管理的核心思想，在软件项目中可以通过哪些方式实现？",
+    "difficulty": 3,
+    "analysis": "Kaizen意为通过小的、持续的步骤进行改进。回顾会议、根本原因分析、消除浪费（Muda）、重构代码都是实现方式。长期不改变流程违背了持续改进原则。",
+    "details": {
+      "options": [
+        { "content": "定期的回顾会议（Retrospectives）", "correct": true, "sort_order": 1 },
+        { "content": "识别并消除开发过程中的浪费", "correct": true, "sort_order": 2 },
+        { "content": "代码重构以偿还技术债务", "correct": true, "sort_order": 3 },
+        { "content": "严格维持现有流程，禁止任何变更", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在获取资源时，有些情况下资源是“预分派（Pre-assignment）”的，这种情况通常发生在？",
+    "difficulty": 4,
+    "analysis": "预分派指在项目启动前或早期就已确定特定人员。原因可能包括：竞标时承诺了特定专家、项目章程中指定了人选、特定人员拥有不可替代的技能。",
+    "details": {
+      "options": [
+        { "content": "在竞标过程中承诺了特定的关键人员", "correct": true, "sort_order": 1 },
+        { "content": "项目章程中明确指定了特定人员", "correct": true, "sort_order": 2 },
+        { "content": "只有特定人员具备完成工作所需的专有技能", "correct": true, "sort_order": 3 },
+        { "content": "通过招聘网站公开招聘新员工", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于各种软件开发模型，下列匹配正确的有哪些？",
+    "difficulty": 3,
+    "analysis": "瀑布模型：线性顺序；螺旋模型：强调风险分析；增量模型：分批次交付构建；敏捷模型：迭代、反馈、人本。V模型：强调测试与开发的对应关系。",
+    "details": {
+      "options": [
+        { "content": "螺旋模型（Spiral Model）—— 强调风险分析", "correct": true, "sort_order": 1 },
+        { "content": "V模型 —— 强调开发阶段与测试阶段的对应关系", "correct": true, "sort_order": 2 },
+        { "content": "增量模型 —— 分批次交付可用的软件构件", "correct": true, "sort_order": 3 },
+        { "content": "瀑布模型 —— 支持需求频繁变更", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "COCOMO II（构造性成本模型）是软件估算中著名的模型，其估算的核心依据主要包括？",
+    "difficulty": 5,
+    "analysis": "COCOMO II模型主要依据软件规模（通常是源代码行数或功能点）、规模因子（如先例、开发灵活性）以及成本驱动因子（如人员能力、平台难度）来估算软件开发所需的工作量（人月）和进度。",
+    "details": {
+      "options": [
+        { "content": "软件规模（如源代码行数或功能点）", "correct": true, "sort_order": 1 },
+        { "content": "成本驱动因子（Cost Drivers）", "correct": true, "sort_order": 2 },
+        { "content": "项目团队成员的具体姓名", "correct": false, "sort_order": 3 },
+        { "content": "开发所需的总工作量（人月）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在精益（Lean）和看板管理中，区分“前置时间（Lead Time）”和“周期时间（Cycle Time）”很重要，下列描述正确的是？",
+    "difficulty": 5,
+    "analysis": "前置时间（Lead Time）是从客户提出请求到最终交付的总时间；周期时间（Cycle Time）是团队开始介入工作到工作完成的时间。Lead Time通常大于或等于Cycle Time。",
+    "details": {
+      "options": [
+        { "content": "前置时间是从客户提出需求到交付的完整时长", "correct": true, "sort_order": 1 },
+        { "content": "周期时间是团队开始实际工作到完成的时长", "correct": true, "sort_order": 2 },
+        { "content": "周期时间通常包含在等待队列中的时间", "correct": false, "sort_order": 3 },
+        { "content": "缩短周期时间通常有助于缩短前置时间", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于开源软件许可证（License），项目经理需要了解其法律风险。以下属于“传染性”较强（Copyleft），要求衍生作品必须开源的许可证是？",
+    "difficulty": 4,
+    "analysis": "GPL（General Public License）具有强烈的传染性，要求任何使用GPL代码的衍生软件也必须开源。MIT和Apache许可证非常宽松，允许商业闭源使用。BSD也属于宽松型。",
+    "details": {
+      "options": [
+        { "content": "GPL (GNU General Public License)", "correct": true, "sort_order": 1 },
+        { "content": "MIT License", "correct": false, "sort_order": 2 },
+        { "content": "Apache License", "correct": false, "sort_order": 3 },
+        { "content": "BSD License", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关键链法（Critical Chain Method, CCM）与关键路径法（CPM）的主要区别在于？",
+    "difficulty": 5,
+    "analysis": "关键链法考虑了资源限制（资源约束），并在路径末端设置项目缓冲（Project Buffer），在非关键链汇入点设置接驳缓冲（Feeding Buffer），以应对不确定性。它不鼓励在每个活动上加安全时间，而是集中管理缓冲。",
+    "details": {
+      "options": [
+        { "content": "关键链法考虑了有限资源对进度的影响", "correct": true, "sort_order": 1 },
+        { "content": "关键链法使用了缓冲（Buffers）来管理不确定性", "correct": true, "sort_order": 2 },
+        { "content": "关键链法并不关注逻辑依赖关系", "correct": false, "sort_order": 3 },
+        { "content": "关键链法通常设置项目缓冲和接驳缓冲", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "DORA（DevOps Research and Assessment）提出的衡量软件交付绩效的四个关键指标（Four Key Metrics）包括？",
+    "difficulty": 5,
+    "analysis": "DORA四大指标：部署频率（Deployment Frequency）、变更前置时间（Lead Time for Changes）、变更失败率（Change Failure Rate）、平均恢复时间（Time to Restore Service / MTTR）。",
+    "details": {
+      "options": [
+        { "content": "部署频率", "correct": true, "sort_order": 1 },
+        { "content": "变更前置时间", "correct": true, "sort_order": 2 },
+        { "content": "服务恢复时间（MTTR）", "correct": true, "sort_order": 3 },
+        { "content": "代码行数总量", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在软件配置管理中，分支策略（Branching Strategy）的选择对协作至关重要，常见的分支模型有？",
+    "difficulty": 4,
+    "analysis": "GitFlow是经典的多分支模型（Feature, Develop, Release, Master等）；Trunk-based Development（主干开发）强调频繁合并到主干；Feature Branching是为每个功能开分支。Waterfall不是分支模型，是开发生命周期模型。",
+    "details": {
+      "options": [
+        { "content": "GitFlow工作流", "correct": true, "sort_order": 1 },
+        { "content": "主干开发（Trunk-based Development）", "correct": true, "sort_order": 2 },
+        { "content": "功能分支（Feature Branching）", "correct": true, "sort_order": 3 },
+        { "content": "瀑布流（Waterfall Flow）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "PDCA循环（戴明环）是质量持续改进的基础，其四个阶段分别是？",
+    "difficulty": 3,
+    "analysis": "PDCA代表：Plan（计划）、Do（执行）、Check（检查）、Act（处理/行动）。这是所有质量管理体系的基础。",
+    "details": {
+      "options": [
+        { "content": "Plan（计划）", "correct": true, "sort_order": 1 },
+        { "content": "Do（执行）", "correct": true, "sort_order": 2 },
+        { "content": "Check（检查）", "correct": true, "sort_order": 3 },
+        { "content": "Act（处理）", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在进行商务谈判或解决利益冲突时，BATNA是一个重要的概念，它的含义和作用是？",
+    "difficulty": 4,
+    "analysis": "BATNA（Best Alternative To a Negotiated Agreement）即“协议的最佳替代方案”。它是谈判者的底牌，如果谈判结果不如BATNA，则应该拒绝协议。了解BATNA能增加谈判筹码。",
+    "details": {
+      "options": [
+        { "content": "协议的最佳替代方案", "correct": true, "sort_order": 1 },
+        { "content": "用于确定谈判的底线", "correct": true, "sort_order": 2 },
+        { "content": "谈判失败时的备用计划", "correct": true, "sort_order": 3 },
+        { "content": "对方可以接受的最高价格", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "代码覆盖率（Code Coverage）是衡量测试完整性的指标，常见的覆盖率类型包括？",
+    "difficulty": 4,
+    "analysis": "常见覆盖率包括：语句覆盖（行覆盖）、分支覆盖（判断覆盖）、路径覆盖（所有可能的路径）。“注释覆盖”不是标准的测试度量指标。",
+    "details": {
+      "options": [
+        { "content": "语句覆盖（Statement Coverage）", "correct": true, "sort_order": 1 },
+        { "content": "分支覆盖（Branch Coverage）", "correct": true, "sort_order": 2 },
+        { "content": "路径覆盖（Path Coverage）", "correct": true, "sort_order": 3 },
+        { "content": "注释覆盖（Comment Coverage）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于微服务架构（Microservices）对项目管理带来的挑战，下列描述正确的有哪些？",
+    "difficulty": 4,
+    "analysis": "微服务增加了系统的复杂性，特别是在服务间的集成测试、部署编排（DevOps要求高）和分布式数据一致性方面。相比单体应用，它通常需要更成熟的自动化运维能力。",
+    "details": {
+      "options": [
+        { "content": "增加了集成测试和端到端测试的难度", "correct": true, "sort_order": 1 },
+        { "content": "对运维自动化和DevOps能力要求更高", "correct": true, "sort_order": 2 },
+        { "content": "服务间的接口契约管理变得非常关键", "correct": true, "sort_order": 3 },
+        { "content": "大大降低了系统的整体复杂性", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "累积流图（Cumulative Flow Diagram, CFD）是敏捷中强大的分析工具，通过它可以观察到？",
+    "difficulty": 5,
+    "analysis": "CFD通过不同层级的色块宽度变化，可以展示在制品（WIP）数量、项目的平均周期时间、完成率以及流程中的瓶颈（某阶段色块突然变宽）。",
+    "details": {
+      "options": [
+        { "content": "工作流程中的瓶颈位置", "correct": true, "sort_order": 1 },
+        { "content": "在制品（WIP）的数量变化", "correct": true, "sort_order": 2 },
+        { "content": "项目的平均周期时间（Cycle Time）", "correct": true, "sort_order": 3 },
+        { "content": "每个开发人员的每日代码行数", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "项目经理应具备的情商（Emotional Intelligence）要素，根据戈尔曼模型，包括？",
+    "difficulty": 4,
+    "analysis": "情商五要素：自我意识（了解自己）、自我管理（控制情绪）、社会意识（同理心）、关系管理（社交技能/影响他人）、以及内在驱动力（虽然有时归类略有不同，但前四者是核心）。智商测试分数不属于情商。",
+    "details": {
+      "options": [
+        { "content": "自我意识（Self-awareness）", "correct": true, "sort_order": 1 },
+        { "content": "自我管理（Self-regulation）", "correct": true, "sort_order": 2 },
+        { "content": "同理心（Empathy）", "correct": true, "sort_order": 3 },
+        { "content": "高智商（High IQ）", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在软件安全测试中，属于动态应用安全测试（DAST）特点的是？",
+    "difficulty": 5,
+    "analysis": "SAST（静态分析）是在不运行代码的情况下检查源码。DAST（动态分析）是在程序运行时，从外部对应用程序进行黑盒测试，模拟攻击。渗透测试通常属于动态测试范畴。",
+    "details": {
+      "options": [
+        { "content": "在应用程序运行时进行测试", "correct": true, "sort_order": 1 },
+        { "content": "无需访问源代码（黑盒测试）", "correct": true, "sort_order": 2 },
+        { "content": "通过检查源代码来发现漏洞（白盒）", "correct": false, "sort_order": 3 },
+        { "content": "通常用于发现运行时环境配置和外部接口的问题", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "根据PMI职业道德与专业行为准则，项目经理在遇到“利益冲突（Conflict of Interest）”时，应采取的正确行动是？",
+    "difficulty": 4,
+    "analysis": "PMI道德准则要求：必须向相关方充分披露潜在或实际的利益冲突。如果可能，应回避决策过程。隐瞒冲突是违规行为。",
+    "details": {
+      "options": [
+        { "content": "向相关干系人充分披露潜在的利益冲突", "correct": true, "sort_order": 1 },
+        { "content": "如果不影响决策，可以不披露", "correct": false, "sort_order": 2 },
+        { "content": "隐瞒信息以避免项目延误", "correct": false, "sort_order": 3 },
+        { "content": "在可能的情况下，主动回避受影响的决策", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "ISO 9000系列标准是国际上通用的质量管理标准，其核心原则包括？",
+    "difficulty": 4,
+    "analysis": "ISO 9000七大质量管理原则：以顾客为关注焦点、领导作用、全员积极参与、过程方法、改进、循证决策、关系管理。成本最低化不是其核心原则（质量并不意味着便宜）。",
+    "details": {
+      "options": [
+        { "content": "以顾客为关注焦点", "correct": true, "sort_order": 1 },
+        { "content": "全员参与", "correct": true, "sort_order": 2 },
+        { "content": "持续改进", "correct": true, "sort_order": 3 },
+        { "content": "追求成本最低化", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "技术评审（Technical Review）的形式多种多样，关于“走查（Walkthrough）”和“审查（Inspection）”的区别，描述正确的是？",
+    "difficulty": 4,
+    "analysis": "走查（Walkthrough）通常是非正式的，由作者主导，目的是解释代码或文档，收集反馈。审查（Inspection）是正式的，有严格流程，由受过培训的主持人（非作者）引导，有记录员，目的是发现缺陷。",
+    "details": {
+      "options": [
+        { "content": "审查（Inspection）通常比走查（Walkthrough）更正式", "correct": true, "sort_order": 1 },
+        { "content": "审查通常由经过培训的主持人（Moderator）引导", "correct": true, "sort_order": 2 },
+        { "content": "走查通常由文档/代码的作者主导", "correct": true, "sort_order": 3 },
+        { "content": "走查的主要目的是对作者进行绩效考核", "correct": false, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在项目选择的财务分析中，效益成本比（BCR, Benefit-Cost Ratio）的含义是？",
+    "difficulty": 3,
+    "analysis": "BCR = 总收益 / 总成本。BCR > 1 意味着收益大于成本，项目值得做；BCR < 1 意味着亏本；BCR = 1 盈亏平衡。",
+    "details": {
+      "options": [
+        { "content": "BCR > 1 表示项目收益大于成本，通常值得进行", "correct": true, "sort_order": 1 },
+        { "content": "BCR < 1 表示项目成本大于收益", "correct": true, "sort_order": 2 },
+        { "content": "BCR是项目净现值与投资额的差值", "correct": false, "sort_order": 3 },
+        { "content": "BCR越高，项目的经济效益越好", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "关于“光环效应（Halo Effect）”在人力资源管理中的负面影响，描述正确的是？",
+    "difficulty": 4,
+    "analysis": "光环效应指因为某人在某一方面（如技术能力）表现优秀，就错误地推断他在其他方面（如管理能力）也同样优秀。常见错误是将最好的程序员提拔为项目经理，却不提供管理培训，导致“少了一个好程序员，多了一个差经理”。",
+    "details": {
+      "options": [
+        { "content": "基于某人的一项优点而错误地认为他在所有方面都优秀", "correct": true, "sort_order": 1 },
+        { "content": "可能导致将技术专家提拔为不称职的管理人员", "correct": true, "sort_order": 2 },
+        { "content": "有助于客观评估员工的全面绩效", "correct": false, "sort_order": 3 },
+        { "content": "是一种认知偏差", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "在三点估算中，如果使用贝塔分布（PERT），计算标准差（Standard Deviation）的公式是？",
+    "difficulty": 5,
+    "analysis": "PERT标准差 = (最悲观 - 最乐观) / 6。方差是标准差的平方。三角分布的标准差公式不同。",
+    "details": {
+      "options": [
+        { "content": "(最悲观值 - 最乐观值) / 6", "correct": true, "sort_order": 1 },
+        { "content": "(最悲观值 + 最乐观值) / 2", "correct": false, "sort_order": 2 },
+        { "content": "标准差越大，表示估算的不确定性（风险）越高", "correct": true, "sort_order": 3 },
+        { "content": "方差等于标准差的平方", "correct": true, "sort_order": 4 }
+      ]
+    }
+  },
+  {
+    "type": "multiple",
+    "stem": "PMBOK第七版强调从“基于过程”转向“基于原则”，以下属于PMBOK第七版核心原则的有？",
+    "difficulty": 5,
+    "analysis": "PMBOK 7的12原则包括：管家式管理（Stewardship）、营造协作环境（Team）、有效参与干系人、聚焦价值（Value）、系统思考、领导力、裁剪（Tailoring）、质量、复杂性、风险、适应性与韧性、变革。不再强调具体的ITTO（输入输出工具）。",
+    "details": {
+      "options": [
+        { "content": "聚焦于价值（Focus on Value）", "correct": true, "sort_order": 1 },
+        { "content": "根据环境进行裁剪（Tailoring）", "correct": true, "sort_order": 2 },
+        { "content": "拥抱适应性与韧性（Adaptability and Resiliency）", "correct": true, "sort_order": 3 },
+        { "content": "严格遵守49个过程的输入输出", "correct": false, "sort_order": 4 }
+      ]
+    }
+  }
+]
