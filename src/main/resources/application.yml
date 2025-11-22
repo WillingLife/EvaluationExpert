@@ -64,7 +64,24 @@ dify:
   base-url: http://localhost/v1/workflows/run
   grade-short-question-key: app-VUZyLcX0EKv3yXAy513hnDtW
   polish-assignment-key: app-76EbJHw5ftOwuHbRIG19VlgU
+  mapping-knowledge-key: app-T2arHHbfiyO6SwEp2gFzjTHs
+  exam-generate-query-key: app-2tpVuDIsXJasACy25nKiJXl7
 
+application:
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+    question-query:
+      key-prefix: query-question-
+      ttl-minutes: 5
 
+custom:
+  ai:
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY}
+      base-url: https://api.deepseek.com
+      model: deepseek-reasoner
 
 

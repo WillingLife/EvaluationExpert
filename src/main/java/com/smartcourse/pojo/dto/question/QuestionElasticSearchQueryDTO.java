@@ -1,7 +1,9 @@
-package com.smartcourse.pojo.dto;
+package com.smartcourse.pojo.dto.question;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.smartcourse.pojo.dto.ElasticSearchKnowledgeDTO;
+import com.smartcourse.pojo.dto.QueryRerankerConfigDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -16,10 +18,10 @@ public class QuestionElasticSearchQueryDTO {
     private String query;
 
     /** 是否启用同义词搜索。 */
-    private Boolean synonymy;
+    private Boolean synonymy=false;
 
     /** 是否启用模糊搜索。 */
-    private Boolean fuzzy;
+    private Boolean fuzzy=false;
 
     /** 题目类型，null 表示不限。 */
     private String type;
@@ -31,23 +33,26 @@ public class QuestionElasticSearchQueryDTO {
     private Double highDifficulty;
 
     /** 是否检索答案字段。 */
-    private Boolean searchAnswer;
+    private Boolean searchAnswer=false;
 
     /** 是否启用向量检索。 */
-    private Boolean useVector;
+    private Boolean useVector=false;
 
     /** 作者 ID，null 表示不限。 */
     private Long authorId;
 
     /** 是否使用知识节点查询 */
-    private Boolean useKnowledgeArgs;
+    private Boolean useKnowledgeArgs=false;
 
     /** 查询的知识节点*/
     private List<ElasticSearchKnowledgeDTO> knowledge;
 
     /** reranker 配置 */
-    private QueryRerankerConfigDTO reranker;
+    private QueryRerankerConfigDTO reranker=new QueryRerankerConfigDTO();
 
-
+    /**
+     * 请求的页数
+     */
+    private Integer pageNumber;
 
 }

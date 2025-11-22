@@ -22,16 +22,6 @@ public class HighlightUtil {
             return source;
         }
 
-        // 🌟 性能优化：只有一个 fragment，且去掉高亮后与 source 完全相同 → 直接返回
-        if (highlights.size() == 1) {
-            String fragment = highlights.get(0);
-            String plainFragment = removeEmTags(fragment);
-
-            if (plainFragment.equals(source)) {
-                return source;
-            }
-        }
-
         String result = source;
 
         // 使用 StringBuilder 避免频繁创建字符串

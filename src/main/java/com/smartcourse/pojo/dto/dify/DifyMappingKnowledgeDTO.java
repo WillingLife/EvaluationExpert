@@ -1,14 +1,18 @@
 package com.smartcourse.pojo.dto.dify;
 
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class DifyCompletionResponse<T> {
-    private String workflowRunId;
-    private String taskId;
-    private DifyResponseDataDTO<T> data;
-
+@AllArgsConstructor
+@NoArgsConstructor
+public class DifyMappingKnowledgeDTO {
+    private String question;
+    private String knowledgeJson;
 }
+

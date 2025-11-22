@@ -6,6 +6,8 @@ import com.smartcourse.pojo.dto.QuestionUpdateDTO;
 import com.smartcourse.pojo.vo.QuestionQueryVO;
 import com.smartcourse.result.PageResult;
 
+import java.util.List;
+
 public interface QuestionService {
     /**
      * 新增题目
@@ -26,6 +28,13 @@ public interface QuestionService {
      * @return 题目详情
      */
     QuestionQueryVO get(Long id);
+
+    /**
+     * 批量查询题目详情
+     * @param ids 题目ID列表
+     * @return 题目详情列表
+     */
+    List<QuestionQueryVO> getBatch(List<Long> ids);
 
     /**
      * 修改题目信息

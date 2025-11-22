@@ -23,7 +23,7 @@ public class TeacherAssignmentController {
         return Result.success(res);
     }
 
-    @PostMapping
+    @PostMapping("/polish")
     public Result<String> polishAssignment(@RequestBody TeacherPolishAssignmentDTO dto){
         String res = teacherAssignmentService.polishAssignment(dto);
         return Result.success(res);

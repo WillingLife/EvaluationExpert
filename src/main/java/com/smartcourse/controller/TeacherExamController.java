@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("teacher/exam")
+@CrossOrigin
 public class TeacherExamController {
     private final TeacherExamService teacherExamService;
 
@@ -63,4 +64,5 @@ public class TeacherExamController {
         teacherExamService.deleteExam(teacherDeleteExamDTO);
         return Result.success("success");
     }
+
 }

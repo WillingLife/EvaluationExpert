@@ -27,4 +27,18 @@ public class TaskProducer {
         );
         log.info("Published gradeShortQuestion task with scoreId={} examItemId={}", scoreId, examItemId);
     }
+
+    public void publishMappingKnowledgeTask(Long questionId, Long courseId, String question) {
+        MappingKnowledgeTaskMessage payload = MappingKnowledgeTaskMessage.builder()
+                .questionId(questionId)
+                .courseId(courseId)
+                .question(question)
+                .build();
+        rabbitTemplate.convertAndSend(
+                RabbitTaskConstants.TASK_EXCHANGE,
+                RabbitTaskConstants.MAPPING_KNOWLEDGE_ROUTING_KEY,
+                payload
+        );
+        log.info("Published mappingKnowledge task with questionId={} courseId={}", questionId, courseId);
+    }
 }

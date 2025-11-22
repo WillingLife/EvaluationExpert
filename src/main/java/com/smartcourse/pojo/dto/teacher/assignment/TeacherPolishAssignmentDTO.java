@@ -9,5 +9,5 @@ import lombok.Data;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TeacherPolishAssignmentDTO {
-
+    private String assignment;
 }

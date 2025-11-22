@@ -1,9 +1,9 @@
 package com.smartcourse.service;
 
-import com.smartcourse.infra.es.vo.QuestionEsSearchResult;
 import com.smartcourse.model.QuestionDocument;
 import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
-import com.smartcourse.pojo.dto.QuestionElasticSearchQueryDTO;
+import com.smartcourse.pojo.dto.question.QuestionElasticSearchQueryDTO;
+import com.smartcourse.pojo.vo.question.QuestionQueryESItemVO;
 import com.smartcourse.repository.QuestionDocumentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -18,6 +19,9 @@ class QuestionElasticSearchServiceImplTests {
 
     @Autowired
     private QuestionElasticSearchService questionElasticSearchService;
+
+    @Autowired
+    private ElasticSearchQueryService elasticSearchQueryService;
 
     @Autowired
     private QuestionDocumentRepository repository;
@@ -58,10 +62,10 @@ class QuestionElasticSearchServiceImplTests {
     void testQueryQuestionDocument(){
         QuestionElasticSearchQueryDTO dto = new QuestionElasticSearchQueryDTO();
         dto.setUseVector(true);
-        dto.setQuery("Butterfly");
+        dto.setQuery("项目经理");
         dto.setSearchAnswer(true);
-        QuestionEsSearchResult questionEsSearchResult = questionElasticSearchService.queryQuestionDocument(dto);
-        System.out.println(questionEsSearchResult);
+        List<QuestionQueryESItemVO> esvos = elasticSearchQueryService.queryQuestionDocument(dto);
+        System.out.println(esvos);
 
 
     }

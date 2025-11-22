@@ -8,6 +8,7 @@ import com.smartcourse.pojo.vo.exam.question.StudentExamFillBlankQuestionVO;
 import com.smartcourse.pojo.vo.exam.question.StudentExamShortAnswerQuestionVO;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -50,6 +51,11 @@ public interface QuestionMapper {
      * 根据ID查询题目
      */
     Question selectById(Long id);
+
+    /**
+     * 根据ID批量查询题目
+     */
+    List<Question> selectByIds(@Param("ids") List<Long> ids);
     @Select("select sort_order as optionId, content from evaluation_expert.question_option where question_id = #{questionId}")
     List<StudentScoreQuestionVO.Option> getOptions(Long questionId);
 

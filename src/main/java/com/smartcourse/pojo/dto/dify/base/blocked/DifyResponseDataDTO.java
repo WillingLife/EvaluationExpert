@@ -1,4 +1,4 @@
-package com.smartcourse.pojo.dto.dify;
+package com.smartcourse.pojo.dto.dify.base.blocked;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
