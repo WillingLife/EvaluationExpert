@@ -13,7 +13,8 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TeacherGradeAssignmentDTO {
     private Long teacherId;
-    private Long assignmentScoreId;
+    private Long assignmentId;
+    private Long studentId;
     private Integer score;
-    private String teacherRemark;
+    private String comment;
 }

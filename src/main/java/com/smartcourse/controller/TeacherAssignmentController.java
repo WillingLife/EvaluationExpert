@@ -1,6 +1,7 @@
 package com.smartcourse.controller;
 
 import com.smartcourse.pojo.dto.teacher.assignment.TeacherGetAssignmentDTO;
+import com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TeacherGetAssignmentVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.TeacherAssignmentService;
@@ -8,10 +9,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("teacher/assignment")
+@RequestMapping("/teacher/assignment")
 @CrossOrigin
 public class TeacherAssignmentController {
     private final TeacherAssignmentService teacherAssignmentService;
@@ -20,5 +23,11 @@ public class TeacherAssignmentController {
     public Result<TeacherGetAssignmentVO> getAssignment(TeacherGetAssignmentDTO dto) {
         TeacherGetAssignmentVO res = teacherAssignmentService.getAssignment(dto);
         return Result.success(res);
+    }
+
+    @GetMapping("/getStudents")
+    public Result<List<TaskStudentListVO>> getStudents(@RequestParam("assignment_id") Integer assignmentId) {
+        List<TaskStudentListVO> list = teacherAssignmentService.getStudents(assignmentId);
+        return Result.success(list);
     }
 }

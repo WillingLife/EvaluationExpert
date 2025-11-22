@@ -98,7 +98,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Transactional(rollbackFor = Exception.class)
     public AssignmentScoreIdVO gradeAssignment(TeacherGradeAssignmentDTO teacherGradeDTO) {
         // 校验评分记录是否存在
-        AssignmentScore assignmentScore = assignmentScoreMapper.selectById(teacherGradeDTO.getAssignmentScoreId());
+        AssignmentScore assignmentScore = assignmentScoreMapper.select(teacherGradeDTO);
         if (assignmentScore == null) {
             throw new IllegalArgumentException(MessageConstant.ASSIGNMENT_SCORE_NOT_EXIST);
         }
@@ -114,8 +114,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         // 记录教师评语
         AssignmentRemark assignmentRemark = new AssignmentRemark();
-        assignmentRemark.setAssignmentScoreId(teacherGradeDTO.getAssignmentScoreId());
-        assignmentRemark.setTeacherRemark(teacherGradeDTO.getTeacherRemark());
+        assignmentRemark.setAssignmentScoreId(assignmentScore.getId());
+        assignmentRemark.setTeacherRemark(teacherGradeDTO.getComment());
         assignmentRemark.setCreateTime(LocalDateTime.now());
         assignmentRemark.setUpdateTime(LocalDateTime.now());
         assignmentRemark.setDeleted(false);
