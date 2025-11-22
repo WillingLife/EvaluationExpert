@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("teacher/exam")
+@CrossOrigin
 public class TeacherExamController {
     private final TeacherExamService teacherExamService;
 
