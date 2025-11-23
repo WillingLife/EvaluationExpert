@@ -1,6 +1,9 @@
 package com.smartcourse.infra.http.dify;
 
+import com.smartcourse.infra.http.dify.annotations.ExamGenerateQueryClient;
 import com.smartcourse.infra.http.dify.annotations.GradeShortQuestionClient;
+import com.smartcourse.infra.http.dify.annotations.MappingKnowledgeClient;
+import com.smartcourse.infra.http.dify.annotations.PolishAssignmentClient;
 import com.smartcourse.properties.DifyProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Configuration
@@ -27,6 +32,41 @@ public class DifyClientConfiguration {
 
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient)).build();
         return factory.createClient(DifyClient.class);
+    }
 
+    @Bean
+    @PolishAssignmentClient
+    public DifyClient polishAssignmentClient(){
+        RestClient restClient = RestClient.builder()
+                .baseUrl(difyProperties.getBaseUrl())
+                .defaultHeader("Authorization", "Bearer " + difyProperties.getPolishAssignmentKey())
+                .build();
+
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient)).build();
+        return factory.createClient(DifyClient.class);
+    }
+
+    @Bean
+    @MappingKnowledgeClient
+    public DifyClient mappingKnowledge(){
+        RestClient restClient = RestClient.builder()
+                .baseUrl(difyProperties.getBaseUrl())
+                .defaultHeader("Authorization", "Bearer " + difyProperties.getMappingKnowledgeKey())
+                .build();
+
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient)).build();
+        return factory.createClient(DifyClient.class);
+    }
+
+    @Bean
+    @ExamGenerateQueryClient
+    public DifyClient examGenerateQueryClient(){
+        WebClient webClient = WebClient.builder()
+                .baseUrl(difyProperties.getBaseUrl())
+                .defaultHeader("Authorization", "Bearer " +difyProperties.getExamGenerateQueryKey())
+                .build();
+
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(webClient)).build();
+        return factory.createClient(DifyClient.class);
     }
 }

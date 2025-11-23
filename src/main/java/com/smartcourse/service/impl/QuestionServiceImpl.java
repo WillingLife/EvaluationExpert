@@ -9,6 +9,7 @@ import com.smartcourse.mapper.QuestionMapper;
 import com.smartcourse.mapper.QuestionOptionMapper;
 import com.smartcourse.mapper.QuestionShortAnswerMapper;
 import com.smartcourse.pojo.dto.QuestionAddDTO;
+import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
 import com.smartcourse.pojo.dto.QuestionQueryDTO;
 import com.smartcourse.pojo.dto.QuestionUpdateDTO;
 import com.smartcourse.pojo.entity.Question;
@@ -17,7 +18,9 @@ import com.smartcourse.pojo.entity.QuestionOption;
 import com.smartcourse.pojo.entity.QuestionShortAnswer;
 import com.smartcourse.pojo.vo.QuestionQueryVO;
 import com.smartcourse.result.PageResult;
+import com.smartcourse.service.QuestionElasticSearchService;
 import com.smartcourse.service.QuestionService;
+import com.smartcourse.utils.TextExtractUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -39,9 +42,11 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionFillBlankMapper questionFillBlankMapper;
     private final QuestionShortAnswerMapper questionShortAnswerMapper;
     private final ObjectMapper objectMapper;
+    private final QuestionElasticSearchService questionElasticSearchService;
 
     /**
      * 新增题目
+     *
      * @param questionAddDTO 题目信息
      */
     @Override
@@ -70,15 +75,26 @@ public class QuestionServiceImpl implements QuestionService {
         if (details == null || details.isEmpty()) {
             throw new QuestionValidationException(MessageConstant.DETAILS_MISSING);
         }
+        String answerText = "";
+        String typeText = switch (type) {
+            case 1 -> "single";
+            case 2 -> "multiple";
+            case 3 -> "fill_blank";
+            case 4 -> "short_answer";
+            default -> "";
+        };
 
         if (type == 1 || type == 2) {
-            // 选择 题
+            // 选择题
             List<QuestionOption> options = JSON.parseArray(details.get(OPTIONS)
                     .toString(), QuestionOption.class);
 
             if (options == null || options.isEmpty()) {
                 throw new ChoiceQuestionException(MessageConstant.CHOICE_OPTIONS_EMPTY);
             }
+
+
+            answerText = TextExtractUtils.extractOptions(options);
 
             long correctCount = options.stream()
                     .peek(o -> o.setQuestionId(question.getId()))
@@ -117,6 +133,8 @@ public class QuestionServiceImpl implements QuestionService {
                 throw new DataParseException(MessageConstant.DATA_PARSE_ERROR);
             }
 
+            answerText = answer.getAnswer();
+
             if (answer.getAnswer() == null || answer.getAnswer().isEmpty()) {
                 throw new ShortAnswerQuestionException(MessageConstant.SHORT_ANSWER_ANSWER_EMPTY);
             }
@@ -126,10 +144,23 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
             throw new QuestionValidationException(MessageConstant.QUESTION_TYPE_INVALID);
         }
+
+        // 将题目插入ES数据库
+        QuestionElasticSearchAddDTO document = QuestionElasticSearchAddDTO.builder()
+                .id(question.getId())
+                .questionText(question.getStem())
+                .answerText(answerText)
+                .courseId(question.getCourseId())
+                .difficulty(Float.valueOf(question.getDifficulty()))
+                .authorId(question.getTeacherId())
+                .type(typeText)
+                .build();
+        questionElasticSearchService.addQuestionDocument(document);
     }
 
     /**
      * 分页查询题目数据
+     *
      * @param questionQueryDTO 查询条件
      * @return 题目数据
      */
@@ -168,81 +199,14 @@ public class QuestionServiceImpl implements QuestionService {
                 pageSize
         );
 
-        // 各种题型对应题目id
-        List<Long> optionIds = new ArrayList<>();
-        List<Long> blankIds = new ArrayList<>();
-        List<Long> shortIds = new ArrayList<>();
-
-        for (QuestionQueryVO questionVO : questionRecords) {
-            if (questionVO.getType() == null) continue;
-            if (questionVO.getType() == 1 || questionVO.getType() == 2) optionIds.add(questionVO.getId());
-            else if (questionVO.getType() == 3) blankIds.add(questionVO.getId());
-            else if (questionVO.getType() == 4) shortIds.add(questionVO.getId());
-        }
-
-        // 每个题目对应的题目详情信息
-        Map<Long, List<QuestionOption>> optionMap = new HashMap<>();
-        Map<Long, List<QuestionFillBlank>> blankMap = new HashMap<>();
-        Map<Long, QuestionShortAnswer> shortMap = new HashMap<>();
-
-        // 查出所有选择题
-        if (!optionIds.isEmpty()) {
-            List<QuestionOption> options = questionOptionMapper.selectByQuestionIds(optionIds);
-            for (QuestionOption o : options) {
-                optionMap.computeIfAbsent(o.getQuestionId(),
-                        k -> new ArrayList<>()).add(o);
-            }
-        }
-
-        // 查出所有填空题
-        if (!blankIds.isEmpty()) {
-            List<QuestionFillBlank> blanks = questionFillBlankMapper.selectByQuestionIds(blankIds);
-            for (QuestionFillBlank b : blanks) {
-                blankMap.computeIfAbsent(b.getQuestionId(),
-                        k -> new ArrayList<>()).add(b);
-            }
-        }
-
-        // 查出所有简答题
-        if (!shortIds.isEmpty()) {
-            List<QuestionShortAnswer> answers = questionShortAnswerMapper.selectByQuestionIds(shortIds);
-            for (QuestionShortAnswer sa : answers) {
-                shortMap.put(sa.getQuestionId(), sa);
-            }
-        }
-
-        for (QuestionQueryVO questionVO : questionRecords) {
-            Integer type = questionVO.getType();
-            Long questionId = questionVO.getId();
-
-            if (type == null) continue;
-            if (type == 1 || type == 2) {
-                List<QuestionOption> options =
-                        optionMap.getOrDefault(questionId, Collections.emptyList());
-
-                ObjectNode node = objectMapper.createObjectNode();
-                node.set(OPTIONS, objectMapper.valueToTree(options));
-
-                questionVO.setDetails(node);
-            } else if (type == 3) {
-                List<QuestionFillBlank> blanks =
-                        blankMap.getOrDefault(questionId, Collections.emptyList());
-
-                ObjectNode node = objectMapper.createObjectNode();
-                node.set(BLANKS, objectMapper.valueToTree(blanks));
-
-                questionVO.setDetails(node);
-            } else if (type == 4) {
-                QuestionShortAnswer sa = shortMap.get(questionId);
-                questionVO.setDetails(objectMapper.valueToTree(sa));
-            }
-        }
+        getQuestionDetailsBatch(questionRecords);
 
         return new PageResult<>(total, questionRecords);
     }
 
     /**
      * 根据ID查询题目详情
+     *
      * @param id 题目ID
      * @return 题目详情
      */
@@ -264,7 +228,44 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     /**
+     * 批量查询题目详情
+     *
+     * @param ids 题目ID集合
+     * @return 题目详情列表
+     */
+    @Override
+    public List<QuestionQueryVO> getBatch(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Question> questions = questionMapper.selectByIds(ids);
+        if (questions == null || questions.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        Map<Long, QuestionQueryVO> voMap = new HashMap<>(questions.size());
+        for (Question question : questions) {
+            QuestionQueryVO questionQueryVO = new QuestionQueryVO();
+            BeanUtils.copyProperties(question, questionQueryVO);
+            voMap.put(questionQueryVO.getId(), questionQueryVO);
+        }
+
+        List<QuestionQueryVO> result = new ArrayList<>();
+        for (Long id : ids) {
+            QuestionQueryVO vo = voMap.get(id);
+            if (vo != null) {
+                result.add(vo);
+            }
+        }
+
+        getQuestionDetailsBatch(result);
+        return result;
+    }
+
+    /**
      * 修改题目信息
+     *
      * @param questionUpdateDTO 题目修改信息
      */
     @Override
@@ -283,7 +284,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         // 更新题目信息
-        BeanUtils.copyProperties(questionUpdateDTO,question);
+        BeanUtils.copyProperties(questionUpdateDTO, question);
         question.setUpdateTime(LocalDateTime.now());
 
         // 更新数据库
@@ -350,7 +351,7 @@ public class QuestionServiceImpl implements QuestionService {
 
                 // 插入简答题信息
                 questionShortAnswerMapper.insert(shortAnswer);
-            } else  {
+            } else {
                 throw new DataParseException(MessageConstant.DATA_PARSE_ERROR);
             }
         } else {
@@ -361,6 +362,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     /**
      * 根据ID删除题目（逻辑删除）
+     *
      * @param id 题目ID
      */
     @Override
@@ -386,30 +388,86 @@ public class QuestionServiceImpl implements QuestionService {
         questionMapper.update(question);
     }
 
-    private void getQuestionDetails(QuestionQueryVO questionQueryVO) {
-        Integer type = questionQueryVO.getType();
-        Long questionId = questionQueryVO.getId();
-
-        if (type == 1 || type == 2) { // 选择
-            List<QuestionOption> options =
-                    questionOptionMapper.selectByQuestionId(questionId);
-
-            ObjectNode node = objectMapper.createObjectNode();
-            node.set(OPTIONS, objectMapper.valueToTree(options));
-
-            questionQueryVO.setDetails(node);
-        } else if (type == 3) { // 填空
-            List<QuestionFillBlank> blanks =
-                    questionFillBlankMapper.selectByQuestionId(questionId);
-
-            ObjectNode node = objectMapper.createObjectNode();
-            node.set(BLANKS, objectMapper.valueToTree(blanks));
-
-            questionQueryVO.setDetails(node);
-        } else if (type == 4) { // 简答
-            QuestionShortAnswer shortAnswer = questionShortAnswerMapper.selectByQuestionId(questionId);
-            questionQueryVO.setDetails(objectMapper.valueToTree(shortAnswer));
+    private void getQuestionDetailsBatch(List<QuestionQueryVO> questionQueryVOS) {
+        if (questionQueryVOS == null || questionQueryVOS.isEmpty()) {
+            return;
         }
+
+        List<Long> optionIds = new ArrayList<>();
+        List<Long> blankIds = new ArrayList<>();
+        List<Long> shortIds = new ArrayList<>();
+
+        for (QuestionQueryVO questionVO : questionQueryVOS) {
+            Integer type = questionVO.getType();
+            if (type == null) {
+                continue;
+            }
+
+            if (type == 1 || type == 2) {
+                optionIds.add(questionVO.getId());
+            } else if (type == 3) {
+                blankIds.add(questionVO.getId());
+            } else if (type == 4) {
+                shortIds.add(questionVO.getId());
+            }
+        }
+
+        Map<Long, List<QuestionOption>> optionMap = new HashMap<>();
+        Map<Long, List<QuestionFillBlank>> blankMap = new HashMap<>();
+        Map<Long, QuestionShortAnswer> shortMap = new HashMap<>();
+
+        if (!optionIds.isEmpty()) {
+            List<QuestionOption> options = questionOptionMapper.selectByQuestionIds(optionIds);
+            for (QuestionOption o : options) {
+                optionMap.computeIfAbsent(o.getQuestionId(), k -> new ArrayList<>()).add(o);
+            }
+        }
+
+        if (!blankIds.isEmpty()) {
+            List<QuestionFillBlank> blanks = questionFillBlankMapper.selectByQuestionIds(blankIds);
+            for (QuestionFillBlank b : blanks) {
+                blankMap.computeIfAbsent(b.getQuestionId(), k -> new ArrayList<>()).add(b);
+            }
+        }
+
+        if (!shortIds.isEmpty()) {
+            List<QuestionShortAnswer> answers = questionShortAnswerMapper.selectByQuestionIds(shortIds);
+            for (QuestionShortAnswer shortAnswer : answers) {
+                shortMap.put(shortAnswer.getQuestionId(), shortAnswer);
+            }
+        }
+
+        for (QuestionQueryVO questionVO : questionQueryVOS) {
+            Integer type = questionVO.getType();
+            Long questionId = questionVO.getId();
+
+            if (type == null || questionId == null) {
+                continue;
+            }
+
+            if (type == 1 || type == 2) {
+                List<QuestionOption> options = optionMap.getOrDefault(questionId, Collections.emptyList());
+                ObjectNode node = objectMapper.createObjectNode();
+                node.set(OPTIONS, objectMapper.valueToTree(options));
+                questionVO.setDetails(node);
+            } else if (type == 3) {
+                List<QuestionFillBlank> blanks = blankMap.getOrDefault(questionId, Collections.emptyList());
+                ObjectNode node = objectMapper.createObjectNode();
+                node.set(BLANKS, objectMapper.valueToTree(blanks));
+                questionVO.setDetails(node);
+            } else if (type == 4) {
+                QuestionShortAnswer shortAnswer = shortMap.get(questionId);
+                questionVO.setDetails(objectMapper.valueToTree(shortAnswer));
+            }
+        }
+    }
+
+    private void getQuestionDetails(QuestionQueryVO questionQueryVO) {
+        if (questionQueryVO == null) {
+            return;
+        }
+
+        getQuestionDetailsBatch(Collections.singletonList(questionQueryVO));
     }
 
 }

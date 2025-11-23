@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class QueryRerankerConfigDTO {
-    private String rerankStrategy;
-    private Double keywordWeight;
-    private Double vectorWeight;
-    private Double knowledgeWeight;
-    private Double cfScore;
+    private String rerankStrategy="wighted_fusion";
+    private Double keywordWeight=1.0;
+    private Double vectorWeight=1.0;
+    private Double knowledgeWeight=1.0;
+    private Double cfScore=1.0;
 }

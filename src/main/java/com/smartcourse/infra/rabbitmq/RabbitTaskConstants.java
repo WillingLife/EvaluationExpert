@@ -13,4 +13,8 @@ public final class RabbitTaskConstants {
     public static final String GRADE_SHORT_QUESTION_QUEUE = "task.grade-short-question.queue";
 
     public static final String GRADE_SHORT_QUESTION_ROUTING_KEY = "task.grade-short-question";
+
+    public static final String MAPPING_KNOWLEDGE_QUEUE = "task.mapping-knowledge.queue";
+
+    public static final String MAPPING_KNOWLEDGE_ROUTING_KEY = "task.mapping-knowledge";
 }

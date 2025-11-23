@@ -3,10 +3,12 @@ package com.smartcourse.converter;
 import com.smartcourse.pojo.dto.ElasticSearchKnowledgeDTO;
 import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
 import com.smartcourse.model.QuestionDocument;
-import com.smartcourse.pojo.dto.QuestionElasticSearchQueryDTO;
+import com.smartcourse.pojo.dto.question.QuestionElasticSearchQueryDTO;
 import com.smartcourse.pojo.query.KnowledgeSearchQueryItem;
 import com.smartcourse.pojo.query.QuestionElasticSearchQuery;
 import com.smartcourse.pojo.query.QuestionKnowledgeSearchQuery;
+import com.smartcourse.pojo.vo.question.QuestionQueryESItemVO;
+import com.smartcourse.pojo.vo.QuestionQueryVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -46,6 +48,11 @@ public interface QuestionElasticSearchConverter {
     KnowledgeSearchQueryItem knowledgeDTOToKnowledgeQueryItem(ElasticSearchKnowledgeDTO dto);
 
     List<KnowledgeSearchQueryItem> knowledgeDTOToKnowledgeQueryItems(List<ElasticSearchKnowledgeDTO> list);
+
+    @Mapping(target = "vectorGet",constant = "false")
+    @Mapping(target = "knowledgeGet",constant = "false")
+    @Mapping(target = "cfGet",constant = "false")
+    QuestionQueryESItemVO queryVoToESVo(QuestionQueryVO vo);
 
 
 }
