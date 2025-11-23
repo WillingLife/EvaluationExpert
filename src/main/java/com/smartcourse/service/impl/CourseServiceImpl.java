@@ -1,9 +1,7 @@
 package com.smartcourse.service.impl;
 
 import com.smartcourse.mapper.CourseMapper;
-import com.smartcourse.pojo.vo.course.StudentCourseTaskVO;
-import com.smartcourse.pojo.vo.course.StudentCourseVO;
-import com.smartcourse.pojo.vo.course.TeacherCourseVO;
+import com.smartcourse.pojo.vo.course.*;
 import com.smartcourse.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +26,25 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<StudentCourseTaskVO> getCourseTask(Long studentId) {
         return courseMapper.getCourseTask(studentId);
+    }
+
+    @Override
+    public List<CourseVO> getListAll(Long teacherId) {
+        return courseMapper.getListAll(teacherId);
+    }
+
+    @Override
+    public List<ExamListVO> getExamList(Long courseId) {
+        return courseMapper.getExamList(courseId);
+    }
+
+    @Override
+    public List<ExamStudentVO> getStudents(Long examId, Long classId) {
+        return courseMapper.getStudents(examId, classId);
+    }
+
+    @Override
+    public List<ExamVO> getExam(Long courseId) {
+        return courseMapper.getExam(courseId);
     }
 }

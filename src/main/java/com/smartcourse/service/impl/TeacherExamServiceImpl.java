@@ -74,11 +74,6 @@ public class TeacherExamServiceImpl implements TeacherExamService {
                 .status(ExamStatusEnum.PUBLISHED.getValue())
                 .build();
         examMapper.updateExamSelective(insetExam);
-        if(teacherPublishExamDTO.getClassIds()!=null&& !teacherPublishExamDTO.getClassIds().isEmpty()){
-            examClassMapper.deleteExamClassesByExamId(exam.getId());
-            examClassMapper.insertExamClasses(exam.getId(), teacherPublishExamDTO.getClassIds());
-        }
-
     }
 
     @Override

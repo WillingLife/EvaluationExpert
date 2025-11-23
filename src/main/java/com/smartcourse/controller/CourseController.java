@@ -1,8 +1,6 @@
 package com.smartcourse.controller;
 
-import com.smartcourse.pojo.vo.course.StudentCourseTaskVO;
-import com.smartcourse.pojo.vo.course.StudentCourseVO;
-import com.smartcourse.pojo.vo.course.TeacherCourseVO;
+import com.smartcourse.pojo.vo.course.*;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +35,29 @@ public class CourseController {
     public Result<List<StudentCourseTaskVO>> getCourseTask(@RequestParam("student_id") Long studentId) {
         List<StudentCourseTaskVO> teacherCourseVOList = courseService.getCourseTask(studentId);
         return Result.success(teacherCourseVOList);
+    }
+
+    @GetMapping("/teacher/listAll")
+    public Result<List<CourseVO>> getListAll(@RequestParam("teacher_id") Long teacherId) {
+        List<CourseVO> list = courseService.getListAll(teacherId);
+        return Result.success(list);
+    }
+
+    @GetMapping("/teacher/examList")
+    public Result<List<ExamListVO>> getExamList(@RequestParam("course_id") Long courseId) {
+        List<ExamListVO> list = courseService.getExamList(courseId);
+        return Result.success(list);
+    }
+
+    @GetMapping("/teacher/exam")
+    public Result<List<ExamVO>> getExam(@RequestParam("course_id") Long courseId) {
+        List<ExamVO> list = courseService.getExam(courseId);
+        return Result.success(list);
+    }
+
+    @GetMapping("/teacher/exam/students")
+    public Result<List<ExamStudentVO>> getStudents(@RequestParam("exam_id") Long examId, @RequestParam("class_id") Long classId) {
+        List<ExamStudentVO> list = courseService.getStudents(examId,classId);
+        return Result.success(list);
     }
 }
