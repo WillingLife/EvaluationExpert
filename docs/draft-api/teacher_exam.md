@@ -8,7 +8,7 @@
 - [5.教师查看学生答案](#5教师查看学生答案)
 - [6.教师获取指定课程的所有试卷](#6教师获取指定课程的所有试卷)
 
-## 1.教师AI自动组卷
+## 1.教师AI自动组卷(@Deprecated)
 
 请求路径：`teacher/exam/make/ai-generate`
 
@@ -343,6 +343,40 @@
   "exam_id": "考试ID"
 }
 ```
+
+## 8.教师ai组卷API(全新)
+
+建议使用@microsoft/fetch-event-source以支持POST请求
+
+请求路径：`teacher/eaxm/ai-generate`
+
+请求方法：POST
+
+请求体：
+```json
+{
+  "course_id": 1,
+  "session_id": "111",
+  "prompt":"题目稍微少一点"
+}
+```
+
+`session_id`由前端生成uuid并自己保存，一次生成组卷（包括后续修改使用同一个uuid）
+
+`prompt` 用户输入的提示词
+
+返回体：
+```json
+{
+  "event":"str"
+  "data":"object"
+}
+```
+有以下event:
+- `generating`: data格式为纯字符串
+- `function_calling`:data无数据，为心跳包，告知前端用户ai正在生成
+- `finish`: data为list(object),object格式与查询题目返回一致
+
 
 
 
