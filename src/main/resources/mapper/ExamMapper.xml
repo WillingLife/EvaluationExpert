@@ -80,6 +80,24 @@
                     select="getExamClassesByExamId"/>
     </resultMap>
 
+    <select id="getTeacherGetExamItemVOListByCourseId"
+            parameterType="long"
+            resultMap="TeacherGetExamItemResultMap">
+        SELECT e.id               AS exam_id,
+               e.name             AS exam_name,
+               e.description      AS description,
+               e.total_score      AS total_score,
+               e.start_time       AS start_time,
+               e.duration_minutes AS duration_minutes,
+               e.status           AS status,
+               e.create_time      AS create_time,
+               e.update_time      AS update_time
+        FROM evaluation_expert.exam e
+        WHERE e.course_id = #{courseId}
+          AND e.deleted = 0
+        ORDER BY e.create_time DESC
+    </select>
+
     <!--首先动态拼接非null字段，更新exam表-->
 
     <update id="updateExamRecursive" parameterType="com.smartcourse.pojo.entity.Exam">
@@ -413,24 +431,6 @@
                  LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id
         WHERE e.course_id = #{courseId}
           AND (e.status = 'published' OR e.status = 'progressing')
-    </select>
-
-    <select id="getTeacherGetExamItemVOListByCourseId"
-            parameterType="long"
-            resultMap="TeacherGetExamItemResultMap">
-        SELECT e.id               AS exam_id,
-               e.name             AS exam_name,
-               e.description      AS description,
-               e.total_score      AS total_score,
-               e.start_time       AS start_time,
-               e.duration_minutes AS duration_minutes,
-               e.status           AS status,
-               e.create_time      AS create_time,
-               e.update_time      AS update_time
-        FROM evaluation_expert.exam e
-        WHERE e.course_id = #{courseId}
-          AND e.deleted = 0
-        ORDER BY e.create_time DESC
     </select>
 
     <select id="getExamClassesByExamId"

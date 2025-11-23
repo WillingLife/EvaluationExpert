@@ -1,19 +1,19 @@
-package com.smartcourse.pojo.dto;
+package com.smartcourse.pojo.vo.course;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class TeacherPublishExamDTO {
-    private Long teacher_id;
-    private Long course_id;
-    private Long exam_id;
+public class ExamVO {
+    private Long examId;
+    private String examName;
+    private String status;
+    private String totalScore;
+    private String description;
+    private String durationMinutes;
     private LocalDateTime startTime;
-    private Integer durationMinutes;
-
 }
