@@ -76,12 +76,16 @@ application:
     question-query:
       key-prefix: query-question-
       ttl-minutes: 5
+  exam:
+    prompts:
+      system: classpath:prompts/system-role.st
+      user: classpath:prompts/user-input.st
 
 custom:
   ai:
     deepseek:
-      api-key: ${DEEPSEEK_API_KEY}
-      base-url: https://api.deepseek.com
-      model: deepseek-reasoner
+      api-key: ${CHAT_GLM_API_KEY}
+      base-url: https://open.bigmodel.cn/api/paas/v4/
+      model: glm-4.6
 
 

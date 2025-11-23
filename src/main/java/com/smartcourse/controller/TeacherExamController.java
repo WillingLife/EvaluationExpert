@@ -3,15 +3,22 @@ package com.smartcourse.controller;
 
 import com.smartcourse.enums.QuestionTypeEnum;
 import com.smartcourse.pojo.dto.*;
+import com.smartcourse.pojo.dto.exam.TeacherExamAiGenerateDTO;
 import com.smartcourse.pojo.dto.exam.TeacherSaveExamQuestionDTO;
 import com.smartcourse.pojo.dto.exam.TeacherSaveExamSectionDTO;
 import com.smartcourse.pojo.vo.exam.TeacherGetExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.TeacherExamService;
+import com.smartcourse.utils.FluxUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+
+import java.time.Duration;
 
 @Slf4j
 @RestController
@@ -63,6 +70,19 @@ public class TeacherExamController {
     public Result<String> deleteExam(@RequestBody TeacherDeleteExamDTO teacherDeleteExamDTO) {
         teacherExamService.deleteExam(teacherDeleteExamDTO);
         return Result.success("success");
+    }
+
+    @PostMapping(value = "/ai-generate", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<Object>> streamExam(@RequestBody TeacherExamAiGenerateDTO dto) {
+        // 定义心跳包
+        ServerSentEvent<Object> heartbeat = ServerSentEvent.builder()
+                .event("function_calling")
+                .build();
+        return teacherExamService.aiGenerateExam(dto).map(payload -> ServerSentEvent.builder()
+                .event(payload.getEvent())
+                .data(payload.getData())
+                .build())
+                .transform(FluxUtils.withHeartbeat(Duration.ofSeconds(2), heartbeat));
     }
 
 }

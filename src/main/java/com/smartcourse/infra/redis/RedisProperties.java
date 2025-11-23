@@ -32,6 +32,8 @@ public class RedisProperties {
      */
     private QuestionQueryCache questionQuery = new QuestionQueryCache();
 
+    private ExamSessionCache examSession = new ExamSessionCache();
+
     @Data
     public static class QuestionQueryCache {
         /**
@@ -43,5 +45,11 @@ public class RedisProperties {
          * 缓存失效时间（分钟）。
          */
         private long ttlMinutes = 5;
+    }
+
+    @Data
+    public static class ExamSessionCache {
+        private String keyPrefix = "exam-session-";
+        private long ttlMinutes = 10;
     }
 }
