@@ -13,7 +13,6 @@ import com.smartcourse.exception.IllegalOperationException;
 import com.smartcourse.exception.SqlErrorException;
 import com.smartcourse.infra.ai.ExamAiAgent;
 import com.smartcourse.infra.ai.ExamGenerationContext;
-import com.smartcourse.infra.ai.LlmKernelService;
 import com.smartcourse.infra.ai.vo.ExamGenCriteria;
 import com.smartcourse.infra.redis.ExamSessionRedisRepository;
 import com.smartcourse.infra.redis.dto.ExamSessionDTO;
@@ -30,28 +29,18 @@ import com.smartcourse.pojo.vo.QuestionQueryVO;
 import com.smartcourse.pojo.vo.exam.TeacherGetExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerItemVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
-import com.smartcourse.pojo.dto.dify.base.streaming.DifyStreamEvent;
-import com.smartcourse.pojo.dto.dify.exam.DifyExamGenQueryDTO;
-import com.smartcourse.pojo.dto.exam.stream.ExamGenStreamPayload;
-import com.smartcourse.pojo.dto.exam.stream.ExamGeneratingPayload;
 import com.smartcourse.pojo.entity.*;
 import com.smartcourse.pojo.vo.exam.*;
 import com.smartcourse.pojo.vo.exam.items.TeacherGetExamItemVO;
-import com.smartcourse.service.AiToolService;
 import com.smartcourse.service.QuestionService;
 import com.smartcourse.pojo.vo.exam.question.*;
 import com.smartcourse.service.AsyncQuestionService;
-import com.smartcourse.service.DifyService;
 import com.smartcourse.service.TeacherExamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -59,10 +48,9 @@ import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,7 +61,6 @@ public class TeacherExamServiceImpl implements TeacherExamService {
     private final ExamMapper examMapper;
     private final ExamSectionMapper examSectionMapper;
     private final ExamItemMapper examItemMapper;
-    private final ExamClassMapper examClassMapper;
     private final ExamScoreItemMapper examScoreItemMapper;
     private final ExamScoreItemConverter examScoreItemConverter;
     private final ExamScoreMapper examScoreMapper;
@@ -84,7 +71,6 @@ public class TeacherExamServiceImpl implements TeacherExamService {
     private final ExamAiAgent examAiAgent;
     private final ExamSessionRedisRepository examSessionRedisRepository;
     private final QuestionConverter questionConverter;
-    private final QuestionMapper questionMapper;
     private final AsyncQuestionService asyncQuestionService;
     private final QuestionOptionMapper questionOptionMapper;
     private final  QuestionFillBlankMapper questionFillBlankMapper;
@@ -205,7 +191,7 @@ public class TeacherExamServiceImpl implements TeacherExamService {
         var converter = new BeanOutputConverter<>(ExamGenCriteria.class);
         String formatInstructions = converter.getFormat();
         // 构造context
-        ExamGenerationContext context= ExamGenerationContext.builder()
+        ExamGenerationContext context = ExamGenerationContext.builder()
                 .formatInstructions(formatInstructions)
                 .courseId(dto.getCourseId())
                 .userPrompt(dto.getPrompt())
@@ -226,8 +212,8 @@ public class TeacherExamServiceImpl implements TeacherExamService {
             List<SelectedQuestionItemDTO> dtos = questionConverter.questionQueryVosToSelectedItems(vos);
             // 存入redis
             String idsJson = convertIdListToJson(dtos);
-            examSessionRedisRepository.save(dto.getSessionId(),new ExamSessionDTO(criteria.getContext(),idsJson));
-            return new AiStreamPayload(FINISH_EVENT,vos);
+            examSessionRedisRepository.save(dto.getSessionId(), new ExamSessionDTO(criteria.getContext(), idsJson));
+            return new AiStreamPayload(FINISH_EVENT, vos);
         });
         // 链接flux和momo
         return Flux.concat(aiResponseFlux, finalAction)
@@ -236,7 +222,7 @@ public class TeacherExamServiceImpl implements TeacherExamService {
                     AiStreamPayload errorPayload = new AiStreamPayload(ERROR_EVENT, "生成失败，请重试");
                     return Flux.just(errorPayload);
                 });
-        }
+    }
 
     private Flux<AiStreamPayload> processStreamResponse(ChatResponse response, StringBuilder buffer) {
         var output = response.getResult().getOutput();
