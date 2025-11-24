@@ -4,6 +4,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -39,6 +40,15 @@ public class LlmKernelService {
         return chatClient.prompt()
                 .system(systemPrompt) // 覆盖默认的 System Prompt
                 .user(userMessage)    // 设置本次的用户问题// 挂载工具
+                .stream()
+                .chatResponse();
+    }
+
+    public Flux<ChatResponse> streamChat(String systemPrompt, String userMessage, ToolCallback... toolCallbacks) {
+        return chatClient.prompt()
+                .system(systemPrompt) // 覆盖默认的 System Prompt
+                .user(userMessage)    // 设置本次的用户问题
+                .toolCallbacks(toolCallbacks)    // 挂载工具
                 .stream()
                 .chatResponse();
     }

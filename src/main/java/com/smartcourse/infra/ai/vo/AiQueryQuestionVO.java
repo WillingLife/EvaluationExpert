@@ -1,17 +1,16 @@
-package com.smartcourse.pojo.dto.exam.stream;
-
+package com.smartcourse.infra.ai.vo;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-/**
- * 生成试卷过程返回前端的实体类
- */
+import java.util.List;
+
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @AllArgsConstructor
-public class ExamGeneratingPayload {
-    private String text;
+public class AiQueryQuestionVO {
+    private List<AiQueryQuestionVOItem> questions;
+    private String message;
 }

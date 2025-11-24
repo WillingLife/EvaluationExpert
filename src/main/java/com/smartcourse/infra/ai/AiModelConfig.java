@@ -9,6 +9,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Map;
+
 @Configuration
 @EnableConfigurationProperties(DeepSeekProperties.class)
 @RequiredArgsConstructor
@@ -20,14 +22,19 @@ public class AiModelConfig {
         return OpenAiApi.builder()
                 .baseUrl(deepSeekProperties.getBaseUrl())
                 .apiKey(deepSeekProperties.getApiKey())
+                .completionsPath("/chat/completions")
                 .build();
     }
+    Map<String, Object> thinkingParams = Map.of(
+            "type", "enabled"
+    );
 
     @Bean("deepseekChatModel")
     public OpenAiChatModel deepseekChatModel(OpenAiApi deepseekAiApi) {
         OpenAiChatOptions options = OpenAiChatOptions.builder()
                 .model(deepSeekProperties.getModel())
                 .temperature(0.8)
+                .extraBody(Map.of("thinking",thinkingParams))
                 .build();
 
         return OpenAiChatModel.builder()

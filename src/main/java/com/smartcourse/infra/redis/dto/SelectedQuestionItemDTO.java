@@ -1,4 +1,4 @@
-package com.smartcourse.pojo.dto.dify;
+package com.smartcourse.infra.redis.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class DifyKnowledgeNodeDTO {
+public class SelectedQuestionItemDTO {
     private Long id;
-    private String name;
+    private String stem;
+    private String type;
+    private Integer difficulty;
 }
