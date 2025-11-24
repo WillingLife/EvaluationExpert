@@ -1,8 +1,10 @@
 package com.smartcourse.mapper;
 
+import com.smartcourse.pojo.dto.knowledge.StudentMapDTO;
 import com.smartcourse.pojo.entity.Exam;
 import com.smartcourse.pojo.vo.exam.ExamList;
 import com.smartcourse.pojo.vo.exam.items.TeacherGetExamItemVO;
+import com.smartcourse.pojo.vo.knowledge.NodeQuestionVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -37,4 +39,9 @@ public interface ExamMapper {
 
     @Update("UPDATE evaluation_expert.exam SET deleted = 1 WHERE id = #{examId}")
     int deleteExamById(@Param("examId") Long examId);
+
+    @Select("select course_id from evaluation_expert.exam where id = #{examId}")
+    Long getCourseId(Long examId);
+
+    List<NodeQuestionVO> getQuestion(StudentMapDTO studentMapDTO);
 }

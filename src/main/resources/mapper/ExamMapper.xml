@@ -443,4 +443,13 @@
         WHERE ec.exam_id = #{examId}
     </select>
 
+    <select id="getQuestion" resultType="com.smartcourse.pojo.vo.knowledge.NodeQuestionVO">
+        select ei.question_id, ei.score as totalScore, esi.score, ei.question_type
+        from evaluation_expert.exam_section es
+                 left join evaluation_expert.exam_score s on s.exam_id = #{examId} and s.student_id = #{studentId}
+                 left join evaluation_expert.exam_item ei on es.id = ei.section_id
+                 left join evaluation_expert.exam_score_item esi on ei.id = esi.exam_item_id and esi.score_id = s.id
+        where es.exam_id = #{examId}
+    </select>
+
 </mapper>

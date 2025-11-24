@@ -113,9 +113,9 @@ public class TeacherExamServiceImpl implements TeacherExamService {
         if (!Objects.equals(exam.getCreator(), teacherPublishExamDTO.getTeacher_id())) {
             throw new IllegalOperationException("教师只能发布自己的试卷");
         }
-        if (teacherPublishExamDTO.getStartTime().isBefore(LocalDateTime.now().plusDays(1L))) {
-            throw new IllegalOperationException("教师只能发布24小时以后的考试");
-        }
+//        if (teacherPublishExamDTO.getStartTime().isBefore(LocalDateTime.now().plusDays(1L))) {
+//            throw new IllegalOperationException("教师只能发布24小时以后的考试");
+//        }
         Exam insetExam = Exam.builder().id(teacherPublishExamDTO.getExam_id())
                 .startTime(teacherPublishExamDTO.getStartTime())
                 .durationMinutes(teacherPublishExamDTO.getDurationMinutes())
