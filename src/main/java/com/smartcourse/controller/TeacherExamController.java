@@ -6,9 +6,11 @@ import com.smartcourse.pojo.dto.*;
 import com.smartcourse.pojo.dto.exam.TeacherExamAiGenerateDTO;
 import com.smartcourse.pojo.dto.exam.TeacherSaveExamQuestionDTO;
 import com.smartcourse.pojo.dto.exam.TeacherSaveExamSectionDTO;
+import com.smartcourse.pojo.vo.exam.StudentExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherGetExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
 import com.smartcourse.result.compat.Result;
+import com.smartcourse.service.StudentExamService;
 import com.smartcourse.service.TeacherExamService;
 import com.smartcourse.utils.FluxUtils;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,14 @@ import java.time.Duration;
 @CrossOrigin
 public class TeacherExamController {
     private final TeacherExamService teacherExamService;
+
+    @GetMapping("/exam-paper")
+    public Result<StudentExamVO> getStudentExamPaper(@RequestParam("exam_id") Long examId) {
+        StudentGetExamDTO studentGetExamDTO = new StudentGetExamDTO();
+        studentGetExamDTO.setExamId(examId);
+        StudentExamVO studentExamPaper = teacherExamService.getStudentExamPaper(studentGetExamDTO);
+        return Result.success(studentExamPaper);
+    }
 
     @PostMapping("make/save")
     public Result<Long> saveExam(@RequestBody TeacherSaveExamDTO teacherSaveExamDTO) {

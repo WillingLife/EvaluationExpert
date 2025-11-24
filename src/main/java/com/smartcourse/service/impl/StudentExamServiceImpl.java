@@ -3,13 +3,14 @@ package com.smartcourse.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.smartcourse.enums.QuestionTypeEnum;
 import com.smartcourse.mapper.*;
 import com.smartcourse.pojo.dto.FillBlankAnswerDTO;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.dto.exam.*;
-import com.smartcourse.pojo.entity.Exam;
-import com.smartcourse.pojo.entity.ExamScore;
+import com.smartcourse.pojo.entity.*;
+import com.smartcourse.pojo.vo.QuestionQueryVO;
 import com.smartcourse.pojo.vo.exam.*;
 import com.smartcourse.pojo.vo.exam.question.*;
 import com.smartcourse.service.AsyncQuestionService;
@@ -136,6 +137,9 @@ public class StudentExamServiceImpl implements StudentExamService {
             studentExamSectionVO.setQuestionType(QuestionTypeEnum.fromValue(vo.getQuestionType()));
             studentExamSectionVO.setQuestionNumber(vo.getQuestionIds().size());
             studentExamSectionVO.setDescription(vo.getDescription());
+            studentExamSectionVO.setChoiceNegativeScore(vo.getChoiceNegativeScore());
+            studentExamSectionVO.setMultipleStrategy(vo.getMultipleStrategy());
+            studentExamSectionVO.setMultipleStrategyConf(vo.getMultipleStrategyConf());
             List<Long> questionIds = vo.getQuestionIds();
             List<StudentExamQuestionVO> questions = new ArrayList<>();
             if (vo.getQuestionType().equals("fill_blank")) {
@@ -154,6 +158,7 @@ public class StudentExamServiceImpl implements StudentExamService {
                 for (StudentExamChoiceQuestionVO studentExamChoiceQuestionVO : studentExamChoiceQuestionVOS) {
                     if (questionIds.contains(studentExamChoiceQuestionVO.getQuestionId())) {
                         questions.add(studentExamChoiceQuestionVO);
+                        studentExamSectionVO.setChoiceScore(studentExamChoiceQuestionVO.getScore());
                     }
                 }
             }
@@ -167,6 +172,10 @@ public class StudentExamServiceImpl implements StudentExamService {
         studentExamVO.setExamNotice(exam.getNotice());
         studentExamVO.setStartTime(exam.getStartTime());
         studentExamVO.setDurationMinutes(exam.getDurationMinutes());
+        studentExamVO.setCourseId(exam.getCourseId());
+        studentExamVO.setDescription(exam.getDescription());
+        studentExamVO.setTotalScore(exam.getTotalScore());
+        studentExamVO.setPassScore(exam.getPassScore());
         studentExamVO.setSections(studentExamSectionVOS);
 
         return studentExamVO;

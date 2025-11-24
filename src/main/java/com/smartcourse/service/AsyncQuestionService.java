@@ -19,16 +19,25 @@ public class AsyncQuestionService {
 
     @Async("taskExecutor")
     public CompletableFuture<List<StudentExamChoiceQuestionVO>> getChoiceAsync(List<Long> choiceQuestionIds) {
+        if (choiceQuestionIds == null || choiceQuestionIds.isEmpty()) {
+            return CompletableFuture.completedFuture(null);
+        }
         return CompletableFuture.completedFuture(questionMapper.getChoice(choiceQuestionIds));
     }
 
     @Async("taskExecutor")
     public CompletableFuture<List<StudentExamFillBlankQuestionVO>> getFillAsync(List<Long> fillBlankIds) {
+        if (fillBlankIds == null || fillBlankIds.isEmpty()) {
+            return CompletableFuture.completedFuture(null);
+        }
         return CompletableFuture.completedFuture(questionMapper.getFill(fillBlankIds));
     }
 
     @Async("taskExecutor")
     public CompletableFuture<List<StudentExamShortAnswerQuestionVO>> getShortAsync(List<Long> shortanswerIds) {
+        if (shortanswerIds == null || shortanswerIds.isEmpty()) {
+            return CompletableFuture.completedFuture(null);
+        }
         return CompletableFuture.completedFuture(questionMapper.getShort(shortanswerIds));
     }
 }
