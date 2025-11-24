@@ -47,4 +47,9 @@ public class CourseServiceImpl implements CourseService {
     public List<ExamVO> getExam(Long courseId) {
         return courseMapper.getExam(courseId);
     }
+
+    @Override
+    public List<String> getTaskFile(Long assignmentId) {
+        return courseMapper.getTaskFile(assignmentId);
+    }
 }

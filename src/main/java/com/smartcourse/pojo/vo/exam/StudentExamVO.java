@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.smartcourse.pojo.vo.exam.question.StudentExamSectionVO;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,4 +26,9 @@ public class StudentExamVO {
     private Integer durationMinutes;
 
     private List<StudentExamSectionVO> sections;
+
+    private Long courseId;
+    private String description;
+    private BigDecimal totalScore;
+    private BigDecimal passScore;
 }

@@ -1,6 +1,7 @@
 package com.smartcourse.service;
 
 import com.smartcourse.pojo.dto.*;
+import com.smartcourse.pojo.vo.exam.StudentExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherGetExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -20,4 +21,6 @@ public interface TeacherExamService {
     void deleteExam(TeacherDeleteExamDTO teacherDeleteExamDTO);
 
     Flux<ChatResponse> aiGenerateExam();
+
+    StudentExamVO getStudentExamPaper(StudentGetExamDTO studentGetExamDTO);
 }

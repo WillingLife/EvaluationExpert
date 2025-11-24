@@ -18,4 +18,6 @@ public interface CourseService {
     List<ExamStudentVO> getStudents(Long examId, Long classId);
 
     List<ExamVO> getExam(Long courseId);
+
+    List<String> getTaskFile(Long assignmentId);
 }

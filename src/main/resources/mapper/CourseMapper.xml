@@ -88,4 +88,10 @@
         from evaluation_expert.exam
         where course_id = #{courseId}
     </select>
+
+    <select id="getTaskFile" resultType="java.lang.String">
+        select submit_file_url
+        from evaluation_expert.assignment_score
+        where assignment_id = #{assignmentId}
+    </select>
 </mapper>
