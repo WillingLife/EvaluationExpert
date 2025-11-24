@@ -9,4 +9,6 @@ import lombok.Data;
 public class SelectedQuestionItemDTO {
     private Long id;
     private String stem;
+    private String type;
+    private Integer difficulty;
 }

@@ -4,5 +4,5 @@ course_id表示课程id，不可变动，仅仅在调用工具时候需要。
 
 用户的上下文信息如下：
 {context}
-现在根据用户提示词：{user_prompt},selected_question_json:{selected_question_json},
-knowledge_json:{knowledge_json},course_id:{course_id},生成试卷
+现在根据用户提示词：{user_prompt},selected_question_json（之前选择的题目列表）:{selected_question_json},
+knowledge_json（课程的知识点信息）:{knowledge_json},course_id:{course_id},生成试卷
