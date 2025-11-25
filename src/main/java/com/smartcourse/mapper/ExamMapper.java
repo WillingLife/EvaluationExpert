@@ -44,4 +44,6 @@ public interface ExamMapper {
     Long getCourseId(Long examId);
 
     List<NodeQuestionVO> getQuestion(StudentMapDTO studentMapDTO);
+
+    List<Exam> selectByStatus(@Param("status") String status);
 }

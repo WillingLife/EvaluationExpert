@@ -93,19 +93,37 @@ public class TeacherExamServiceImpl implements TeacherExamService {
     public Long saveExam(TeacherSaveExamDTO teacherSaveExamDTO) {
         Exam exam = examConverter.teacherSaveExamDTOToExam(teacherSaveExamDTO);
         if (exam.getId() == null) {
-            if (examMapper.insertExam(exam) < 1) {
-                throw new SqlErrorException("数据库操作失败");
-            }
-            exam.batchUpdateExamIdIntoSections();
-            examSectionMapper.insetSections(exam.getSections());
-            exam.batchUpdateSectionIdIntoExamItems();
-            examItemMapper.insertExamItemsByExamSections(exam.getSections());
+            createExamWithSections(exam);
         } else {
-            examMapper.updateExamRecursive(exam);
+            refreshExamWithSections(exam);
         }
-
-
         return exam.getId();
+    }
+
+    private void createExamWithSections(Exam exam) {
+        if (examMapper.insertExam(exam) < 1) {
+            throw new SqlErrorException("数据库操作失败");
+        }
+        persistSectionsAndItems(exam);
+    }
+
+    private void refreshExamWithSections(Exam exam) {
+        if (examMapper.updateExamRecursive(exam) < 1) {
+            throw new SqlErrorException("数据库操作失败");
+        }
+        examItemMapper.deleteByExamId(exam.getId());
+        examSectionMapper.deleteByExamId(exam.getId());
+        persistSectionsAndItems(exam);
+    }
+
+    private void persistSectionsAndItems(Exam exam) {
+        if (exam.getSections() == null || exam.getSections().isEmpty()) {
+            return;
+        }
+        exam.batchUpdateExamIdIntoSections();
+        examSectionMapper.insetSections(exam.getSections());
+        exam.batchUpdateSectionIdIntoExamItems();
+        examItemMapper.insertExamItemsByExamSections(exam.getSections());
     }
 
     @Override

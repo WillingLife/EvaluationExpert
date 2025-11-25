@@ -20,6 +20,8 @@ public interface ExamItemMapper {
 
     GradeShortQuestionSqlVO getStudentAnswer(Long scoreId, Long examItemId);
 
+    int deleteByExamId(@Param("examId") Long examId);
+
 
 
     @Select("select score from evaluation_expert.exam_item where section_id = #{sectionId}")

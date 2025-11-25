@@ -35,6 +35,17 @@
             </foreach>
         </trim>
     </insert>
+
+    <delete id="deleteByExamId" parameterType="long">
+        DELETE
+        FROM evaluation_expert.exam_item
+        WHERE section_id IN (
+            SELECT s.id
+            FROM evaluation_expert.exam_section s
+            WHERE s.exam_id = #{examId}
+        )
+    </delete>
+
     <select id="getQuestion" resultType="com.smartcourse.pojo.vo.exam.StudentScoreQuestionVO">
         SELECT e.question_id, e.score AS fullScore, s.score AS studentScore, q.stem AS questionStem, s.answer, s.remark
         FROM evaluation_expert.exam_item e

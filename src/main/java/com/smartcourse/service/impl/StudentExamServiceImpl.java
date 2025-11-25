@@ -63,6 +63,7 @@ public class StudentExamServiceImpl implements StudentExamService {
      * @return
      */
     @Override
+    @Transactional
     public StudentExamVO getStudentExamPaper(StudentGetExamDTO studentGetExamDTO) {
         Long examId = studentGetExamDTO.getExamId();
         Exam exam = examMapper.getById(examId);
