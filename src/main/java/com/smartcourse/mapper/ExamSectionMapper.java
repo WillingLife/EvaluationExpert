@@ -23,4 +23,6 @@ public interface ExamSectionMapper {
 
     @Select("select multiple_strategy_conf from evaluation_expert.exam_section where id = #{sectionId}")
     String getConf(Long sectionId);
+
+    int deleteByExamId(@Param("examId") Long examId);
 }
