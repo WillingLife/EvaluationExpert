@@ -1,5 +1,6 @@
 package com.smartcourse.mapper;
 
+import com.smartcourse.pojo.dto.knowledge.ClassMapDTO;
 import com.smartcourse.pojo.dto.knowledge.StudentMapDTO;
 import com.smartcourse.pojo.entity.Exam;
 import com.smartcourse.pojo.vo.exam.ExamList;
@@ -8,6 +9,7 @@ import com.smartcourse.pojo.vo.knowledge.NodeQuestionVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ExamMapper {
@@ -44,6 +46,8 @@ public interface ExamMapper {
     Long getCourseId(Long examId);
 
     List<NodeQuestionVO> getQuestion(StudentMapDTO studentMapDTO);
+
+    List<NodeQuestionVO> getClassQuestion(ClassMapDTO classMapDTO);
 
     List<Exam> selectByStatus(@Param("status") String status);
 }

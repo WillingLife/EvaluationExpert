@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 @Data
 public class NodeQuestionVO {
+    private Long studentId;
     private Long questionId;
     private BigDecimal totalScore;
     private BigDecimal score;

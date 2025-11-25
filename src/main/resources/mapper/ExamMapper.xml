@@ -258,4 +258,21 @@
           AND deleted = 0
     </select>
 
+    <select id="getClassQuestion" resultType="com.smartcourse.pojo.vo.knowledge.NodeQuestionVO">
+        SELECT
+            s.student_id as studentId,
+            ei.question_id as questionId,
+            ei.score as totalScore,
+            esi.score,
+            ei.question_type as questionType
+        FROM evaluation_expert.exam_section es
+                 LEFT JOIN evaluation_expert.student ON student.class_id = #{classId}
+                 LEFT JOIN evaluation_expert.exam_score s
+                           ON s.exam_id = #{examId} AND student.id = s.student_id
+                 LEFT JOIN evaluation_expert.exam_item ei ON es.id = ei.section_id
+                 LEFT JOIN evaluation_expert.exam_score_item esi
+                           ON ei.id = esi.exam_item_id AND esi.score_id = s.id
+        WHERE es.exam_id = #{examId}
+    </select>
+
 </mapper>
