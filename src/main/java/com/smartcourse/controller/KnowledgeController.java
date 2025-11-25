@@ -1,6 +1,9 @@
 package com.smartcourse.controller;
 
+import com.smartcourse.pojo.dto.knowledge.ClassMapDTO;
 import com.smartcourse.pojo.dto.knowledge.StudentMapDTO;
+import com.smartcourse.pojo.vo.knowledge.ClassMapVO;
+import com.smartcourse.pojo.vo.knowledge.CourseMapVO;
 import com.smartcourse.pojo.vo.knowledge.MapVO;
 import com.smartcourse.pojo.vo.knowledge.StudentMapVO;
 import com.smartcourse.result.compat.Result;
@@ -23,6 +26,16 @@ public class KnowledgeController {
     @PostMapping("/exam/student-map")
     public Result<StudentMapVO> studentMap(@RequestBody StudentMapDTO studentMapDTO) {
         return Result.success(knowledgeService.getStudentMap(studentMapDTO));
+    }
+
+    @PostMapping("/exam/class-map")
+    public Result<ClassMapVO> classMap(@RequestBody ClassMapDTO classMapDTO) {
+        return Result.success(knowledgeService.getClassMap(classMapDTO));
+    }
+
+    @GetMapping("/exam/course-map")
+    public Result<CourseMapVO> courseMap(@RequestParam("exam_id") Long examId) {
+        return Result.success(knowledgeService.getCourseMap(examId));
     }
 
     @GetMapping("course/map")
