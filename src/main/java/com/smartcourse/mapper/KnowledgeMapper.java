@@ -24,4 +24,9 @@ public interface KnowledgeMapper {
 
     @Select("select nodes from evaluation_expert.`nodes-json` where student_id = #{studentId} and exam_id = #{examId}")
     String getByJson(Long studentId, Long examId);
+
+    List<Long> getClass(Long examId);
+
+    @Select("select name from evaluation_expert.class where id = #{classId}")
+    String getName(Long classId);
 }

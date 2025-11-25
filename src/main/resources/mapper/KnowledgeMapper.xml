@@ -4,4 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.smartcourse.mapper.KnowledgeMapper">
+    <select id="getClass" resultType="java.lang.Long">
+        select distinct s.class_id
+        from evaluation_expert.exam e
+                 left join evaluation_expert.course c on e.course_id = c.id
+                 left join evaluation_expert.student_course sc on c.id = sc.course_id
+                 left join evaluation_expert.student s on sc.student_id = s.id
+        where e.id = #{examId}
+    </select>
 </mapper>

@@ -5,8 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ClassMapVO {
-    private List<ClassNodeVO> nodes;
+public class CourseMapVO {
+    private List<CourseNodeVO> nodes;
     private List<EdgeVO> edges;
-    private Long studentNumber;
 }

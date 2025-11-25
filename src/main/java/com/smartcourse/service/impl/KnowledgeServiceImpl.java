@@ -155,8 +155,11 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             }
         }
         List<Long> questionIds = new ArrayList<>();
-        for (NodeQuestionVO nodeQuestionVO : nodeQuestionVOS.get(1L)) {
-            questionIds.add(nodeQuestionVO.getQuestionId());
+        for (Map.Entry<Long, List<NodeQuestionVO>> entry : nodeQuestionVOS.entrySet()) {
+            for (NodeQuestionVO nodeQuestionVO : entry.getValue()) {
+                questionIds.add(nodeQuestionVO.getQuestionId());
+            }
+            break;
         }
         Iterable<QuestionKnowledgeDocument> allById = questionKnowledgeRepository.findAllById(questionIds);
         Set<Long> set = StreamSupport.stream(allById.spliterator(), false)
@@ -173,7 +176,6 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             double allScore = 0.0;
             double getScore = 0.0;
             List<Double> getScoreList = new ArrayList<>();
-            double allWeight = 0.0;
             ClassNodeVO classNodeVO = new ClassNodeVO();
 
             for (Map.Entry<Long, List<NodeQuestionVO>> entry : nodeQuestionVOS.entrySet()) {
@@ -206,7 +208,6 @@ public class KnowledgeServiceImpl implements KnowledgeService {
                             .findFirst()
                             .map(KnowledgePoint::getWeight)
                             .orElse(0.0);
-                    allWeight += weight;
 
                     NodeQuestionVO targetVO = value.stream()
                             .filter(vo -> vo != null && vo.getQuestionId() != null && vo.getQuestionId().equals(questionKnowledgeDocument.getId()))
@@ -230,7 +231,87 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         }
 
         classMapVO.setNodes(nodeList);
+        classMapVO.setStudentNumber((long) nodeQuestionVOS.size());
         return classMapVO;
+    }
+
+    @Override
+    @Transactional
+    public CourseMapVO getCourseMap(Long examId) {
+        CourseMapVO courseMapVO = new CourseMapVO();
+        List<CourseNodeVO> courseNodeVOS = new ArrayList<>();
+
+        List<Long> classIds = knowledgeMapper.getClass(examId);
+        Set<Long> set = new HashSet<>();
+        List<ClassMapVO> nodeList = new ArrayList<>();
+        for (Long classId : classIds) {
+            ClassMapDTO classMapDTO = new ClassMapDTO();
+            classMapDTO.setExamId(examId);
+            classMapDTO.setClassId(classId);
+            ClassMapVO classMapVO = getClassMap(classMapDTO);
+            if (classMapVO.getNodes() == null || classMapVO.getNodes().isEmpty()) {
+                nodeList.add(null);
+                continue;
+            }
+
+            nodeList.add(classMapVO);
+            List<ClassNodeVO> nodes = classMapVO.getNodes();
+            for (ClassNodeVO classNodeVO : nodes) {
+                set.add(classNodeVO.getId());
+            }
+            courseMapVO.setEdges(classMapVO.getEdges());
+        }
+
+        for (Long nodeId : set) {
+            CourseNodeVO courseNodeVO = new CourseNodeVO();
+            courseNodeVO.setId(nodeId);
+            double allScore = 0.0;
+            double getScore = 0.0;
+            double num = 0.0;
+            List<Clazz> clazzes = new ArrayList<>();
+            List<Double> students = new ArrayList<>();
+
+            for (int i = 0; i < nodeList.size(); i++) {
+                ClassMapVO classMapVO = nodeList.get(i);
+                if (classMapVO == null) {
+                    continue;
+                }
+                Long classId = classIds.get(i);
+                List<ClassNodeVO> nodes = classMapVO.getNodes();
+                ClassNodeVO classNodeVO = nodes.stream()
+                        .filter(vo -> vo != null && vo.getId() != null && vo.getId().equals(nodeId))
+                        .findFirst()
+                        .orElse(null);// 如果没找到返回 null;
+
+                if (classNodeVO != null) {
+                    allScore = classNodeVO.getAllScore();
+                }
+                if (classNodeVO != null) {
+                    getScore += classNodeVO.getGetScore() * classMapVO.getStudentNumber();
+                }
+                num += classMapVO.getStudentNumber();
+                if (classNodeVO != null) {
+                    students.addAll(classNodeVO.getGetScoreList());
+                }
+
+                Clazz clazz = new Clazz();
+                String name = knowledgeMapper.getName(classId);
+                clazz.setName(name);
+                if (classNodeVO != null) {
+                    clazz.setGetScore(classNodeVO.getGetScore());
+                }
+                clazzes.add(clazz);
+            }
+
+            courseNodeVO.setAllScore(allScore);
+            courseNodeVO.setGetScore(getScore / num);
+            courseNodeVO.setGetScoreClass(clazzes);
+            courseNodeVO.setGetScoreStudent(students);
+            courseNodeVOS.add(courseNodeVO);
+        }
+
+        courseMapVO.setNodes(courseNodeVOS);
+        return courseMapVO;
     }
 
 }
