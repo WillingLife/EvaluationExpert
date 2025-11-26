@@ -22,4 +22,6 @@ public interface CourseMapper {
     List<ExamVO> getExam(Long courseId);
 
     List<String> getTaskFile(Long assignmentId);
+
+    List<String> getTaskName(Long assignmentId);
 }

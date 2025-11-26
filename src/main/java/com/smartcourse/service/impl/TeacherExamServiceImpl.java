@@ -47,6 +47,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -149,6 +150,11 @@ public class TeacherExamServiceImpl implements TeacherExamService {
         //TODO Add teacher check
         List<ExamScoreItem> items = examScoreItemConverter.teacherGradeItemsToExamScoreItems(
                 teacherGradeDTO.getGrades(), teacherGradeDTO.getExamScoreId());
+        BigDecimal totalScore = examScoreMapper.getTotalScore(teacherGradeDTO.getExamScoreId());
+        for (ExamScoreItem item : items) {
+            totalScore = totalScore.add(item.getScore());
+        }
+        examScoreMapper.finalUpdate(totalScore, teacherGradeDTO.getExamScoreId());
         examScoreItemMapper.batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId(items);
     }
 
@@ -466,5 +472,10 @@ public class TeacherExamServiceImpl implements TeacherExamService {
         查询2和查询3合并为1次连表查询
         提前分好组别（单/多选，填空，选择），使用CompletableFuture并发3次查询
          */
+    }
+
+    @Override
+    public List<GradesVO> getGrades(Long examId, Long classId) {
+        return examScoreMapper.getGrades(examId, classId);
     }
 }

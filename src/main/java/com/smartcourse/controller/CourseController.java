@@ -79,13 +79,14 @@ public class CourseController {
     public ResponseEntity<Resource> getTaskFile(@RequestParam("assignment_id") Long assignmentId) {
         try {
             List<String> list = courseService.getTaskFile(assignmentId);
+            List<String> name = courseService.getTaskName(assignmentId);
             List<String> fileList = new ArrayList<>();
             for (String file : list) {
                 fileList.add(aliyunOSSOperator.getUrl(file));
             }
             // 创建 ZIP
             DocumentZipCreator zipCreator = new DocumentZipCreator();
-            byte[] zipData = zipCreator.createZipFromDocumentUrls(fileList);
+            byte[] zipData = zipCreator.createZipFromDocumentUrls(fileList, name);
 
             ByteArrayResource resource = new ByteArrayResource(zipData);
 

@@ -2,6 +2,7 @@ package com.smartcourse.mapper;
 
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.entity.ExamScore;
+import com.smartcourse.pojo.vo.exam.GradesVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerItemVO;
 import com.smartcourse.pojo.vo.exam.ExamScoreVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -34,4 +35,15 @@ public interface ExamScoreMapper {
 
     @Select("select * from exam_score where exam_id=#{examId} and student_id=#{studentId};")
     ExamScore getExamScoreByExamIdAndStudentId(@Param("examId") Long examId, @Param("studentId") Long studentId);
+
+    List<GradesVO> getGrades(Long examId, Long classId);
+
+    @Update("update evaluation_expert.exam_score set total_score = #{totalScore} where id = #{scoreId}")
+    void update(BigDecimal totalScore, Long scoreId);
+
+    @Select("select total_score from evaluation_expert.exam_score where id = #{examScoreId}")
+    BigDecimal getTotalScore(Long examScoreId);
+
+    @Update("update evaluation_expert.exam_score set total_score = #{totalScore},status = 'grades' where id = #{scoreId}")
+    void finalUpdate(BigDecimal totalScore, Long scoreId);
 }
