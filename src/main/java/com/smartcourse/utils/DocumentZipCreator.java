@@ -11,17 +11,64 @@ import java.util.zip.ZipOutputStream;
 public class DocumentZipCreator {
 
     /**
-     * 从文档 URL 列表创建 ZIP 文件字节数组
+     * 从 URL 中提取文件扩展名（处理带查询参数的 URL）
      */
-    public byte[] createZipFromDocumentUrls(List<String> fileList) throws IOException {
+    private String extractExtensionFromUrl(String url) {
+        try {
+            URL urlObj = new URL(url);
+            String path = urlObj.getPath();  // 只获取路径部分，不包含查询参数
+
+            int lastDotIndex = path.lastIndexOf('.');
+            int lastSlashIndex = path.lastIndexOf('/');
+
+            // 确保点号在最后一个斜杠之后（是文件扩展名，不是目录名中的点）
+            if (lastDotIndex > lastSlashIndex && lastDotIndex > 0) {
+                return path.substring(lastDotIndex);  // 例如：".pdf"
+            }
+        } catch (Exception e) {
+            // 忽略异常
+        }
+        return null;
+    }
+
+    /**
+     * 使用自定义名称替换文件名，但保留原始扩展名
+     */
+    private String ensureFileExtension(String customFileName, HttpURLConnection connection, String originalUrl) {
+        customFileName = sanitizeFileName(customFileName);
+
+        // 如果自定义文件名已经有扩展名，直接返回
+        int customDotIndex = customFileName.lastIndexOf('.');
+        if (customDotIndex > 0) {
+            return customFileName;
+        }
+
+        // 尝试从原始 URL 获取扩展名
+        String extensionFromUrl = extractExtensionFromUrl(originalUrl);
+        if (extensionFromUrl != null) {
+            return customFileName + extensionFromUrl;
+        }
+
+        // 最后从 Content-Type 获取扩展名
+        String extension = getFileExtensionFromContentType(connection.getContentType());
+        return customFileName + extension;
+    }
+
+    /**
+     * 从文档 URL 列表创建 ZIP 文件字节数组
+     * @param fileList URL列表
+     * @param fileNames 对应的文件名列表（可选）
+     */
+    public byte[] createZipFromDocumentUrls(List<String> fileList, List<String> fileNames) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(baos);
 
         try {
             for (int i = 0; i < fileList.size(); i++) {
                 String documentUrl = fileList.get(i);
-                // 下载文档并添加到 ZIP
-                downloadAndAddToZip(zos, documentUrl, i);
+                // 使用提供的文件名，如果没有提供则使用默认逻辑
+                String customFileName = (fileNames != null && i < fileNames.size()) ? fileNames.get(i) : null;
+                downloadAndAddToZip(zos, documentUrl, i, customFileName);
             }
         } finally {
             zos.close();
@@ -33,7 +80,7 @@ public class DocumentZipCreator {
     /**
      * 下载文档并添加到 ZIP 流
      */
-    private void downloadAndAddToZip(ZipOutputStream zos, String documentUrl, int index) {
+    private void downloadAndAddToZip(ZipOutputStream zos, String documentUrl, int index, String customFileName) {
         HttpURLConnection connection = null;
         InputStream inputStream = null;
 
@@ -47,7 +94,14 @@ public class DocumentZipCreator {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 // 获取文件名
-                String fileName = getFileNameFromUrl(connection, documentUrl, index);
+                String fileName;
+                if (customFileName != null && !customFileName.trim().isEmpty()) {
+                    // 使用自定义文件名，并保留原始扩展名
+                    fileName = ensureFileExtension(customFileName, connection, documentUrl);
+                } else {
+                    // 使用原有逻辑获取文件名
+                    fileName = getFileNameFromUrl(connection, documentUrl, index);
+                }
 
                 // 创建 ZIP 条目
                 ZipEntry zipEntry = new ZipEntry(fileName);

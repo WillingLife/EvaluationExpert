@@ -83,4 +83,12 @@
         ORDER BY ei.id
     </select>
 
+    <select id="getGrades" resultType="com.smartcourse.pojo.vo.exam.GradesVO">
+        select s.id as studentId, name as studentName, es.total_score as score
+        from evaluation_expert.student s
+                 left join evaluation_expert.exam_score es
+                           on s.id = es.student_id and es.exam_id = #{examId} and es.status = 'grade'
+        where s.class_id = #{classId}
+    </select>
+
 </mapper>

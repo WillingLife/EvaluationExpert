@@ -94,4 +94,12 @@
         from evaluation_expert.assignment_score
         where assignment_id = #{assignmentId}
     </select>
+
+    <select id="getTaskName" resultType="java.lang.String">
+        select CONCAT(c.name, '-', s.name) as task_name
+        from evaluation_expert.assignment_score a
+                 left join evaluation_expert.student s on a.student_id = s.id
+                 left join evaluation_expert.class c on s.class_id = c.id
+        where a.assignment_id = #{assignmentId}
+    </select>
 </mapper>
