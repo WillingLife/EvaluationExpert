@@ -52,7 +52,7 @@
                  LEFT JOIN evaluation_expert.exam_score_item s ON s.exam_item_id = e.id
                  LEFT JOIN evaluation_expert.question q ON q.id = e.question_id
         WHERE e.section_id = #{sectionId}
-          AND s.score_id = #{scoerId}
+          AND s.score_id = #{scoreId}
     </select>
 
     <select id="getStudentAnswer" resultType="com.smartcourse.pojo.vo.exam.sql.GradeShortQuestionSqlVO">

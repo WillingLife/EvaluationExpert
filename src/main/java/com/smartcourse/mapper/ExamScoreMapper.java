@@ -44,6 +44,8 @@ public interface ExamScoreMapper {
     @Select("select total_score from evaluation_expert.exam_score where id = #{examScoreId}")
     BigDecimal getTotalScore(Long examScoreId);
 
-    @Update("update evaluation_expert.exam_score set total_score = #{totalScore},status = 'grades' where id = #{scoreId}")
+    @Update("update evaluation_expert.exam_score " +
+            "set total_score = #{totalScore},status = 'graded',grade_time = NOW() " +
+            "where id = #{scoreId}")
     void finalUpdate(BigDecimal totalScore, Long scoreId);
 }

@@ -44,8 +44,7 @@ public class StudentExamServiceImpl implements StudentExamService {
     private final QuestionMapper questionMapper;
     private final ObjectMapper objectMapper;
     private final AsyncQuestionService asyncQuestionService;
-    private final TaskProducer  taskProducer;
-
+    private final TaskProducer taskProducer;
 
 
     /**
@@ -278,7 +277,7 @@ public class StudentExamServiceImpl implements StudentExamService {
                         }
                         case "short_answer" -> {
                             // FIXME 简答题AI通用 function(scoreId,examItemId) 学生答案可能为空,待验证
-                            taskProducer.publishGradeShortQuestionTask(scoreId,examItemId);
+                            taskProducer.publishGradeShortQuestionTask(scoreId, examItemId);
                             // 处理简答题
                             String answer = question.getShortAnswer();
                             yield objectMapper.writeValueAsString(answer);
@@ -349,6 +348,7 @@ public class StudentExamServiceImpl implements StudentExamService {
             studentScoreSectionVO.setQuestionNumber(questionVOS.size());
             studentScoreSectionVO.setQuestions(questionVOS);
         }
+        examScoreVO.setSections(studentScoreSectionVOS);
         return examScoreVO;
     }
 

@@ -1,5 +1,7 @@
 package com.smartcourse.pojo.vo.exam;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.smartcourse.pojo.vo.exam.question.StudentExamSectionVO;
 import lombok.Data;
 
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ExamScoreVO {
     private Long id;
     private Long examId;                     // 主键ID

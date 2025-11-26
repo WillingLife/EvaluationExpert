@@ -1,6 +1,7 @@
 package com.smartcourse.pojo.vo.exam;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.smartcourse.enums.QuestionTypeEnum;
@@ -14,7 +15,7 @@ import java.util.List;
 public class StudentScoreSectionVO {
     private Long sectionId;
     private String title;
-    private QuestionTypeEnum questionType;
+    private String questionType;
     private Integer questionNumber;
     private List<StudentScoreQuestionVO> questions;
 }
