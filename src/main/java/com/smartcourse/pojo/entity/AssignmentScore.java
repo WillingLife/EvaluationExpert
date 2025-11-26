@@ -25,4 +25,6 @@ public class AssignmentScore {
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private Boolean deleted;
+    private String rawText;
+    private String dimensionJson;
 }

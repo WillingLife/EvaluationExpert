@@ -1,9 +1,6 @@
 package com.smartcourse.infra.http.dify;
 
-import com.smartcourse.infra.http.dify.annotations.ExamGenerateQueryClient;
-import com.smartcourse.infra.http.dify.annotations.GradeShortQuestionClient;
-import com.smartcourse.infra.http.dify.annotations.MappingKnowledgeClient;
-import com.smartcourse.infra.http.dify.annotations.PolishAssignmentClient;
+import com.smartcourse.infra.http.dify.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +18,9 @@ public class DifyClientGateway {
     @ExamGenerateQueryClient
     private final DifyClient examGenerateQueryClient;
 
+    @GradeAssignmentClient
+    private final DifyClient gradingAssignmentClient;
+
     public DifyClient gradeShortQuestionClient() {
         return gradeShortQuestionClient;
     }
@@ -37,14 +37,20 @@ public class DifyClientGateway {
         return examGenerateQueryClient;
     }
 
+    public DifyClient gradeAssignmentClient() {
+        return gradingAssignmentClient;
+    }
+
     public DifyClientGateway(@GradeShortQuestionClient DifyClient gradeShortQuestionClient,
                              @PolishAssignmentClient DifyClient polishAssignmentClient,
                              @MappingKnowledgeClient DifyClient mappingKnowledgeClient,
-                             @ExamGenerateQueryClient DifyClient examGenerateQueryClient) {
+                             @ExamGenerateQueryClient DifyClient examGenerateQueryClient,
+                             @GradeAssignmentClient DifyClient gradeAssignmentClient) {
         this.gradeShortQuestionClient = gradeShortQuestionClient;
         this.polishAssignmentClient = polishAssignmentClient;
         this.mappingKnowledgeClient = mappingKnowledgeClient;
         this.examGenerateQueryClient = examGenerateQueryClient;
+        this.gradingAssignmentClient = gradeAssignmentClient;
     }
 
 }

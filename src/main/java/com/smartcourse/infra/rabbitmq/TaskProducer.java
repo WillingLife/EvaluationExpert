@@ -41,4 +41,15 @@ public class TaskProducer {
         );
         log.info("Published mappingKnowledge task with questionId={} courseId={}", questionId, courseId);
     }
+    public void publishGradeAssignmentTask(Long assignmentScoreId) {
+        GradeAssignmentTaskMessage payload = GradeAssignmentTaskMessage.builder()
+                .assignmentScoreId(assignmentScoreId)
+                .build();
+        rabbitTemplate.convertAndSend(
+                RabbitTaskConstants.TASK_EXCHANGE,
+                RabbitTaskConstants.GRADE_ASSIGNMENT_ROUTING_KEY,
+                payload
+        );
+        log.info("Published grade assignment task with assignmentScoreId={}", assignmentScoreId);
+    }
 }

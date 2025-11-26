@@ -4,6 +4,7 @@ import com.smartcourse.pojo.dto.dify.*;
 import com.smartcourse.pojo.dto.dify.base.blocked.DifyCompletionResponse;
 import com.smartcourse.pojo.dto.dify.base.blocked.DifyRequestBaseDTO;
 import com.smartcourse.pojo.dto.dify.exam.DifyExamGenQueryDTO;
+import com.smartcourse.pojo.vo.dify.DifyGradeAssignmentVO;
 import com.smartcourse.pojo.vo.dify.DifyMappingKnowledgeVO;
 import com.smartcourse.pojo.vo.dify.DifyPolishAssignmentVO;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,13 @@ public interface DifyClient {
 
     @PostExchange
     Flux<String> examGenerateQuery(@RequestBody DifyRequestBaseDTO<DifyExamGenQueryDTO> dto);
+
+    @PostExchange
+    DifyCompletionResponse<DifyGradeAssignmentVO> gradeAssignment(
+            @RequestBody DifyRequestBaseDTO<DifyGradeAssignmentDTO> dto);
+
+
+
 
 
 }

@@ -11,6 +11,10 @@ spring:
     name: EvaluationExpert
   main:
     allow-circular-references: true
+  servlet:
+    multipart:
+      max-file-size: 150MB
+      max-request-size: 150MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://172.22.120.47:13306/evaluation_expert?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
@@ -66,6 +70,7 @@ dify:
   polish-assignment-key: app-76EbJHw5ftOwuHbRIG19VlgU
   mapping-knowledge-key: app-T2arHHbfiyO6SwEp2gFzjTHs
   exam-generate-query-key: app-2tpVuDIsXJasACy25nKiJXl7
+  grade-assignment-key: app-KJ1WQb2VEZit4Ybe6Pbtc9fQ
 
 application:
   redis:

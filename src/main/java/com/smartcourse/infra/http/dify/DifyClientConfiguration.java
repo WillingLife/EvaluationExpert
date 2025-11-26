@@ -1,9 +1,6 @@
 package com.smartcourse.infra.http.dify;
 
-import com.smartcourse.infra.http.dify.annotations.ExamGenerateQueryClient;
-import com.smartcourse.infra.http.dify.annotations.GradeShortQuestionClient;
-import com.smartcourse.infra.http.dify.annotations.MappingKnowledgeClient;
-import com.smartcourse.infra.http.dify.annotations.PolishAssignmentClient;
+import com.smartcourse.infra.http.dify.annotations.*;
 import com.smartcourse.properties.DifyProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -67,6 +64,17 @@ public class DifyClientConfiguration {
                 .build();
 
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(webClient)).build();
+        return factory.createClient(DifyClient.class);
+    }
+
+    @Bean
+    @GradeAssignmentClient
+    public DifyClient gradeAssignmentClient(){
+        RestClient restClient = RestClient.builder()
+                .baseUrl(difyProperties.getBaseUrl())
+                .defaultHeader("Authorization", "Bearer " + difyProperties.getGradeAssignmentKey())
+                .build();
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient)).build();
         return factory.createClient(DifyClient.class);
     }
 }

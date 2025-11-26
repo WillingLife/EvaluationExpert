@@ -2,6 +2,7 @@ package com.smartcourse.service;
 
 import com.smartcourse.pojo.dto.*;
 import com.smartcourse.pojo.vo.*;
+import com.smartcourse.pojo.vo.dify.DifyGradeAssignmentVO;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AssignmentService {
@@ -40,7 +41,7 @@ public interface AssignmentService {
      * @param assignmentId 作业ID
      * @return 反馈信息（维度项、AI评语、教师评语）
      */
-    AssignmentFeedbackVO getFeedback(Long studentId, Long assignmentId);
+    DifyGradeAssignmentVO getFeedback(Long studentId, Long assignmentId);
 
     java.util.List<AssignmentListItemVO> listTeacherAssignments(TeacherAssignmentListDTO teacherAssignmentListDTO);
     java.util.List<AssignmentListItemVO> listStudentAssignments(StudentAssignmentListDTO studentAssignmentListDTO);

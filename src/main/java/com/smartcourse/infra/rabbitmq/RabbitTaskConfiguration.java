@@ -33,6 +33,11 @@ public class RabbitTaskConfiguration {
         return QueueBuilder.durable(RabbitTaskConstants.MAPPING_KNOWLEDGE_QUEUE).build();
     }
 
+    @Bean
+    public Queue gradeAssignmentQueue(){
+        return QueueBuilder.durable(RabbitTaskConstants.GRADE_ASSIGNMENT_QUEUE).build();
+    }
+
 
     @Bean
     public Binding gradeShortQuestionBinding(DirectExchange taskExchange, Queue gradeShortQuestionQueue) {
@@ -48,6 +53,14 @@ public class RabbitTaskConfiguration {
                 .bind(mappingKnowledgeQueue)
                 .to(taskExchange)
                 .with(RabbitTaskConstants.MAPPING_KNOWLEDGE_ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding gradeAssignmentBinding(DirectExchange taskExchange, Queue gradeAssignmentQueue) {
+        return BindingBuilder
+                .bind(gradeAssignmentQueue)
+                .to(taskExchange)
+                .with(RabbitTaskConstants.GRADE_ASSIGNMENT_ROUTING_KEY);
     }
 
     @Bean

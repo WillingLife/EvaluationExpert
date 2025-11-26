@@ -1,5 +1,6 @@
 package com.smartcourse.listener;
 
+import com.smartcourse.infra.rabbitmq.GradeAssignmentTaskMessage;
 import com.smartcourse.infra.rabbitmq.GradeShortQuestionTaskMessage;
 import com.smartcourse.infra.rabbitmq.MappingKnowledgeTaskMessage;
 import com.smartcourse.infra.rabbitmq.RabbitTaskConstants;
@@ -39,5 +40,12 @@ public class TaskWorker {
                 message.getQuestion()
         );
         difyService.mappingKnowledge(message.getCourseId(), message.getQuestionId(), message.getQuestion());
+    }
+
+    @RabbitListener(queues = RabbitTaskConstants.GRADE_ASSIGNMENT_QUEUE)
+    public void handleGradeAssignmentTask(GradeAssignmentTaskMessage message){
+        log.info("Received gradeAssignment task");
+        difyService.gradeAssignment(message.getAssignmentScoreId());
+
     }
 }

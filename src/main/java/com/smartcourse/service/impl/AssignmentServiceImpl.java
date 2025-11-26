@@ -1,7 +1,13 @@
 package com.smartcourse.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smartcourse.exception.JsonParseException;
+import com.smartcourse.infra.rabbitmq.TaskProducer;
 import com.smartcourse.mapper.*;
 import com.smartcourse.pojo.vo.*;
+import com.smartcourse.pojo.vo.dify.DifyGradeAssignmentVO;
+import com.smartcourse.pojo.vo.dify.GradeAssignmentDetailsVO;
 import com.smartcourse.utils.AliyunOSSOperator;
 import com.smartcourse.constant.MessageConstant;
 import com.smartcourse.constant.StatusConstant;
@@ -31,6 +37,8 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final AssignmentRemarkMapper assignmentRemarkMapper;
     private final AssignmentDimensionRemarkMapper assignmentDimensionRemarkMapper;
     private final AliyunOSSOperator aliyunOSSOperator;
+    private final TaskProducer taskProducer;
+    private final ObjectMapper objectMapper;
 
     /**
      * 新增作业
@@ -155,7 +163,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         String fileName;
 
         try {
-            fileName = aliyunOSSOperator.upload(file.getBytes(), uploadFileName);
+            fileName = aliyunOSSOperator.upload(file.getBytes(), uploadFileName,"");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -174,6 +182,9 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignmentScoreMapper.deleted(studentSubmitMetaDTO.getAssignmentId(), studentSubmitMetaDTO.getStudentId());
         assignmentScoreMapper.insert(assignmentScoreRecord);
 
+        // 调用dify
+        taskProducer.publishGradeAssignmentTask(assignmentScoreRecord.getId());
+
         // 返回评分ID与文件URL
         return AssignmentScoreUploadVO.builder()
                 .assignmentScoreId(assignmentScoreRecord.getId())
@@ -189,38 +200,15 @@ public class AssignmentServiceImpl implements AssignmentService {
      * @return 反馈信息
      */
     @Override
-    public AssignmentFeedbackVO getFeedback(Long studentId, Long assignmentId) {
+    public DifyGradeAssignmentVO getFeedback(Long studentId, Long assignmentId) {
         // 查询最新一次提交
-        List<AssignmentScore> assignmentScores = assignmentScoreMapper.selectByAssignmentAndStudent(assignmentId, studentId);
-        if (assignmentScores.isEmpty()) {
-            return null;
+        AssignmentScore assignmentScore = assignmentScoreMapper.getByAssignmentAndStudent(assignmentId, studentId);
+        try {
+            GradeAssignmentDetailsVO details = objectMapper.readValue(assignmentScore.getDimensionJson(), GradeAssignmentDetailsVO.class);
+            return new DifyGradeAssignmentVO(assignmentScore.getScore(),details);
+        } catch (JsonProcessingException e) {
+            throw new JsonParseException("反序列化失败");
         }
-        AssignmentScore latestScore = assignmentScores.get(0);
-
-        // 查询评语及维度备注
-        AssignmentRemark assignmentRemark = assignmentRemarkMapper.selectByScoreId(latestScore.getId());
-        List<AssignmentDimensionRemark> dimensionRemarks = new ArrayList<>();
-        if (assignmentRemark != null) {
-            dimensionRemarks = assignmentDimensionRemarkMapper.selectByAssignmentRemarkId(assignmentRemark.getId());
-        }
-
-        // 组装反馈VO
-        List<AssignmentFeedbackVO.DimensionItem> dimensionItems = new ArrayList<>();
-        for (AssignmentDimensionRemark dimensionRemark : dimensionRemarks) {
-            dimensionItems.add(AssignmentFeedbackVO.DimensionItem.builder()
-                    .name("维度#" + dimensionRemark.getDimensionId())
-                    .score(dimensionRemark.getScore() != null ? dimensionRemark.getScore().intValue() : null)
-                    .remark(dimensionRemark.getRemark())
-                    .build());
-        }
-
-        // 返回反馈信息
-        return AssignmentFeedbackVO.builder()
-                .assignmentScoreId(latestScore.getId())
-                .dimensions(dimensionItems)
-                .aiRemark(assignmentRemark != null ? assignmentRemark.getAiRemark() : null)
-                .teacherRemark(assignmentRemark != null ? assignmentRemark.getTeacherRemark() : null)
-                .build();
     }
 
     /**

@@ -25,12 +25,15 @@ public class AliyunOSSOperator {
     // 阿里云配置信息
     private final AliyunOSSProperties aliyunOSSProperties;
 
-    public String upload(byte[] data, String originalFileName) {
+    public String upload(byte[] data, String originalFileName,String prefix) {
         String endpoint = aliyunOSSProperties.getEndpoint();
         String bucketName = aliyunOSSProperties.getBucketName();
         String region = aliyunOSSProperties.getRegion();
 
         String objectName = generateObjectName(originalFileName);
+        if(prefix!=null&&!prefix.isEmpty()){
+            objectName = prefix+"/"+objectName;
+        }
 
         // 创建OSSClient实例。
         // 当OSSClient实例不再使用时，调用shutdown方法以释放资源。
@@ -65,20 +68,17 @@ public class AliyunOSSOperator {
         return objectName;
     }
 
+
     /**
      * 生成对象名称（文件路径）
      */
     private String generateObjectName(String originalFileName) {
         // 获取当前日期目录
-        LocalDate currentDate = LocalDate.now();
-        String dir = currentDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
         // 生成唯一文件名
         UUID uuid = UUID.randomUUID();
         String fileExtension = getFileExtension(originalFileName);
-        String newFileName = uuid + fileExtension;
-
-        return dir + "/" + newFileName;
+        return uuid + fileExtension;
     }
 
     /**
@@ -100,6 +100,7 @@ public class AliyunOSSOperator {
             case ".png" -> "image/png";
             case ".doc" -> "application/msword";
             case ".docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            case ".txt" -> "text/plain";
             default -> "application/octet-stream";
         };
     }

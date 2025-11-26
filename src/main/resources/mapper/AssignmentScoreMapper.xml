@@ -25,6 +25,8 @@
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="rawText != null">raw_text = #{rawText},</if>
+            <if test="dimensionJson!=null">dimension_json=#{dimensionJson}</if>
         </set>
         where id = #{id}
     </update>
@@ -41,7 +43,8 @@
                note,
                create_time     as createTime,
                update_time     as updateTime,
-               deleted
+               deleted,
+               raw_text        as rawText
         from evaluation_expert.assignment_score
         where assignment_id = #{assignmentId}
           and student_id = #{studentId}
@@ -60,5 +63,60 @@
         from assignment_score
         where assignment_id = #{assignmentId} and student_id = #{studentId}
         order by submit_no desc, id desc
+    </select>
+
+    <select id="getDifyAssignmentScoreSqlVO" resultType="com.smartcourse.pojo.vo.dify.sql.DifyAssignmentScoreSqlVO">
+        select
+            s.id                as assignmentScoreId,
+            s.submit_file_url   as objectName,
+            a.description       as description
+        from evaluation_expert.assignment_score s
+        left join evaluation_expert.assignment a on s.assignment_id = a.id
+        where s.id = #{assignmentScoreId}
+        limit 1
+    </select>
+
+    <update id="updateDimensionJson">
+        update assignment_score
+        set dimension_json = #{dimensionJson}
+        where id = #{id}
+    </update>
+
+    <select id="getDimensionJson" resultType="java.lang.String">
+        select dimension_json
+        from evaluation_expert.assignment_score
+        where id = #{assignmentScoreId}
+        limit 1
+    </select>
+
+    <select id="getDimensionJsonByAssignmentAndStudent" resultType="java.lang.String">
+        select dimension_json
+        from evaluation_expert.assignment_score
+        where assignment_id = #{assignmentId}
+          and student_id = #{studentId}
+        order by submit_no desc, id desc
+        limit 1
+    </select>
+
+    <select id="getByAssignmentAndStudent" resultType="com.smartcourse.pojo.entity.AssignmentScore">
+        select id,
+               assignment_id   as assignmentId,
+               student_id      as studentId,
+               score,
+               status,
+               submit_no       as submitNo,
+               submit_file_url as submitFileUrl,
+               grader,
+               note,
+               create_time     as createTime,
+               update_time     as updateTime,
+               deleted,
+               raw_text        as rawText,
+               dimension_json  as dimensionJson
+        from evaluation_expert.assignment_score
+        where assignment_id = #{assignmentId}
+          and student_id = #{studentId}
+        order by submit_no desc, id desc
+        limit 1
     </select>
 </mapper>
