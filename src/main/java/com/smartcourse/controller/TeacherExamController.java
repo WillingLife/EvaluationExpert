@@ -6,6 +6,7 @@ import com.smartcourse.pojo.dto.*;
 import com.smartcourse.pojo.dto.exam.TeacherExamAiGenerateDTO;
 import com.smartcourse.pojo.dto.exam.TeacherSaveExamQuestionDTO;
 import com.smartcourse.pojo.dto.exam.TeacherSaveExamSectionDTO;
+import com.smartcourse.pojo.vo.exam.GradesVO;
 import com.smartcourse.pojo.vo.exam.StudentExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherGetExamVO;
 import com.smartcourse.pojo.vo.exam.TeacherViewAnswerVO;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -89,10 +91,14 @@ public class TeacherExamController {
                 .event("function_calling")
                 .build();
         return teacherExamService.aiGenerateExam(dto).map(payload -> ServerSentEvent.builder()
-                .event(payload.getEvent())
-                .data(payload.getData())
-                .build())
+                        .event(payload.getEvent())
+                        .data(payload.getData())
+                        .build())
                 .transform(FluxUtils.withHeartbeat(Duration.ofSeconds(2), heartbeat));
     }
 
+    @GetMapping("grades")
+    public Result<List<GradesVO>> grades(@RequestParam("exam_id") Long examId, @RequestParam("class_id") Long classId) {
+        return Result.success(teacherExamService.getGrades(examId, classId));
+    }
 }

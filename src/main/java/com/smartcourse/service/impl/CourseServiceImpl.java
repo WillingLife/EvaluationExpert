@@ -52,4 +52,9 @@ public class CourseServiceImpl implements CourseService {
     public List<String> getTaskFile(Long assignmentId) {
         return courseMapper.getTaskFile(assignmentId);
     }
+
+    @Override
+    public List<String> getTaskName(Long assignmentId) {
+        return courseMapper.getTaskName(assignmentId);
+    }
 }

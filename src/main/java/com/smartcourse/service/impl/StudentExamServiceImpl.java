@@ -215,6 +215,7 @@ public class StudentExamServiceImpl implements StudentExamService {
 
         examScoreMapper.submit(examScore);
         Long scoreId = examScore.getId();
+        BigDecimal totalScore = BigDecimal.valueOf(0);
 
         List<ExamScoreItemDTO> examScoreItems = new ArrayList<>();
         for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
@@ -303,10 +304,12 @@ public class StudentExamServiceImpl implements StudentExamService {
                 examScoreItem.setUpdateTime(LocalDateTime.now());
                 examScoreItem.setQuestionId(question.getQuestionId());
                 examScoreItem.setScore(score);
+                totalScore = totalScore.add(score);
                 examScoreItems.add(examScoreItem);
             }
         }
 
+        examScoreMapper.update(totalScore, scoreId);
         examScoreItemMapper.submit(examScoreItems);
     }
 
