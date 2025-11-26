@@ -29,4 +29,5 @@ public class ExamScoreItemDTO {
     private LocalDateTime updateTime;     // 更新时间
     private Boolean deleted;              // 逻辑删除标记
     private Long questionId;
+    private Long sectionId;
 }

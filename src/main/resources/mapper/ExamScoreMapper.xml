@@ -71,6 +71,7 @@
             ei.id AS examItemId,
             ei.score AS fullScore,
             esi.answer AS studentAnswer,
+            esi.ai_score AS aiScore,
             qsa.answer AS answer,
             qsa.criteria AS criteria
         FROM exam_score es

@@ -31,8 +31,6 @@ public class QuestionKnowledgeEsClientImpl implements QuestionKnowledgeEsClient 
 
     private static final String INDEX_NAME = "question_knowledge";
     private static final String FIELD_COURSE_ID = "course_id";
-    private static final String FIELD_KNOWLEDGE_ID = "knowledge_points.id";
-    private static final String FIELD_KNOWLEDGE_WEIGHT = "knowledge_points.weight";
     private static final int DEFAULT_SIZE = 10;
 
     private final ElasticsearchClient elasticsearchClient;
@@ -97,12 +95,27 @@ public class QuestionKnowledgeEsClientImpl implements QuestionKnowledgeEsClient 
             return null;
         }
         BoolQuery.Builder bool = new BoolQuery.Builder();
-        bool.filter(f -> f.term(t -> t.field(FIELD_COURSE_ID).value(String.valueOf(courseId))));
+        // 修复: Long 类型应该直接传递,不需要转 String
+        bool.filter(f -> f.term(t -> t.field(FIELD_COURSE_ID).value(courseId)));
         return Query.of(q -> q.bool(bool.build()));
     }
 
+    /**
+     * 修复: 使用 _source 访问 nested 字段,保证 id 和 weight 的对应关系
+     */
     private String buildScoreScript() {
-        return "double score = 0.0; def ids = doc['" + FIELD_KNOWLEDGE_ID + "']; def weights = doc['" + FIELD_KNOWLEDGE_WEIGHT + "']; int len = Math.min(ids.length, weights.length); for (int i = 0; i < len; i++) { def q = params.queryWeights.get(ids[i].toString()); if (q != null) { score += q * weights[i]; } } return score;";
+        return "double score = 0.0; " +
+                "if (params._source != null && params._source.knowledge_points != null) { " +
+                "  for (def kp : params._source.knowledge_points) { " +
+                "    if (kp.id != null && kp.weight != null) { " +
+                "      def q = params.queryWeights.get(kp.id.toString()); " +
+                "      if (q != null) { " +
+                "        score += q * kp.weight; " +
+                "      } " +
+                "    } " +
+                "  } " +
+                "} " +
+                "return score;";
     }
 
     private List<QuestionKnowledgeHit> toHits(SearchResponse<QuestionKnowledgeDocument> response) {

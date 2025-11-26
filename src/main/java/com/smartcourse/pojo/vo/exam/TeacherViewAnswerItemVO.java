@@ -12,6 +12,7 @@ public class TeacherViewAnswerItemVO {
     private Long examItemId;
     private BigDecimal fullScore;
     private BigDecimal studentScore;
+    private BigDecimal aiScore;
     private String studentAnswer;
     private String answer;
     private String criteria;

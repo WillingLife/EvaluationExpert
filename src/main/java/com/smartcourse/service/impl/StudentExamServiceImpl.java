@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.smartcourse.enums.QuestionTypeEnum;
+import com.smartcourse.infra.rabbitmq.TaskProducer;
 import com.smartcourse.mapper.*;
 import com.smartcourse.pojo.dto.FillBlankAnswerDTO;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
@@ -16,6 +17,7 @@ import com.smartcourse.pojo.vo.exam.question.*;
 import com.smartcourse.service.AsyncQuestionService;
 import com.smartcourse.service.StudentExamService;
 import com.smartcourse.utils.MultipleChoiceScoreCalculator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,30 +34,18 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class StudentExamServiceImpl implements StudentExamService {
-    @Autowired
-    ExamMapper examMapper;
+    private final ExamMapper examMapper;
+    private final ExamScoreMapper examScoreMapper;
+    private final ExamSectionMapper examSectionMapper;
+    private final ExamScoreItemMapper examScoreItemMapper;
+    private final ExamItemMapper examItemMapper;
+    private final QuestionMapper questionMapper;
+    private final ObjectMapper objectMapper;
+    private final AsyncQuestionService asyncQuestionService;
+    private final TaskProducer  taskProducer;
 
-    @Autowired
-    ExamScoreMapper examScoreMapper;
-
-    @Autowired
-    ExamSectionMapper examSectionMapper;
-
-    @Autowired
-    ExamScoreItemMapper examScoreItemMapper;
-
-    @Autowired
-    ExamItemMapper examItemMapper;
-
-    @Autowired
-    QuestionMapper questionMapper;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private AsyncQuestionService asyncQuestionService;
 
 
     /**
@@ -220,13 +210,13 @@ public class StudentExamServiceImpl implements StudentExamService {
         for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
             String questionType = section.getQuestionType().getValue();
             Long sectionId = section.getSectionId();
-            BigDecimal questionScore = examItemMapper.getScore(sectionId);
             for (StudentExamQuestionDTO question : section.getQuestions()) {
                 ExamScoreItemDTO examScoreItem = new ExamScoreItemDTO();
                 Long questionId = question.getQuestionId();
                 Long examItemId = examItemMapper.getId(sectionId, questionId);
                 String answerJson = null;
                 BigDecimal score = BigDecimal.valueOf(0);
+                BigDecimal questionScore = examItemMapper.getScore(sectionId, questionId);
                 try {
                     answerJson = switch (questionType) {
                         case "single" -> {
@@ -286,7 +276,8 @@ public class StudentExamServiceImpl implements StudentExamService {
                             yield objectMapper.writeValueAsString(blanks);
                         }
                         case "short_answer" -> {
-                            // TODO 简答题AI通用 function(scoreId,examItemId) 学生答案可能为空
+                            // FIXME 简答题AI通用 function(scoreId,examItemId) 学生答案可能为空,待验证
+                            taskProducer.publishGradeShortQuestionTask(scoreId,examItemId);
                             // 处理简答题
                             String answer = question.getShortAnswer();
                             yield objectMapper.writeValueAsString(answer);
@@ -303,6 +294,7 @@ public class StudentExamServiceImpl implements StudentExamService {
                 examScoreItem.setUpdateTime(LocalDateTime.now());
                 examScoreItem.setQuestionId(question.getQuestionId());
                 examScoreItem.setScore(score);
+                examScoreItem.setSectionId(sectionId);
                 examScoreItems.add(examScoreItem);
             }
         }

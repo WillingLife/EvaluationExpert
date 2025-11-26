@@ -74,7 +74,7 @@ public class CourseController {
         return Result.success(list);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+//    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/teacher/task/file/zip")
     public ResponseEntity<Resource> getTaskFile(@RequestParam("assignment_id") Long assignmentId) {
         try {

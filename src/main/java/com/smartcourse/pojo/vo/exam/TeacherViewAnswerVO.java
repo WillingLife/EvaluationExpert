@@ -11,5 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TeacherViewAnswerVO {
+    private Long examScoreId;
     private List<TeacherViewAnswerItemVO> questions;
 }

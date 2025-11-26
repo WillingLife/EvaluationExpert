@@ -6,7 +6,9 @@ import com.smartcourse.pojo.vo.exam.TeacherViewAnswerItemVO;
 import com.smartcourse.pojo.vo.exam.ExamScoreVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,4 +31,7 @@ public interface ExamScoreMapper {
 
     @Update("update evaluation_expert.exam_score set total_score = #{totalScore} where id = #{scoreId}")
     void addScore(Long scoreId, BigDecimal totalScore);
+
+    @Select("select * from exam_score where exam_id=#{examId} and student_id=#{studentId};")
+    ExamScore getExamScoreByExamIdAndStudentId(@Param("examId") Long examId, @Param("studentId") Long studentId);
 }

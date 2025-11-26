@@ -28,4 +28,9 @@ public class DifyProperties {
      * 智能组卷部分，生成查询key
      */
     private String examGenerateQueryKey;
+
+    /**
+     * 智能批改key
+     */
+    private String gradeAssignmentKey;
 }

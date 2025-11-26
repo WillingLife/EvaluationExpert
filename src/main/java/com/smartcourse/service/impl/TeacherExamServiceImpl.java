@@ -73,19 +73,15 @@ public class TeacherExamServiceImpl implements TeacherExamService {
     private final QuestionConverter questionConverter;
     private final AsyncQuestionService asyncQuestionService;
     private final QuestionOptionMapper questionOptionMapper;
-    private final  QuestionFillBlankMapper questionFillBlankMapper;
+    private final QuestionFillBlankMapper questionFillBlankMapper;
     private final QuestionShortAnswerMapper questionShortAnswerMapper;
-
 
 
     private static final String GENERATING_EVENT = "generating";
     private static final String FINISH_EVENT = "finish";
-    private static final String ERROR_EVENT  = "error";
+    private static final String ERROR_EVENT = "error";
     private static final String BLANKS = "blanks";
     private static final String OPTIONS = "options";
-
-
-
 
 
     @Override
@@ -158,9 +154,12 @@ public class TeacherExamServiceImpl implements TeacherExamService {
 
     @Override
     public TeacherViewAnswerVO viewStudentAnswers(TeacherViewAnswerDTO teacherViewAnswerDTO) {
+        // FIXME get ai score(待测试)
         List<TeacherViewAnswerItemVO> studentAnswers = examScoreMapper.getStudentAnswers(teacherViewAnswerDTO.getExamId(),
                 teacherViewAnswerDTO.getStudentId());
-        return new TeacherViewAnswerVO(studentAnswers);
+        ExamScore examScore = examScoreMapper.getExamScoreByExamIdAndStudentId(teacherViewAnswerDTO.getExamId(),
+                teacherViewAnswerDTO.getStudentId());
+        return new TeacherViewAnswerVO(examScore.getId(),studentAnswers);
     }
 
     @Override
@@ -188,7 +187,8 @@ public class TeacherExamServiceImpl implements TeacherExamService {
             throw new RuntimeException("序列化失败", e);
         }
     }
-    private String convertIdListToJson(List<SelectedQuestionItemDTO> ids){
+
+    private String convertIdListToJson(List<SelectedQuestionItemDTO> ids) {
         try {
             return objectMapper.writeValueAsString(ids);
         } catch (JsonProcessingException e) {
@@ -407,19 +407,19 @@ public class TeacherExamServiceImpl implements TeacherExamService {
             studentExamSectionVO.setMultipleStrategyConf(vo.getMultipleStrategyConf());
             List<Long> questionIds = vo.getQuestionIds();
             List<StudentExamQuestionVO> questions = new ArrayList<>();
-            if (vo.getQuestionType().equals("fill_blank")) {
+            if (vo.getQuestionType().equals("fill_blank") && studentExamFillBlankQuestionVOS != null) {
                 for (StudentExamFillBlankQuestionVO studentExamFillBlankQuestionVO : studentExamFillBlankQuestionVOS) {
                     if (questionIds.contains(studentExamFillBlankQuestionVO.getQuestionId())) {
                         questions.add(studentExamFillBlankQuestionVO);
                     }
                 }
-            } else if (vo.getQuestionType().equals("short_answer")) {
+            } else if (vo.getQuestionType().equals("short_answer") && studentExamFillBlankQuestionVOS != null) {
                 for (StudentExamShortAnswerQuestionVO studentExamShortAnswerQuestionVO : studentExamShortAnswerQuestionVOS) {
                     if (questionIds.contains(studentExamShortAnswerQuestionVO.getQuestionId())) {
                         questions.add(studentExamShortAnswerQuestionVO);
                     }
                 }
-            } else {
+            } else if (studentExamFillBlankQuestionVOS != null) {
                 for (StudentExamChoiceQuestionVO studentExamChoiceQuestionVO : studentExamChoiceQuestionVOS) {
                     if (questionIds.contains(studentExamChoiceQuestionVO.getQuestionId())) {
                         questions.add(studentExamChoiceQuestionVO);

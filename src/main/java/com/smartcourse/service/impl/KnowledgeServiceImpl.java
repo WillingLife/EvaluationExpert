@@ -81,7 +81,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             for (QuestionKnowledgeDocument questionKnowledgeDocument : allById) {
                 List<KnowledgePoint> knowledgePoints = questionKnowledgeDocument.getKnowledgePoints();
                 double weight = knowledgePoints.stream()
-                        .filter(kp -> kp != null && kp.getId() != null && kp.getId().equals(1L))
+                        .filter(kp -> kp != null && kp.getId() != null && kp.getId().equals(nodeId))
                         .findFirst()
                         .map(KnowledgePoint::getWeight)
                         .orElse(0.0);
@@ -97,10 +97,10 @@ public class KnowledgeServiceImpl implements KnowledgeService {
                 getScore += targetVO.getScore().doubleValue() * weight;
                 switch (targetVO.getQuestionType()) {
                     case "short_answer" ->
-                            shortAnswerAmount += weight * targetVO.getTotalScore().doubleValue() * weight;
-                    case "fill_blank" -> fillBlankAmount += weight * targetVO.getTotalScore().doubleValue() * weight;
-                    case "multiple" -> multipleAmount += weight * targetVO.getTotalScore().doubleValue() * weight;
-                    default -> singleAmount += weight * targetVO.getTotalScore().doubleValue() * weight;
+                            shortAnswerAmount += weight * targetVO.getTotalScore().doubleValue();
+                    case "fill_blank" -> fillBlankAmount += weight * targetVO.getTotalScore().doubleValue();
+                    case "multiple" -> multipleAmount += weight * targetVO.getTotalScore().doubleValue();
+                    default -> singleAmount += weight * targetVO.getTotalScore().doubleValue();
                 }
             }
 
