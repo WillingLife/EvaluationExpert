@@ -35,9 +35,9 @@ public class StudentExamController {
         return Result.success("success");
     }
 
-    @GetMapping("/score/details")
+    @PostMapping("/score/details")
     public Result<ExamScoreVO> getExamScore(@RequestBody StudentGetExamDTO studentGetExamDTO) {
-        ExamScoreVO examScoreVO;
+        ExamScoreVO examScoreVO = new ExamScoreVO();
         try {
             examScoreVO = studentExamService.getScore(studentGetExamDTO);
         } catch (JsonProcessingException e) {

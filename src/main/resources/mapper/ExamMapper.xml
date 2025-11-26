@@ -229,7 +229,7 @@
         FROM evaluation_expert.exam e
                  LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id
         WHERE e.course_id = #{courseId}
-          AND (e.status = 'published' OR e.status = 'progressing')
+          AND (e.status != 'draft')
     </select>
 
     <select id="getExamClassesByExamId"
