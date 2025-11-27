@@ -381,13 +381,13 @@ public class TeacherExamServiceImpl implements TeacherExamService {
 
         // 并发执行3次查询
         CompletableFuture<List<StudentExamChoiceQuestionVO>> choiceFuture =
-                asyncQuestionService.getChoiceAsync(choiceQuestionIds);
+                asyncQuestionService.getChoiceAsync(choiceQuestionIds, examId);
 
         CompletableFuture<List<StudentExamFillBlankQuestionVO>> fillBlankFuture =
-                asyncQuestionService.getFillAsync(fillBlankIds);
+                asyncQuestionService.getFillAsync(fillBlankIds, examId);
 
         CompletableFuture<List<StudentExamShortAnswerQuestionVO>> shortAnswerFuture =
-                asyncQuestionService.getShortAsync(shortanswerIds);
+                asyncQuestionService.getShortAsync(shortanswerIds, examId);
 
         // 等待所有任务完成并获取结果
         CompletableFuture.allOf(choiceFuture, fillBlankFuture, shortAnswerFuture).join();

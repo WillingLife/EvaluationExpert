@@ -7,13 +7,11 @@ import com.smartcourse.pojo.vo.exam.StudentScoreQuestionVO;
 import com.smartcourse.pojo.vo.exam.question.StudentExamChoiceQuestionVO;
 import com.smartcourse.pojo.vo.exam.question.StudentExamFillBlankQuestionVO;
 import com.smartcourse.pojo.vo.exam.question.StudentExamShortAnswerQuestionVO;
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Mapper
@@ -29,11 +27,11 @@ public interface QuestionMapper {
      */
     List<QuestionQueryVO> pageList(Long courseId, String stem, Integer difficulty,
                                    Integer type, Integer offset, Integer pageSize);
-    List<StudentExamChoiceQuestionVO> getChoice(List<Long> choiceQuestionIds);
+    List<StudentExamChoiceQuestionVO> getChoice(List<Long> choiceQuestionIds, Long examId);
 
-    List<StudentExamFillBlankQuestionVO> getFill(List<Long> fillBlankIds);
+    List<StudentExamFillBlankQuestionVO> getFill(List<Long> fillBlankIds, Long examId);
 
-    List<StudentExamShortAnswerQuestionVO> getShort(List<Long> shortanswerIds);
+    List<StudentExamShortAnswerQuestionVO> getShort(List<Long> shortanswerIds, Long examId);
 
     @Select("select answer from evaluation_expert.question_short_answer where question_id = #{questionId}")
     String getShortAnswer(Long questionId);

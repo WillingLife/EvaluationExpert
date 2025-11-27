@@ -18,26 +18,26 @@ public class AsyncQuestionService {
     private QuestionMapper questionMapper;
 
     @Async("taskExecutor")
-    public CompletableFuture<List<StudentExamChoiceQuestionVO>> getChoiceAsync(List<Long> choiceQuestionIds) {
+    public CompletableFuture<List<StudentExamChoiceQuestionVO>> getChoiceAsync(List<Long> choiceQuestionIds, Long examId) {
         if (choiceQuestionIds == null || choiceQuestionIds.isEmpty()) {
             return CompletableFuture.completedFuture(null);
         }
-        return CompletableFuture.completedFuture(questionMapper.getChoice(choiceQuestionIds));
+        return CompletableFuture.completedFuture(questionMapper.getChoice(choiceQuestionIds,examId));
     }
 
     @Async("taskExecutor")
-    public CompletableFuture<List<StudentExamFillBlankQuestionVO>> getFillAsync(List<Long> fillBlankIds) {
+    public CompletableFuture<List<StudentExamFillBlankQuestionVO>> getFillAsync(List<Long> fillBlankIds, Long examId) {
         if (fillBlankIds == null || fillBlankIds.isEmpty()) {
             return CompletableFuture.completedFuture(null);
         }
-        return CompletableFuture.completedFuture(questionMapper.getFill(fillBlankIds));
+        return CompletableFuture.completedFuture(questionMapper.getFill(fillBlankIds,examId));
     }
 
     @Async("taskExecutor")
-    public CompletableFuture<List<StudentExamShortAnswerQuestionVO>> getShortAsync(List<Long> shortanswerIds) {
+    public CompletableFuture<List<StudentExamShortAnswerQuestionVO>> getShortAsync(List<Long> shortanswerIds, Long examId) {
         if (shortanswerIds == null || shortanswerIds.isEmpty()) {
             return CompletableFuture.completedFuture(null);
         }
-        return CompletableFuture.completedFuture(questionMapper.getShort(shortanswerIds));
+        return CompletableFuture.completedFuture(questionMapper.getShort(shortanswerIds,examId));
     }
 }
