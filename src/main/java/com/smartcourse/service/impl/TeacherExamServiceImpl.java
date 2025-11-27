@@ -419,13 +419,13 @@ public class TeacherExamServiceImpl implements TeacherExamService {
                         questions.add(studentExamFillBlankQuestionVO);
                     }
                 }
-            } else if (vo.getQuestionType().equals("short_answer") && studentExamFillBlankQuestionVOS != null) {
+            } else if (vo.getQuestionType().equals("short_answer") && studentExamShortAnswerQuestionVOS != null) {
                 for (StudentExamShortAnswerQuestionVO studentExamShortAnswerQuestionVO : studentExamShortAnswerQuestionVOS) {
                     if (questionIds.contains(studentExamShortAnswerQuestionVO.getQuestionId())) {
                         questions.add(studentExamShortAnswerQuestionVO);
                     }
                 }
-            } else if (studentExamFillBlankQuestionVOS != null) {
+            } else if (studentExamChoiceQuestionVOS != null) {
                 for (StudentExamChoiceQuestionVO studentExamChoiceQuestionVO : studentExamChoiceQuestionVOS) {
                     if (questionIds.contains(studentExamChoiceQuestionVO.getQuestionId())) {
                         questions.add(studentExamChoiceQuestionVO);
