@@ -47,8 +47,8 @@ public class StudentExamController {
     }
 
     @GetMapping("/list")
-    public Result<StudentExamListVO> getExamList(@RequestParam("course_id") Long courseId) {
-        StudentExamListVO studentExamListVO = studentExamService.getList(courseId);
+    public Result<StudentExamListVO> getExamList(@RequestParam("course_id") Long courseId,@RequestParam("student_id") Long studentId) {
+        StudentExamListVO studentExamListVO = studentExamService.getList(courseId,studentId);
         return Result.success(studentExamListVO);
     }
 }

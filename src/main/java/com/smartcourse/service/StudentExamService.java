@@ -14,5 +14,5 @@ public interface StudentExamService {
 
     ExamScoreVO getScore(StudentGetExamDTO studentGetExamDTO) throws JsonProcessingException;
 
-    StudentExamListVO getList(Long studentGetExamListDTO);
+    StudentExamListVO getList(Long studentGetExamListDTO, Long studentId);
 }

@@ -3,7 +3,6 @@ package com.smartcourse.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.smartcourse.enums.QuestionTypeEnum;
 import com.smartcourse.infra.rabbitmq.TaskProducer;
 import com.smartcourse.mapper.*;
@@ -11,7 +10,6 @@ import com.smartcourse.pojo.dto.FillBlankAnswerDTO;
 import com.smartcourse.pojo.dto.StudentGetExamDTO;
 import com.smartcourse.pojo.dto.exam.*;
 import com.smartcourse.pojo.entity.*;
-import com.smartcourse.pojo.vo.QuestionQueryVO;
 import com.smartcourse.pojo.vo.exam.*;
 import com.smartcourse.pojo.vo.exam.question.*;
 import com.smartcourse.service.AsyncQuestionService;
@@ -20,7 +18,6 @@ import com.smartcourse.utils.MultipleChoiceScoreCalculator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -353,8 +350,8 @@ public class StudentExamServiceImpl implements StudentExamService {
     }
 
     @Override
-    public StudentExamListVO getList(Long courseId) {
-        List<ExamList> list = examMapper.getList(courseId);
+    public StudentExamListVO getList(Long courseId, Long studentId) {
+        List<ExamList> list = examMapper.getList(courseId,studentId);
         StudentExamListVO studentExamListVO = new StudentExamListVO();
         studentExamListVO.setCourseId(courseId);
         studentExamListVO.setList(list);

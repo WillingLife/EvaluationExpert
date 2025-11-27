@@ -9,7 +9,6 @@ import com.smartcourse.pojo.vo.knowledge.NodeQuestionVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface ExamMapper {
@@ -35,7 +34,7 @@ public interface ExamMapper {
 
     int updateExamSelective(Exam exam);
 
-    List<ExamList> getList(Long courseId);
+    List<ExamList> getList(Long courseId, Long studentId);
 
     List<TeacherGetExamItemVO> getTeacherGetExamItemVOListByCourseId(@Param("courseId") Long courseId);
 

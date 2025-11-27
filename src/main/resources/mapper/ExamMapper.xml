@@ -227,7 +227,7 @@
                e.pass_score,
                e.start_time
         FROM evaluation_expert.exam e
-                 LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id
+                 LEFT JOIN evaluation_expert.exam_score s ON e.id = s.exam_id and s.student_id = #{studentId}
         WHERE e.course_id = #{courseId}
           AND (e.status != 'draft')
     </select>
