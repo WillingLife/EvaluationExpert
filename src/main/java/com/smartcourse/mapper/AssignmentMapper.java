@@ -1,5 +1,6 @@
 package com.smartcourse.mapper;
 
+import com.smartcourse.pojo.dto.StudentAssignmentListDTO;
 import com.smartcourse.pojo.entity.Assignment;
 import com.smartcourse.pojo.vo.AssignmentVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO;
@@ -14,8 +15,8 @@ public interface AssignmentMapper {
     void update(Assignment assignment);
     Assignment selectById(Long id);
 
-    java.util.List<Assignment> selectByTeacherAndCourse(Long creator, Long courseId);
-    java.util.List<Assignment> selectByCourse(Long courseId);
+    List<Assignment> selectByTeacherAndCourse(Long creator, Long courseId);
+    List<Assignment> selectByCourse(StudentAssignmentListDTO studentAssignmentListDTO);
 
     @Select("select name,description from evaluation_expert.assignment where id = #{assignmentId}")
     AssignmentVO getAssignment(Long assignmentId);

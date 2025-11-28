@@ -2,7 +2,7 @@ package com.smartcourse.service.impl;
 import com.smartcourse.converter.QuestionElasticSearchConverter;
 import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
 import com.smartcourse.model.QuestionDocument;
-import com.smartcourse.repository.QuestionDocumentRepository;
+import com.smartcourse.repository.elastic.QuestionDocumentRepository;
 import com.smartcourse.service.QuestionElasticSearchService;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.DocumentSplitter;

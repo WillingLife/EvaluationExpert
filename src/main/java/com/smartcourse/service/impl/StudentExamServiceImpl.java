@@ -202,6 +202,7 @@ public class StudentExamServiceImpl implements StudentExamService {
         examScoreMapper.submit(examScore);
         Long scoreId = examScore.getId();
         BigDecimal totalScore = BigDecimal.valueOf(0);
+        List<Long> tempExamItems= new ArrayList<>();
 
         List<ExamScoreItemDTO> examScoreItems = new ArrayList<>();
         for (StudentExamSectionDTO section : studentExamDTO.getSections()) {
@@ -273,8 +274,7 @@ public class StudentExamServiceImpl implements StudentExamService {
                             yield objectMapper.writeValueAsString(blanks);
                         }
                         case "short_answer" -> {
-                            // FIXME 简答题AI通用 function(scoreId,examItemId) 学生答案可能为空,待验证
-                            taskProducer.publishGradeShortQuestionTask(scoreId, examItemId);
+                            tempExamItems.add(examItemId);
                             // 处理简答题
                             String answer = question.getShortAnswer();
                             yield objectMapper.writeValueAsString(answer);
@@ -296,9 +296,14 @@ public class StudentExamServiceImpl implements StudentExamService {
                 examScoreItems.add(examScoreItem);
             }
         }
-
         examScoreMapper.update(totalScore, scoreId);
         examScoreItemMapper.submit(examScoreItems);
+        // 发布事件
+        for(Long examItemId : tempExamItems) {
+            taskProducer.publishGradeShortQuestionTask(scoreId, examItemId);
+        }
+
+
     }
 
     @Override

@@ -240,7 +240,7 @@ public class AssignmentServiceImpl implements AssignmentService {
      */
     @Override
     public List<AssignmentListItemVO> listStudentAssignments(StudentAssignmentListDTO studentAssignmentListDTO) {
-        List<Assignment> assignments = assignmentMapper.selectByCourse(studentAssignmentListDTO.getCourseId());
+        List<Assignment> assignments = assignmentMapper.selectByCourse(studentAssignmentListDTO);
         List<AssignmentListItemVO> items = new ArrayList<>();
         for (Assignment assignment : assignments) {
             items.add(AssignmentListItemVO.builder()

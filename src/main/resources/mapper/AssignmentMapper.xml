@@ -66,7 +66,7 @@
                a.update_time  as updateTime,
                a.`delete`     as deleted
         from assignment a
-                 left join assignment_score s on a.id = s.assignment_id
+                 left join assignment_score s on a.id = s.assignment_id and s.student_id = #{studentId}
         where a.course_id = #{courseId}
           and (a.`delete` is null or a.`delete` = false)
         order by a.update_time desc, a.id desc
@@ -75,11 +75,13 @@
     <select id="getStudents" resultType="com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO">
         SELECT s.id,
                s.name                                                        AS studentName,
+               c.name                                                        AS className,
                CASE WHEN ss.id IS NOT NULL THEN ss.status ELSE 'pending' END AS status,
                ss.score
         FROM evaluation_expert.assignment a
                  LEFT JOIN evaluation_expert.student_course sc ON a.course_id = sc.course_id
                  LEFT JOIN evaluation_expert.student s ON s.id = sc.student_id
+                 LEFT JOIN evaluation_expert.class c ON s.class_id = c.id
                  LEFT JOIN evaluation_expert.assignment_score ss
                            ON a.id = ss.assignment_id AND ss.student_id = sc.student_id
         WHERE a.id = #{assignmentId}

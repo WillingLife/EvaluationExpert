@@ -12,9 +12,11 @@ import com.smartcourse.pojo.entity.ExamScoreItem;
 import com.smartcourse.pojo.vo.exam.sql.GradeShortQuestionSqlVO;
 import com.smartcourse.service.GradeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GradeServiceImpl implements GradeService {
@@ -26,6 +28,10 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public void gradeShortQuestion(Long scoreId, Long examItemId) {
         GradeShortQuestionSqlVO sqlVO = examItemMapper.getStudentAnswer(scoreId, examItemId);
+        if(sqlVO == null) {
+            log.warn("跳过score_id{},exam_item_id{}",scoreId,examItemId);
+            return;
+        }
         DifyGradeShortQuestionDTO dto = examItemConverter.gradeShortQuestionSqlVOToDifyDTO(sqlVO);
         // 远程调用
         DifyCompletionResponse<DifyGradeQuestionResponse> responseDTO = difyClientGateway.gradeShortQuestionClient()

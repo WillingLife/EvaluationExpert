@@ -56,32 +56,23 @@
     </insert>
 
     <update id="batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId">
-        <foreach collection="list" item="item" separator=";">
-            UPDATE evaluation_expert.exam_score_item
-            <trim prefix="SET" suffixOverrides=",">
-                <if test="item.score != null">
-                    score = #{item.score},
-                </if>
-                <if test="item.answer != null">
-                    answer = #{item.answer},
-                </if>
-                <if test="item.autoJudgeDetailJson != null">
-                    auto_judge_detail_json = #{item.autoJudgeDetailJson},
-                </if>
-                <if test="item.remark != null">
-                    remark = #{item.remark},
-                </if>
-                <if test="item.gradeTime != null">
-                    grade_time = #{item.gradeTime},
-                </if>
-                <if test="item.deleted != null">
-                    deleted = #{item.deleted},
-                </if>
-                update_time = NOW(),
-            </trim>
-            WHERE score_id = #{item.scoreId}
-              AND exam_item_id = #{item.examItemId}
-        </foreach>
+        UPDATE evaluation_expert.exam_score_item AS target
+        JOIN (
+            VALUES
+            <foreach collection="list" item="item" separator=",">
+                ROW(#{item.scoreId}, #{item.examItemId}, #{item.score}, #{item.answer},
+                    #{item.autoJudgeDetailJson}, #{item.remark}, #{item.gradeTime}, #{item.deleted})
+            </foreach>
+        ) AS vals(score_id, exam_item_id, score, answer, auto_judge_detail_json, remark, grade_time, deleted)
+        ON target.score_id = vals.score_id
+            AND target.exam_item_id = vals.exam_item_id
+        SET target.score = COALESCE(vals.score, target.score),
+            target.answer = COALESCE(vals.answer, target.answer),
+            target.auto_judge_detail_json = COALESCE(vals.auto_judge_detail_json, target.auto_judge_detail_json),
+            target.remark = COALESCE(vals.remark, target.remark),
+            target.grade_time = COALESCE(vals.grade_time, target.grade_time),
+            target.deleted = COALESCE(vals.deleted, target.deleted),
+            target.update_time = NOW()
     </update>
 
     <update id="updateExamScoreItemSelective"

@@ -9,7 +9,7 @@ import com.smartcourse.model.QuestionKnowledgeDocument;
 import com.smartcourse.pojo.dto.knowledge.ClassMapDTO;
 import com.smartcourse.pojo.dto.knowledge.StudentMapDTO;
 import com.smartcourse.pojo.vo.knowledge.*;
-import com.smartcourse.repository.QuestionKnowledgeRepository;
+import com.smartcourse.repository.elastic.QuestionKnowledgeRepository;
 import com.smartcourse.service.KnowledgeService;
 import jakarta.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,7 +204,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
                 for (QuestionKnowledgeDocument questionKnowledgeDocument : allById) {
                     List<KnowledgePoint> knowledgePoints = questionKnowledgeDocument.getKnowledgePoints();
                     double weight = knowledgePoints.stream()
-                            .filter(kp -> kp != null && kp.getId() != null && kp.getId().equals(1L))
+                            .filter(kp -> kp != null && kp.getId() != null && kp.getId().equals(nodeId))
                             .findFirst()
                             .map(KnowledgePoint::getWeight)
                             .orElse(0.0);

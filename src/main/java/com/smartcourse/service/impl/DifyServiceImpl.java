@@ -20,7 +20,7 @@ import com.smartcourse.pojo.vo.dify.DifyGradeAssignmentVO;
 import com.smartcourse.pojo.vo.dify.DifyMappingKnowledgeVO;
 import com.smartcourse.pojo.vo.dify.GradeAssignmentDetailsVO;
 import com.smartcourse.pojo.vo.dify.sql.DifyAssignmentScoreSqlVO;
-import com.smartcourse.repository.QuestionKnowledgeRepository;
+import com.smartcourse.repository.elastic.QuestionKnowledgeRepository;
 import com.smartcourse.service.DifyService;
 import com.smartcourse.utils.AliyunOSSOperator;
 import lombok.RequiredArgsConstructor;
