@@ -14,4 +14,8 @@ public interface LearningGuideService {
     List<KnowledgePointPerformanceVO> getPointsPerformance(String courseId, Long studentId);
 
     StudentTaskVO getTaskList(String studentId, Integer page, Integer size, String status);
+
+    List<VideoProgressVO> getVideoMap(Long studentId, Long courseId);
+
+    List<ClassVideoVO> getClassVideo(Long classId, Long courseId);
 }

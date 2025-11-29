@@ -1,6 +1,7 @@
 package com.smartcourse.controller;
 
 import com.smartcourse.pojo.dto.*;
+import com.smartcourse.pojo.entity.VideoProgress;
 import com.smartcourse.pojo.vo.QuestionQueryVO;
 import com.smartcourse.pojo.vo.AssignmentIdVO;
 import com.smartcourse.pojo.vo.AssignmentScoreIdVO;
@@ -25,6 +26,7 @@ public class TeacherController {
 
     /**
      * 教师新增题目
+     *
      * @param questionAddDTO 题目信息
      * @return 操作结果
      */
@@ -38,6 +40,7 @@ public class TeacherController {
 
     /**
      * 分页查询题目数据
+     *
      * @param questionQueryDTO 查询条件
      * @return 题目数据
      */
@@ -51,6 +54,7 @@ public class TeacherController {
 
     /**
      * 根据ID查询题目详情
+     *
      * @param id 题目ID
      * @return 题目详情
      */
@@ -64,6 +68,7 @@ public class TeacherController {
 
     /**
      * 修改题目
+     *
      * @param questionUpdateDTO 题目修改信息
      * @return 操作结果
      */
@@ -77,6 +82,7 @@ public class TeacherController {
 
     /**
      * 根据ID删除题目（逻辑删除）
+     *
      * @param id 题目ID
      * @return 操作结果
      */
@@ -90,6 +96,7 @@ public class TeacherController {
 
     /**
      * 教师新增作业
+     *
      * @param assignmentAddDTO 作业新增信息
      * @return 作业ID
      */
@@ -103,6 +110,7 @@ public class TeacherController {
 
     /**
      * 教师修改作业
+     *
      * @param assignmentUpdateDTO 作业修改信息
      * @return 作业ID
      */
@@ -116,6 +124,7 @@ public class TeacherController {
 
     /**
      * 教师评价学生作业
+     *
      * @param teacherGradeDTO 评分信息
      * @return 作业评分ID
      */
@@ -129,6 +138,7 @@ public class TeacherController {
 
     /**
      * 教师查询某课程的作业列表
+     *
      * @param dto 查询条件（teacher_id, course_id）
      * @return 作业列表
      */
@@ -141,6 +151,7 @@ public class TeacherController {
 
     /**
      * 教师删除作业（逻辑删除）
+     *
      * @param dto 删除条件（teacher_id, course_id, assignment_id）
      * @return 操作结果
      */

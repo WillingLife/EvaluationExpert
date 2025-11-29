@@ -2,6 +2,7 @@ package com.smartcourse.service.impl;
 
 import com.smartcourse.mapper.CourseMapper;
 import com.smartcourse.pojo.vo.course.*;
+import com.smartcourse.pojo.vo.learn.StudentVO;
 import com.smartcourse.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<String> getTaskName(Long assignmentId) {
         return courseMapper.getTaskName(assignmentId);
+    }
+
+    @Override
+    public List<StudentVO> getStudentVO(Long courseId) {
+        return courseMapper.getStudentVO(courseId);
     }
 }
