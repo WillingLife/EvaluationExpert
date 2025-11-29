@@ -1,6 +1,7 @@
 package com.smartcourse.mapper;
 
 import com.smartcourse.pojo.vo.course.*;
+import com.smartcourse.pojo.vo.learn.StudentVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface CourseMapper {
     List<String> getTaskFile(Long assignmentId);
 
     List<String> getTaskName(Long assignmentId);
+
+    List<StudentVO> getStudentVO(Long courseId);
 }

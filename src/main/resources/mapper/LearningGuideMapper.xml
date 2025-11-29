@@ -40,4 +40,17 @@
     <select id="getTaskList" resultType="com.smartcourse.pojo.vo.learn.StudentTaskVO">
 
     </select>
+
+    <select id="getVideoMap" resultType="com.smartcourse.pojo.entity.VideoProgress">
+        select *
+        from evaluation_expert.t_video_progress
+        where student_id = #{studentId}
+          and course_id = #{courseId}
+    </select>
+
+    <select id="getStudents" resultType="com.smartcourse.pojo.vo.learn.StudentVO">
+        select id, name
+        from evaluation_expert.student
+        where class_id = #{classId}
+    </select>
 </mapper>

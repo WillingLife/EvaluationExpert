@@ -49,9 +49,9 @@
     <select id="getListAll" resultType="com.smartcourse.pojo.vo.course.CourseVO">
         SELECT c.id,
                c.name,
-               COUNT(DISTINCT sc.student_id)                                                               AS studentNumber,
-               COUNT(DISTINCT e.id)                                                                        AS examNumber,
-               COUNT(DISTINCT a.id)                                                                        AS taskNumber
+               COUNT(DISTINCT sc.student_id) AS studentNumber,
+               COUNT(DISTINCT e.id)          AS examNumber,
+               COUNT(DISTINCT a.id)          AS taskNumber
         FROM evaluation_expert.course c
                  LEFT JOIN evaluation_expert.student_course sc ON c.id = sc.course_id
                  LEFT JOIN evaluation_expert.exam e ON c.id = e.course_id
@@ -64,12 +64,11 @@
     </select>
 
     <select id="getExamList" resultType="com.smartcourse.pojo.vo.course.ExamListVO">
-        SELECT DISTINCT
-            c.id AS classId,
-            c.name,
-            e.status,
-            e.id AS examId,
-            e.name AS examName
+        SELECT DISTINCT c.id   AS classId,
+                        c.name,
+                        e.status,
+                        e.id   AS examId,
+                        e.name AS examName
         FROM evaluation_expert.student_course sc
                  LEFT JOIN evaluation_expert.student s ON sc.student_id = s.id
                  LEFT JOIN evaluation_expert.class c ON s.class_id = c.id
@@ -82,10 +81,10 @@
                s.name,
                case when es.id is not null then es.status else 'pending' end as status,
                es.total_score                                                as score
-        from evaluation_expert.student s
-                 left join evaluation_expert.exam e on e.id = #{examId}
+        from evaluation_expert.exam e
+                 left join evaluation_expert.student s on s.class_id = #{classId}
                  left join evaluation_expert.exam_score es on e.id = es.exam_id and s.id = es.student_id
-        where s.class_id = #{classId}
+        where e.id = #{examId}
     </select>
 
     <select id="getExam" resultType="com.smartcourse.pojo.vo.course.ExamVO">
@@ -106,5 +105,12 @@
                  left join evaluation_expert.student s on a.student_id = s.id
                  left join evaluation_expert.class c on s.class_id = c.id
         where a.assignment_id = #{assignmentId}
+    </select>
+
+    <select id="getStudentVO" resultType="com.smartcourse.pojo.vo.learn.StudentVO">
+        select s.id, s.name, s.class_id
+        from evaluation_expert.student_course sc
+                 left join evaluation_expert.student s on sc.student_id = s.id
+        where sc.course_id = #{courseId}
     </select>
 </mapper>

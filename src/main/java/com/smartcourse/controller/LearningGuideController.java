@@ -1,6 +1,8 @@
 package com.smartcourse.controller;
 
+import com.smartcourse.pojo.entity.VideoProgress;
 import com.smartcourse.pojo.vo.learn.*;
+import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.LearningGuideService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -61,5 +63,18 @@ public class LearningGuideController {
             @Parameter(description = "课程ID", required = true) @PathVariable String courseId,
             @Parameter(description = "学生ID，可选") Long studentId) {
         return learningGuideService.getPointsPerformance(courseId, studentId);
+    }
+
+
+    @GetMapping("/video-map")
+    public Result<List<VideoProgressVO>> videoMap(@RequestParam("student_id") Long studentId, @RequestParam("course_id") Long courseId) {
+        List<VideoProgressVO> videoProgress = learningGuideService.getVideoMap(studentId, courseId);
+        return Result.success(videoProgress);
+    }
+
+    @GetMapping("class/video-map")
+    public Result<List<ClassVideoVO>> classVideoMap(@RequestParam("class_id") Long classId, @RequestParam("course_id") Long courseId) {
+        List<ClassVideoVO> classVideoVO = learningGuideService.getClassVideo(classId, courseId);
+        return Result.success(classVideoVO);
     }
 }

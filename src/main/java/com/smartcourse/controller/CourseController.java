@@ -1,6 +1,7 @@
 package com.smartcourse.controller;
 
 import com.smartcourse.pojo.vo.course.*;
+import com.smartcourse.pojo.vo.learn.StudentVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.CourseService;
 import com.smartcourse.utils.AliyunOSSOperator;
@@ -48,6 +49,12 @@ public class CourseController {
     public Result<List<StudentCourseTaskVO>> getCourseTask(@RequestParam("student_id") Long studentId) {
         List<StudentCourseTaskVO> teacherCourseVOList = courseService.getCourseTask(studentId);
         return Result.success(teacherCourseVOList);
+    }
+
+    @GetMapping("/student/list")
+    public Result<List<StudentVO>> getStudents(@RequestParam("course_id") Long courseId) {
+        List<StudentVO> studentVOS = courseService.getStudentVO(courseId);
+        return Result.success(studentVOS);
     }
 
     @GetMapping("/teacher/listAll")
