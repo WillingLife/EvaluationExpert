@@ -1,11 +1,7 @@
 package com.smartcourse.controller;
 
-import com.smartcourse.pojo.dto.knowledge.ClassMapDTO;
-import com.smartcourse.pojo.dto.knowledge.StudentMapDTO;
-import com.smartcourse.pojo.vo.knowledge.ClassMapVO;
-import com.smartcourse.pojo.vo.knowledge.CourseMapVO;
-import com.smartcourse.pojo.vo.knowledge.MapVO;
-import com.smartcourse.pojo.vo.knowledge.StudentMapVO;
+import com.smartcourse.pojo.dto.knowledge.*;
+import com.smartcourse.pojo.vo.knowledge.*;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.KnowledgeService;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +37,20 @@ public class KnowledgeController {
     @GetMapping("course/map")
     public Result<MapVO> getCourseMap(@RequestParam("course_id") Long courseId) {
         return Result.success(knowledgeService.getMap(courseId));
+    }
+
+    @PostMapping("course")
+    public Result<List<CourseMap>> getCourse(@RequestBody CourseDTO courseDTO) {
+        return Result.success(knowledgeService.getCourse(courseDTO));
+    }
+
+    @PostMapping("class")
+    public Result<List<ClassMap>> getClass(@RequestBody ClassDTO classDTO) {
+        return Result.success(knowledgeService.getClazz(classDTO));
+    }
+
+    @PostMapping("student")
+    public Result<List<StudentMap>> getStudent(@RequestBody StudentDTO studentDTO) {
+        return Result.success(knowledgeService.getStudent(studentDTO));
     }
 }

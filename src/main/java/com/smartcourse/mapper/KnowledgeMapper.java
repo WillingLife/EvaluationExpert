@@ -3,6 +3,7 @@ package com.smartcourse.mapper;
 import com.smartcourse.pojo.vo.knowledge.EdgeVO;
 import com.smartcourse.pojo.vo.knowledge.ExamNodeVO;
 import com.smartcourse.pojo.vo.knowledge.NodeVO;
+import com.smartcourse.pojo.vo.knowledge.StudentScoreVO;
 import jakarta.json.Json;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,20 @@ public interface KnowledgeMapper {
 
     @Select("select name from evaluation_expert.class where id = #{classId}")
     String getName(Long classId);
+
+    @Select("select stem from evaluation_expert.question where id = #{questionId}")
+    String getStem(Long questionId);
+
+    @Select("select content from evaluation_expert.question_option where question_id = #{questionId}")
+    List<String> getOptions(Long questionId);
+
+    @Select("select difficulty from evaluation_expert.question where id = #{questionId}")
+    Integer getDifficulty(Long questionId);
+
+    @Select("select id, name from evaluation_expert.student where class_id = #{classId}")
+    List<StudentScoreVO> getStudents(Long classId);
+
+    List<Long> getCLazz(Long courseId);
+
+    List<StudentScoreVO> getStudents2(List<Long> classIds);
 }

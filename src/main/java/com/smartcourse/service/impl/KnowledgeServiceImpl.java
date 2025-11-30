@@ -6,16 +6,18 @@ import com.smartcourse.mapper.ExamMapper;
 import com.smartcourse.mapper.KnowledgeMapper;
 import com.smartcourse.model.KnowledgePoint;
 import com.smartcourse.model.QuestionKnowledgeDocument;
-import com.smartcourse.pojo.dto.knowledge.ClassMapDTO;
-import com.smartcourse.pojo.dto.knowledge.StudentMapDTO;
+import com.smartcourse.pojo.dto.knowledge.*;
 import com.smartcourse.pojo.vo.knowledge.*;
 import com.smartcourse.repository.QuestionKnowledgeRepository;
 import com.smartcourse.service.KnowledgeService;
 import jakarta.json.Json;
+import org.bouncycastle.pqc.jcajce.provider.BIKE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -96,8 +98,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
                 allScore += targetVO.getTotalScore().doubleValue() * weight;
                 getScore += targetVO.getScore().doubleValue() * weight;
                 switch (targetVO.getQuestionType()) {
-                    case "short_answer" ->
-                            shortAnswerAmount += weight * targetVO.getTotalScore().doubleValue();
+                    case "short_answer" -> shortAnswerAmount += weight * targetVO.getTotalScore().doubleValue();
                     case "fill_blank" -> fillBlankAmount += weight * targetVO.getTotalScore().doubleValue();
                     case "multiple" -> multipleAmount += weight * targetVO.getTotalScore().doubleValue();
                     default -> singleAmount += weight * targetVO.getTotalScore().doubleValue();
@@ -314,4 +315,154 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         return courseMapVO;
     }
 
+    @Override
+    public List<StudentMap> getStudent(StudentDTO studentDTO) {
+        List<StudentMap> studentMaps = new ArrayList<>();
+
+        StudentMapDTO studentMapDTO = new StudentMapDTO();
+        studentMapDTO.setExamId(studentDTO.getExamId());
+        studentMapDTO.setStudentId(studentDTO.getStudentId());
+        List<NodeQuestionVO> nodeQuestionVOS = examMapper.getQuestion(studentMapDTO);
+        List<Long> questionIds = new ArrayList<>();
+        for (NodeQuestionVO nodeQuestionVO : nodeQuestionVOS) {
+            questionIds.add(nodeQuestionVO.getQuestionId());
+        }
+
+        Iterable<QuestionKnowledgeDocument> allById = questionKnowledgeRepository.findAllById(questionIds);
+        Long nodeId = studentDTO.getNodeId();
+        for (QuestionKnowledgeDocument questionKnowledgeDocument : allById) {
+            StudentMap studentMap = new StudentMap();
+
+            List<KnowledgePoint> knowledgePoints = questionKnowledgeDocument.getKnowledgePoints();
+            double weight = knowledgePoints.stream()
+                    .filter(kp -> kp != null && kp.getId() != null && kp.getId().equals(nodeId))
+                    .findFirst()
+                    .map(KnowledgePoint::getWeight)
+                    .orElse(0.0);
+            studentMap.setWeight(weight);
+
+            NodeQuestionVO targetVO = nodeQuestionVOS.stream()
+                    .filter(vo -> vo != null && vo.getQuestionId() != null && vo.getQuestionId().equals(questionKnowledgeDocument.getId()))
+                    .findFirst()
+                    .orElse(null); // 如果没找到返回 null
+
+            assert targetVO != null;
+            studentMap.setTotalScore(targetVO.getTotalScore());
+            studentMap.setScore(targetVO.getScore());
+
+            Long questionId = questionKnowledgeDocument.getId();
+            String stem = knowledgeMapper.getStem(questionId);
+            studentMap.setQuestionType(targetVO.getQuestionType());
+            if (targetVO.getQuestionType().equals("single") || targetVO.getQuestionType().equals("multiple")) {
+                List<String> options = knowledgeMapper.getOptions(questionId);
+
+                stem = stem + "\n" +
+                        // 第一行：A.选项1 和 B.选项2
+                        "A." + options.get(0) + "    " +
+                        "B." + options.get(1) +
+                        "\n" +
+                        // 第二行：C.选项3 和 D.选项4
+                        "C." + options.get(2) + "    " +
+                        "D." + options.get(3);
+            }
+            studentMap.setStem(stem);
+
+            Integer difficulty = knowledgeMapper.getDifficulty(questionId);
+            studentMap.setDifficulty(difficulty);
+
+            studentMaps.add(studentMap);
+        }
+
+        return studentMaps;
+    }
+
+    @Override
+    public List<ClassMap> getClazz(ClassDTO classDTO) {
+        List<ClassMap> classMaps = new ArrayList<>();
+        List<StudentScoreVO> studentScoreVOS = knowledgeMapper.getStudents(classDTO.getClassId());
+
+        int temp = 0;
+        for (StudentScoreVO studentScoreVO : studentScoreVOS) {
+            StudentDTO studentDTO = new StudentDTO();
+            studentDTO.setStudentId(studentScoreVO.getId());
+            studentDTO.setExamId(classDTO.getExamId());
+            studentDTO.setNodeId(classDTO.getNodeId());
+            List<StudentMap> studentMaps = getStudent(studentDTO);
+            int i = 0;
+            for (StudentMap studentMap : studentMaps) {
+                if (temp == 0) {
+                    ClassMap classMap = new ClassMap();
+                    classMap.setStem(studentMap.getStem());
+                    classMap.setTotalScore(studentMap.getTotalScore());
+                    classMap.setDifficulty(studentMap.getDifficulty());
+                    classMap.setWeight(studentMap.getWeight());
+                    classMap.setQuestionType(studentMap.getQuestionType());
+                    List<BigDecimal> studentScoreS = new ArrayList<>();
+                    studentScoreS.add(studentMap.getScore());
+                    classMap.setStudentScore(studentScoreS);
+                    classMaps.add(classMap);
+                    continue;
+                }
+                ClassMap classMap = classMaps.get(i++);
+                classMap.getStudentScore().add(studentMap.getScore());
+            }
+            temp = 1;
+        }
+
+        for (ClassMap classMap : classMaps) {
+            List<BigDecimal> studentScore = classMap.getStudentScore();
+            BigDecimal score = studentScore.stream()
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(BigDecimal.valueOf(studentScore.size()), 2, RoundingMode.HALF_UP);
+            classMap.setScore(score);
+        }
+
+        return classMaps;
+    }
+
+    @Override
+    public List<CourseMap> getCourse(CourseDTO courseDTO) {
+        List<CourseMap> courseMaps = new ArrayList<>();
+
+        List<Long> classIds = knowledgeMapper.getCLazz(courseDTO.getCourseId());
+        List<StudentScoreVO> studentScoreVOS = knowledgeMapper.getStudents2(classIds);
+
+        int temp = 0;
+        for (StudentScoreVO studentScoreVO : studentScoreVOS) {
+            StudentDTO studentDTO = new StudentDTO();
+            studentDTO.setStudentId(studentScoreVO.getId());
+            studentDTO.setExamId(courseDTO.getExamId());
+            studentDTO.setNodeId(courseDTO.getNodeId());
+            List<StudentMap> studentMaps = getStudent(studentDTO);
+            int i = 0;
+            for (StudentMap studentMap : studentMaps) {
+                if (temp == 0) {
+                    CourseMap courseMap = new CourseMap();
+                    courseMap.setStem(studentMap.getStem());
+                    courseMap.setTotalScore(studentMap.getTotalScore());
+                    courseMap.setDifficulty(studentMap.getDifficulty());
+                    courseMap.setWeight(studentMap.getWeight());
+                    courseMap.setQuestionType(studentMap.getQuestionType());
+                    List<BigDecimal> studentScoreS = new ArrayList<>();
+                    studentScoreS.add(studentMap.getScore() != null ? studentMap.getScore() : BigDecimal.ZERO);
+                    courseMap.setStudentScore(studentScoreS);
+                    courseMaps.add(courseMap);
+                    continue;
+                }
+                CourseMap courseMap = courseMaps.get(i++);
+                courseMap.getStudentScore().add(studentMap.getScore() != null ? studentMap.getScore() : BigDecimal.ZERO);
+            }
+            temp = 1;
+        }
+
+        for (CourseMap courseMap : courseMaps) {
+            List<BigDecimal> studentScore = courseMap.getStudentScore();
+            BigDecimal score = studentScore.stream()
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(BigDecimal.valueOf(studentScore.size()), 2, RoundingMode.HALF_UP);
+            courseMap.setScore(score);
+        }
+
+        return courseMaps;
+    }
 }

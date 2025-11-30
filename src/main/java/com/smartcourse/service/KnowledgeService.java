@@ -1,11 +1,9 @@
 package com.smartcourse.service;
 
-import com.smartcourse.pojo.dto.knowledge.ClassMapDTO;
-import com.smartcourse.pojo.dto.knowledge.StudentMapDTO;
-import com.smartcourse.pojo.vo.knowledge.ClassMapVO;
-import com.smartcourse.pojo.vo.knowledge.CourseMapVO;
-import com.smartcourse.pojo.vo.knowledge.MapVO;
-import com.smartcourse.pojo.vo.knowledge.StudentMapVO;
+import com.smartcourse.pojo.dto.knowledge.*;
+import com.smartcourse.pojo.vo.knowledge.*;
+
+import java.util.List;
 
 public interface KnowledgeService {
     StudentMapVO getStudentMap(StudentMapDTO studentMapDTO);
@@ -15,4 +13,10 @@ public interface KnowledgeService {
     ClassMapVO getClassMap(ClassMapDTO classMapDTO);
 
     CourseMapVO getCourseMap(Long examId);
+
+    List<StudentMap> getStudent(StudentDTO studentDTO);
+
+    List<ClassMap> getClazz(ClassDTO classDTO);
+
+    List<CourseMap> getCourse(CourseDTO courseDTO);
 }
