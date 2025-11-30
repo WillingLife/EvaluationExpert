@@ -14,4 +14,8 @@ public class StudentAssignmentListDTO {
     @JsonProperty("course_id")
     @BindParam("course_id")
     private Long courseId;
+
+    @JsonProperty("student_id")
+    @BindParam("student_id")
+    private Long studentId;
 }

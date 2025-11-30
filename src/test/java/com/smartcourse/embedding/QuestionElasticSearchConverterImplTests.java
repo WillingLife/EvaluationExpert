@@ -3,7 +3,7 @@ package com.smartcourse.embedding;
 import com.smartcourse.converter.QuestionElasticSearchConverter;
 import com.smartcourse.model.QuestionDocument;
 import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
-import com.smartcourse.repository.QuestionDocumentRepository;
+import com.smartcourse.repository.elastic.QuestionDocumentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;

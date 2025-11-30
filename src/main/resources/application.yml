@@ -32,6 +32,14 @@ spring:
         embeddings-path: /v4/embeddings
   elasticsearch:
     uris: http://172.22.120.47:9200
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: evaluation_expert
+      username: admin
+      password: password
+      authentication-database: admin
   rabbitmq:
     host: 172.22.120.47
     port: 5672

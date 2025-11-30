@@ -1,9 +1,7 @@
-package com.smartcourse.repository;
+package com.smartcourse.repository.elastic;
 
 import com.smartcourse.model.QuestionDocument;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 public interface QuestionDocumentRepository extends ElasticsearchRepository<QuestionDocument, Long> {
-
 }
-

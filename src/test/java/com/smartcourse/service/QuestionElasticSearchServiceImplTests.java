@@ -4,7 +4,7 @@ import com.smartcourse.model.QuestionDocument;
 import com.smartcourse.pojo.dto.QuestionElasticSearchAddDTO;
 import com.smartcourse.pojo.dto.question.QuestionElasticSearchQueryDTO;
 import com.smartcourse.pojo.vo.question.QuestionQueryESItemVO;
-import com.smartcourse.repository.QuestionDocumentRepository;
+import com.smartcourse.repository.elastic.QuestionDocumentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,11 @@
 package com.smartcourse.controller;
 
+import com.smartcourse.pojo.dto.teacher.assignment.AssignmentCompareGetDTO;
 import com.smartcourse.pojo.dto.teacher.assignment.TeacherGetAssignmentDTO;
+import com.smartcourse.pojo.vo.teacher.assignment.AssignmentDetectCompareVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO;
 import com.smartcourse.pojo.dto.teacher.assignment.TeacherPolishAssignmentDTO;
+import com.smartcourse.pojo.vo.teacher.assignment.TeacherAssignmentDetectVO;
 import com.smartcourse.pojo.vo.teacher.assignment.TeacherGetAssignmentVO;
 import com.smartcourse.result.compat.Result;
 import com.smartcourse.service.TeacherAssignmentService;
@@ -38,4 +41,17 @@ public class TeacherAssignmentController {
         List<TaskStudentListVO> list = teacherAssignmentService.getStudents(assignmentId);
         return Result.success(list);
     }
+
+    @GetMapping("/detect")
+    public Result<TeacherAssignmentDetectVO> detectAssignment(@RequestParam("assignment_id")Long assignmentId) {
+        TeacherAssignmentDetectVO vo = teacherAssignmentService.detectAssignment(assignmentId);
+        return Result.success(vo);
+    }
+
+    @PostMapping("detect/details")
+    public Result<AssignmentDetectCompareVO> getAssignmentCompare(@RequestBody AssignmentCompareGetDTO dto){
+        AssignmentDetectCompareVO vo = teacherAssignmentService.getAssignmentCompare(dto);
+        return Result.success(vo);
+    }
+
 }

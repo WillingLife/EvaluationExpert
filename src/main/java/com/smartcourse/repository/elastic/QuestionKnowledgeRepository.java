@@ -1,4 +1,4 @@
-package com.smartcourse.repository;
+package com.smartcourse.repository.elastic;
 
 import com.smartcourse.model.QuestionKnowledgeDocument;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
