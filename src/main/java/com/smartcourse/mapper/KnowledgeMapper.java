@@ -1,10 +1,8 @@
 package com.smartcourse.mapper;
 
-import com.smartcourse.pojo.vo.knowledge.EdgeVO;
-import com.smartcourse.pojo.vo.knowledge.ExamNodeVO;
-import com.smartcourse.pojo.vo.knowledge.NodeVO;
-import com.smartcourse.pojo.vo.knowledge.StudentScoreVO;
-import jakarta.json.Json;
+import com.smartcourse.pojo.dto.knowledge.ClassDTO;
+import com.smartcourse.pojo.dto.knowledge.CourseDTO;
+import com.smartcourse.pojo.vo.knowledge.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -46,4 +44,12 @@ public interface KnowledgeMapper {
     List<Long> getCLazz(Long courseId);
 
     List<StudentScoreVO> getStudents2(List<Long> classIds);
+
+    void setClass(ClassDTO classDTO, String data);
+
+    String getCLassMap(ClassDTO classDTO);
+
+    void setCourse(CourseDTO courseDTO, String data);
+
+    String getCourseMap(CourseDTO courseDTO);
 }

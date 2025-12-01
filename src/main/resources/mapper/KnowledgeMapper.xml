@@ -26,4 +26,28 @@
             #{i}
         </foreach>
     </select>
+    <select id="getCLassMap" resultType="java.lang.String">
+        select data
+        from evaluation_expert.class_map
+        where class_id = #{classId}
+          and exam_id = #{examId}
+          and node_id = #{nodeId}
+    </select>
+
+    <select id="getCourseMap" resultType="java.lang.String">
+        select data
+        from evaluation_expert.course_map
+        where exam_id = #{examId}
+          and node_id = #{nodeId}
+    </select>
+
+    <insert id="setClass">
+        insert into evaluation_expert.class_map(class_id, exam_id, node_id, data)
+        values (#{param1.classId}, #{param1.examId}, #{param1.nodeId}, #{param2})
+    </insert>
+
+    <insert id="setCourse">
+        insert into evaluation_expert.course_map(exam_id, node_id, data)
+        values (#{param1.examId}, #{param1.nodeId}, #{param2})
+    </insert>
 </mapper>

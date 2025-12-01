@@ -1,5 +1,6 @@
 package com.smartcourse.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartcourse.mapper.ExamMapper;
@@ -378,6 +379,17 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Override
     public List<ClassMap> getClazz(ClassDTO classDTO) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = knowledgeMapper.getCLassMap(classDTO);
+        if (json != null && !json.isEmpty()) {
+            try {
+                return objectMapper.readValue(json, new TypeReference<List<ClassMap>>() {
+                });
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         List<ClassMap> classMaps = new ArrayList<>();
         List<StudentScoreVO> studentScoreVOS = knowledgeMapper.getStudents(classDTO.getClassId());
 
@@ -417,11 +429,29 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             classMap.setScore(score);
         }
 
+        try {
+            String data = objectMapper.writeValueAsString(classMaps);
+            knowledgeMapper.setClass(classDTO, data);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
         return classMaps;
     }
 
     @Override
     public List<CourseMap> getCourse(CourseDTO courseDTO) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = knowledgeMapper.getCourseMap(courseDTO);
+        if (json != null && !json.isEmpty()) {
+            try {
+                return objectMapper.readValue(json, new TypeReference<List<CourseMap>>() {
+                });
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         List<CourseMap> courseMaps = new ArrayList<>();
 
         List<Long> classIds = knowledgeMapper.getCLazz(courseDTO.getCourseId());
@@ -461,6 +491,13 @@ public class KnowledgeServiceImpl implements KnowledgeService {
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .divide(BigDecimal.valueOf(studentScore.size()), 2, RoundingMode.HALF_UP);
             courseMap.setScore(score);
+        }
+
+        try {
+            String data = objectMapper.writeValueAsString(courseMaps);
+            knowledgeMapper.setCourse(courseDTO, data);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
 
         return courseMaps;
