@@ -24,9 +24,6 @@
                 <if test="item.answer != null">
                     answer = #{item.answer},
                 </if>
-                <if test="item.autoJudgeDetailJson != null">
-                    auto_judge_detail_json = #{item.autoJudgeDetailJson},
-                </if>
                 <if test="item.remark != null">
                     remark = #{item.remark},
                 </if>
@@ -61,14 +58,13 @@
             VALUES
             <foreach collection="list" item="item" separator=",">
                 ROW(#{item.scoreId}, #{item.examItemId}, #{item.score}, #{item.answer},
-                    #{item.autoJudgeDetailJson}, #{item.remark}, #{item.gradeTime}, #{item.deleted})
+                    #{item.remark}, #{item.gradeTime}, #{item.deleted})
             </foreach>
-        ) AS vals(score_id, exam_item_id, score, answer, auto_judge_detail_json, remark, grade_time, deleted)
+        ) AS vals(score_id, exam_item_id, score, answer, remark, grade_time, deleted)
         ON target.score_id = vals.score_id
             AND target.exam_item_id = vals.exam_item_id
         SET target.score = COALESCE(vals.score, target.score),
             target.answer = COALESCE(vals.answer, target.answer),
-            target.auto_judge_detail_json = COALESCE(vals.auto_judge_detail_json, target.auto_judge_detail_json),
             target.remark = COALESCE(vals.remark, target.remark),
             target.grade_time = COALESCE(vals.grade_time, target.grade_time),
             target.deleted = COALESCE(vals.deleted, target.deleted),
@@ -93,9 +89,6 @@
             </if>
             <if test="answer != null">
                 answer = #{answer},
-            </if>
-            <if test="autoJudgeDetailJson != null">
-                auto_judge_detail_json = #{autoJudgeDetailJson},
             </if>
             <if test="remark != null">
                 remark = #{remark},
