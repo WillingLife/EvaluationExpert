@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.CourseMapper">
+    <select id="getCourseList" resultType="com.smartcourse.pojo.vo.course.TeacherCourseVO">
+        SELECT c.id,
+               c.name,
+               COUNT(DISTINCT s.class_id) as count
+        FROM evaluation_expert.course c
+                 LEFT JOIN evaluation_expert.student_course sc ON c.id = sc.course_id
+                 LEFT JOIN evaluation_expert.student s ON sc.student_id = s.id
+        WHERE c.teacher_id = #{teacherId}
+        GROUP BY c.id, c.name
+    </select>
+
+    <select id="getCourseExam" resultType="com.smartcourse.pojo.vo.course.StudentCourseVO">
+        SELECT c.id,
+               c.name,
+               t.name                                                           AS teacherName,
+               COUNT(DISTINCT e.id)                                             AS examNumber,
+               SUM(CASE WHEN e.status = 'progressing' THEN 1 ELSE 0 END)        AS ongoing,
+               SUM(CASE WHEN e.status = 'published' THEN 1 ELSE 0 END)          AS upcoming,
+               SUM(CASE WHEN exam_score.status = 'submitted' THEN 1 ELSE 0 END) AS reviewing
+        FROM evaluation_expert.student s
+                 LEFT JOIN evaluation_expert.student_course sc ON s.id = sc.student_id
+                 LEFT JOIN evaluation_expert.course c ON sc.course_id = c.id
+                 LEFT JOIN evaluation_expert.teacher t ON c.teacher_id = t.id
+                 LEFT JOIN evaluation_expert.exam e ON c.id = e.course_id
+                 LEFT JOIN evaluation_expert.exam_score ON e.id = exam_score.exam_id AND exam_score.student_id = s.id
+        WHERE s.id = #{studentId}
+        GROUP BY c.id, c.name, t.name
+    </select>
+
+    <select id="getCourseTask" resultType="com.smartcourse.pojo.vo.course.StudentCourseTaskVO">
+        SELECT c.id,
+               c.name,
+               t.name                                                  AS teacherName,
+               COUNT(DISTINCT a.id) - COUNT(DISTINCT ss.assignment_id) AS pending,
+               SUM(CASE WHEN ss.status = 'graded' THEN 1 ELSE 0 END)   AS submitted
+        FROM evaluation_expert.student s
+                 LEFT JOIN evaluation_expert.student_course sc ON s.id = sc.student_id
+                 LEFT JOIN evaluation_expert.course c ON sc.course_id = c.id
+                 LEFT JOIN evaluation_expert.teacher t ON c.teacher_id = t.id
+                 LEFT JOIN evaluation_expert.assignment a ON c.id = a.course_id
+                 LEFT JOIN evaluation_expert.assignment_score ss ON a.id = ss.assignment_id AND ss.student_id = s.id
+        WHERE s.id = #{studentId}
+        GROUP BY c.id, c.name, t.name
+    </select>
+
+    <select id="getListAll" resultType="com.smartcourse.pojo.vo.course.CourseVO">
+        SELECT c.id,
+               c.name,
+               COUNT(DISTINCT sc.student_id) AS studentNumber,
+               COUNT(DISTINCT e.id)          AS examNumber,
+               COUNT(DISTINCT a.id)          AS taskNumber
+        FROM evaluation_expert.course c
+                 LEFT JOIN evaluation_expert.student_course sc ON c.id = sc.course_id
+                 LEFT JOIN evaluation_expert.exam e ON c.id = e.course_id
+                 LEFT JOIN evaluation_expert.assignment a ON c.id = a.course_id
+                 LEFT JOIN evaluation_expert.exam_score es ON e.id = es.exam_id AND sc.student_id = es.student_id
+                 LEFT JOIN evaluation_expert.assignment_score ss
+                           ON a.id = ss.assignment_id AND ss.student_id = sc.student_id
+        WHERE c.teacher_id = #{teacherId}
+        GROUP BY c.id, c.name
+    </select>
+
+    <select id="getExamList" resultType="com.smartcourse.pojo.vo.course.ExamListVO">
+        SELECT DISTINCT c.id   AS classId,
+                        c.name,
+                        e.status,
+                        e.id   AS examId,
+                        e.name AS examName
+        FROM evaluation_expert.student_course sc
+                 LEFT JOIN evaluation_expert.student s ON sc.student_id = s.id
+                 LEFT JOIN evaluation_expert.class c ON s.class_id = c.id
+                 LEFT JOIN evaluation_expert.exam e ON e.course_id = sc.course_id
+        WHERE sc.course_id = #{courseId}
+    </select>
+
+    <select id="getStudents" resultType="com.smartcourse.pojo.vo.course.ExamStudentVO">
+        select s.id,
+               s.name,
+               case when es.id is not null then es.status else 'pending' end as status,
+               es.total_score                                                as score
+        from evaluation_expert.exam e
+                 left join evaluation_expert.student s on s.class_id = #{classId}
+                 left join evaluation_expert.exam_score es on e.id = es.exam_id and s.id = es.student_id
+        where e.id = #{examId}
+    </select>
+
+    <select id="getExam" resultType="com.smartcourse.pojo.vo.course.ExamVO">
+        select id as examId, name as examName, status, total_score, description, duration_minutes, start_time
+        from evaluation_expert.exam
+        where course_id = #{courseId}
+    </select>
+
+    <select id="getTaskFile" resultType="java.lang.String">
+        select submit_file_url
+        from evaluation_expert.assignment_score
+        where assignment_id = #{assignmentId}
+    </select>
+
+    <select id="getTaskName" resultType="java.lang.String">
+        select CONCAT(c.name, '-', s.name) as task_name
+        from evaluation_expert.assignment_score a
+                 left join evaluation_expert.student s on a.student_id = s.id
+                 left join evaluation_expert.class c on s.class_id = c.id
+        where a.assignment_id = #{assignmentId}
+    </select>
+
+    <select id="getStudentVO" resultType="com.smartcourse.pojo.vo.learn.StudentVO">
+        select s.id, s.name, s.class_id
+        from evaluation_expert.student_course sc
+                 left join evaluation_expert.student s on sc.student_id = s.id
+        where sc.course_id = #{courseId}
+    </select>
+</mapper>

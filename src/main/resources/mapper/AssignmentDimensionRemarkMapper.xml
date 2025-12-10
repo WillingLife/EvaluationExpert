@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.AssignmentDimensionRemarkMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into assignment_dimension_remark(
+            assignment_remark_id, dimension_id, dimension_group_id, score, remark,
+            create_time, update_time, deleted
+        ) values (
+            #{assignmentRemarkId}, #{dimensionId}, #{dimensionGroupId}, #{score}, #{remark},
+            #{createTime}, #{updateTime}, #{deleted}
+        )
+    </insert>
+
+    <select id="selectByAssignmentRemarkId" resultType="com.smartcourse.pojo.entity.AssignmentDimensionRemark">
+        select id, assignment_remark_id as assignmentRemarkId, dimension_id as dimensionId,
+               dimension_group_id as dimensionGroupId, score, remark,
+               create_time as createTime, update_time as updateTime, deleted
+        from assignment_dimension_remark
+        where assignment_remark_id = #{assignmentRemarkId}
+        order by id
+    </select>
+</mapper>

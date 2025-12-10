@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smartcourse.mapper.KnowledgeMapper">
+    <select id="getClass" resultType="java.lang.Long">
+        select distinct s.class_id
+        from evaluation_expert.exam e
+                 left join evaluation_expert.course c on e.course_id = c.id
+                 left join evaluation_expert.student_course sc on c.id = sc.course_id
+                 left join evaluation_expert.student s on sc.student_id = s.id
+        where e.id = #{examId}
+    </select>
+
+    <select id="getCLazz" resultType="java.lang.Long">
+        select distinct s.class_id
+        from evaluation_expert.student_course sc
+                 left join evaluation_expert.student s on sc.student_id = s.id
+        where sc.course_id = #{courseId}
+    </select>
+
+    <select id="getStudents2" resultType="com.smartcourse.pojo.vo.knowledge.StudentScoreVO">
+        select id, name from evaluation_expert.student where class_id in
+        <foreach collection="classIds" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
+    </select>
+    <select id="getCLassMap" resultType="java.lang.String">
+        select data
+        from evaluation_expert.class_map
+        where class_id = #{classId}
+          and exam_id = #{examId}
+          and node_id = #{nodeId}
+    </select>
+
+    <select id="getCourseMap" resultType="java.lang.String">
+        select data
+        from evaluation_expert.course_map
+        where exam_id = #{examId}
+          and node_id = #{nodeId}
+    </select>
+
+    <insert id="setClass">
+        insert into evaluation_expert.class_map(class_id, exam_id, node_id, data)
+        values (#{param1.classId}, #{param1.examId}, #{param1.nodeId}, #{param2})
+    </insert>
+
+    <insert id="setCourse">
+        insert into evaluation_expert.course_map(exam_id, node_id, data)
+        values (#{param1.examId}, #{param1.nodeId}, #{param2})
+    </insert>
+</mapper>

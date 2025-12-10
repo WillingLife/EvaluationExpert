@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.QuestionFillBlankMapper">
+    <insert id="insertBatch">
+        insert into question_fill_blank (question_id, blank_index, answer)
+        values <foreach collection="blanks" item="b" separator=",">
+            (#{b.questionId}, #{b.blankIndex}, #{b.answer})
+        </foreach>
+    </insert>
+
+    <select id="selectByQuestionId" resultType="com.smartcourse.pojo.entity.QuestionFillBlank">
+        select id, question_id, blank_index, answer
+        from question_fill_blank
+        where question_id = #{questionId}
+        order by blank_index, id
+    </select>
+
+    <delete id="deleteByQuestionId">
+        delete from question_fill_blank where question_id = #{questionId}
+    </delete>
+
+    <select id="selectByQuestionIds" resultType="com.smartcourse.pojo.entity.QuestionFillBlank">
+        select id, question_id, blank_index, answer
+        from question_fill_blank
+        where question_id in
+        <foreach collection="questionIds" item="id" separator="," open="(" close=")">#{id}</foreach>
+        order by question_id, blank_index, id
+    </select>
+
+</mapper>

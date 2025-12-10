@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.AssignmentMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into assignment(
+            name, description, course_id, submit_limit, status, version, creator,
+            deadline, create_time, update_time, `delete`
+        ) values (
+            #{name}, #{description}, #{courseId}, #{submitLimit}, #{status}, #{version}, #{creator},
+            #{deadline}, #{createTime}, #{updateTime}, #{deleted}
+        )
+    </insert>
+
+    <update id="update">
+        update assignment
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="submitLimit != null">submit_limit = #{submitLimit},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="deadline != null">deadline = #{deadline},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delete != null">`delete` = #{deleted},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" resultType="com.smartcourse.pojo.entity.Assignment">
+        select id, name, description, course_id as courseId, submit_limit as submitLimit,
+               status, version, creator, deadline, create_time as createTime,
+               update_time as updateTime, `delete` as deleted
+        from assignment
+        where id = #{id}
+        limit 1
+    </select>
+
+    <select id="selectByTeacherAndCourse" resultType="com.smartcourse.pojo.entity.Assignment">
+        select id, name, description, course_id as courseId, submit_limit as submitLimit,
+               status, version, creator, deadline, create_time as createTime,
+               update_time as updateTime, `delete` as deleted
+        from assignment
+        where creator = #{creator} and course_id = #{courseId}
+          and ( `delete` is null or `delete` = false )
+        order by update_time desc, id desc
+    </select>
+
+    <select id="selectByCourse" resultType="com.smartcourse.pojo.entity.Assignment">
+        select a.id,
+               a.name,
+               a.description,
+               a.course_id    as courseId,
+               a.submit_limit as submitLimit,
+               CASE
+                   WHEN s.submit_no IS NULL THEN 'pending'
+                   WHEN s.submit_no &lt; a.submit_limit THEN 'pending'
+                   ELSE COALESCE(s.status, 'pending')
+                   END        as status,
+               a.version,
+               a.creator,
+               a.deadline,
+               a.create_time  as createTime,
+               a.update_time  as updateTime,
+               a.`delete`     as deleted
+        from assignment a
+                 left join assignment_score s on a.id = s.assignment_id and s.student_id = #{studentId}
+        where a.course_id = #{courseId}
+          and (a.`delete` is null or a.`delete` = false)
+        order by a.update_time desc, a.id desc
+    </select>
+
+    <select id="getStudents" resultType="com.smartcourse.pojo.vo.teacher.assignment.TaskStudentListVO">
+        SELECT s.id,
+               s.name                                                        AS studentName,
+               c.name                                                        AS className,
+               CASE WHEN ss.id IS NOT NULL THEN ss.status ELSE 'pending' END AS status,
+               ss.score
+        FROM evaluation_expert.assignment a
+                 LEFT JOIN evaluation_expert.student_course sc ON a.course_id = sc.course_id
+                 LEFT JOIN evaluation_expert.student s ON s.id = sc.student_id
+                 LEFT JOIN evaluation_expert.class c ON s.class_id = c.id
+                 LEFT JOIN evaluation_expert.assignment_score ss
+                           ON a.id = ss.assignment_id AND ss.student_id = sc.student_id
+        WHERE a.id = #{assignmentId}
+    </select>
+</mapper>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smartcourse.mapper.QuestionMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into question(
+            type, course_id, stem, analysis, difficulty,
+            teacher_id, active, create_time, update_time
+        )
+        values (
+            #{type}, #{courseId}, #{stem}, #{analysis}, #{difficulty},
+            #{teacherId}, #{active}, #{createTime}, #{updateTime}
+        )
+    </insert>
+
+    <!-- 结果映射：将选择题的选项列表正确映射 -->
+    <resultMap id="ChoiceQuestionResultMap" type="com.smartcourse.pojo.vo.exam.question.StudentExamChoiceQuestionVO">
+        <id property="questionId" column="question_id"/>
+        <result property="questionStem" column="question_stem"/>
+        <result property="score" column="score"/>
+        <collection property="options" ofType="com.smartcourse.pojo.vo.exam.question.StudentExamChoiceQuestionVO$Option">
+            <result property="optionId" column="option_id"/>
+            <result property="content" column="content"/>
+        </collection>
+    </resultMap>
+
+    <select id="getChoice" resultMap="ChoiceQuestionResultMap">
+        SELECT
+        q.id AS question_id,
+        q.stem AS question_stem,
+        e.score AS score,
+        o.id AS option_id,
+        o.content AS content
+        FROM evaluation_expert.question q
+        LEFT JOIN evaluation_expert.question_option o ON q.id = o.question_id
+        LEFT JOIN evaluation_expert.exam_item e ON q.id = e.question_id and e.section_id in (select id from
+        evaluation_expert.exam_section where exam_id = #{examId} and question_type in ('single','multiple'))
+        WHERE q.id IN
+        <foreach collection="choiceQuestionIds" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
+    </select>
+    <select id="pageList" resultType="com.smartcourse.pojo.vo.QuestionQueryVO">
+        select id, type, course_id, stem, analysis, difficulty,
+            teacher_id, active, deleted, create_time, update_time
+        from question
+        <where>
+            deleted = 0
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="difficulty != null">
+                and difficulty = #{difficulty}
+            </if>
+            <if test="stem != null and stem != ''">
+                and stem like concat('%', #{stem}, '%')
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+        order by update_time desc
+        limit #{pageSize} offset #{offset}
+    </select>
+
+    <select id="getFill" resultType="com.smartcourse.pojo.vo.exam.question.StudentExamFillBlankQuestionVO">
+        SELECT
+        q.id AS question_id,
+        q.stem AS question_stem,
+        e.score AS score,
+        COUNT(f.blank_index) AS blankCount
+        FROM evaluation_expert.question q
+        LEFT JOIN evaluation_expert.question_fill_blank f ON q.id = f.question_id
+        LEFT JOIN evaluation_expert.exam_item e ON q.id = e.question_id and e.section_id in (select id from
+        evaluation_expert.exam_section where exam_id = #{examId} and question_type = 'fill_blank')
+        WHERE q.id IN
+        <foreach collection="fillBlankIds" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
+        GROUP BY q.id, q.stem, e.score
+    </select>
+    <select id="count" resultType="long">
+        select count(1)
+        from question
+        <where>
+            deleted = 0
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="difficulty != null">
+                and difficulty = #{difficulty}
+            </if>
+            <if test="stem != null and stem != ''">
+                and stem like concat('%', #{stem}, '%')
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="getShort" resultType="com.smartcourse.pojo.vo.exam.question.StudentExamShortAnswerQuestionVO">
+        SELECT
+        q.id AS question_id,
+        q.stem AS question_stem,
+        e.score AS score
+        FROM evaluation_expert.question q
+        LEFT JOIN evaluation_expert.exam_item e ON q.id = e.question_id and e.section_id in (select id from
+        evaluation_expert.exam_section where exam_id = #{examId} and question_type = 'short_answer')
+        WHERE q.id IN
+        <foreach collection="shortanswerIds" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
+    </select>
+    <select id="selectById" resultType="com.smartcourse.pojo.entity.Question">
+        select id, type, course_id, stem, analysis, difficulty,
+               teacher_id, active, deleted, create_time, update_time
+        from question
+        where id = #{id} and deleted = 0
+    </select>
+
+    <select id="selectByIds" resultType="com.smartcourse.pojo.entity.Question">
+        select id, type, course_id, stem, analysis, difficulty,
+               teacher_id, active, deleted, create_time, update_time
+        from question
+        where deleted = 0
+          and id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        order by update_time desc
+    </select>
+
+    <update id="update">
+        update question
+        <set>
+            <if test="type != null">type = #{type},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="stem != null">stem = #{stem},</if>
+            <if test="analysis != null">analysis = #{analysis},</if>
+            <if test="difficulty != null">difficulty = #{difficulty},</if>
+            <if test="teacherId != null">teacher_id = #{teacherId},</if>
+            <if test="active != null">active = #{active},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

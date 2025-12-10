@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smartcourse.mapper.ExamSectionMapper">
+
+    <select id="getSectionItems" resultType="com.smartcourse.pojo.vo.exam.SectionItemDTO">
+        SELECT
+            s.id,
+            s.exam_id AS examId,
+            s.title,
+            s.question_type AS questionType,
+            s.description,
+            s.choice_score AS choiceScore,
+            s.order_no AS orderNo,
+            s.note,
+            s.choice_negative_score AS choiceNegativeScore,
+            s.multiple_strategy AS multipleStrategy,
+            s.multiple_strategy_conf AS multipleStrategyConf,
+            s.creator,
+            s.create_time AS createTime,
+            s.update_time AS updateTime,
+            s.deleted,
+            i.question_id AS questionId
+        FROM evaluation_expert.exam_section s
+                 LEFT JOIN evaluation_expert.exam_item i ON s.id = i.section_id
+        WHERE s.exam_id = #{examId}
+        ORDER BY s.order_no, s.id, i.id
+    </select>
+
+    <insert id="insetSections" parameterType="java.util.List" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO evaluation_expert.exam_section (
+        exam_id, title, question_type, description, choice_score,
+        order_no, note, choice_negative_score, multiple_strategy,
+        multiple_strategy_conf, creator, create_time, update_time, deleted
+        )
+        VALUES
+        <foreach collection="sections" item="section" separator=",">
+            (
+            #{section.examId},
+            #{section.title},
+            #{section.questionType},
+            #{section.description},
+            #{section.choiceScore},
+            #{section.orderNo},
+            #{section.note},
+            #{section.choiceNegativeScore},
+            #{section.multipleStrategy},
+            #{section.multipleStrategyConf},
+            #{section.creator},
+            NOW(),
+            NOW(),
+            #{section.deleted}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByExamId" parameterType="long">
+        DELETE
+        FROM evaluation_expert.exam_section
+        WHERE exam_id = #{examId}
+    </delete>
+
+    <select id="getById" resultType="com.smartcourse.pojo.vo.exam.StudentScoreSectionVO">
+        SELECT id AS sectionId, title, question_type AS questionType
+        FROM evaluation_expert.exam_section
+        WHERE exam_id = #{examId}
+    </select>
+
+</mapper>

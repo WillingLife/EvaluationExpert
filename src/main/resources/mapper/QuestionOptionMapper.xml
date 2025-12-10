@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.QuestionOptionMapper">
+    <insert id="insertBatch">
+        insert into question_option (question_id, content, correct, sort_order)
+        values <foreach collection="options" item="o" separator=",">
+            (#{o.questionId}, #{o.content}, #{o.correct}, #{o.sortOrder})
+        </foreach>
+    </insert>
+
+    <select id="selectByQuestionId" resultType="com.smartcourse.pojo.entity.QuestionOption">
+        select id, question_id, content, correct, sort_order
+        from question_option
+        where question_id = #{questionId}
+        order by sort_order, id
+    </select>
+
+    <delete id="deleteByQuestionId">
+        delete from question_option where question_id = #{questionId}
+    </delete>
+
+    <select id="selectByQuestionIds" resultType="com.smartcourse.pojo.entity.QuestionOption">
+        select id, question_id, content, correct, sort_order
+        from question_option
+        where question_id in
+        <foreach collection="questionIds" item="id" separator="," open="(" close=")">#{id}</foreach>
+        order by question_id, sort_order, id
+    </select>
+</mapper>

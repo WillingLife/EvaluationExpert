@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smartcourse.mapper.ExamScoreItemMapper">
+
+    <update id="batchUpdateExamScoreItemSelective">
+        <foreach collection="list" item="item" separator=";">
+            UPDATE evaluation_expert.exam_score_item
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.scoreId != null">
+                    score_id = #{item.scoreId},
+                </if>
+                <if test="item.examItemId != null">
+                    exam_item_id = #{item.examItemId},
+                </if>
+                <if test="item.score != null">
+                    score = #{item.score},
+                </if>
+                <if test="item.aiScore != null">
+                    ai_score = #{item.aiScore},
+                </if>
+                <if test="item.answer != null">
+                    answer = #{item.answer},
+                </if>
+                <if test="item.remark != null">
+                    remark = #{item.remark},
+                </if>
+                <if test="item.gradeTime != null">
+                    grade_time = #{item.gradeTime},
+                </if>
+                <if test="item.deleted != null">
+                    deleted = #{item.deleted},
+                </if>
+                update_time = NOW(),
+            </trim>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+    <insert id="submit">
+        INSERT INTO evaluation_expert.exam_score_item(score_id, exam_item_id, answer, create_time, update_time,score)
+        <foreach collection="examScoreItems" item="i" separator=" UNION ALL ">
+            SELECT
+            #{i.scoreId} as score_id,
+            (SELECT id FROM evaluation_expert.exam_item WHERE question_id = #{i.questionId} and section_id = #{i.sectionId}) as exam_item_id,
+            #{i.answer} as answer,
+            #{i.createTime} as create_time,
+            #{i.updateTime} as update_time,
+            #{i.score}
+        </foreach>
+    </insert>
+
+    <update id="batchUpdateExamScoreItemSelectiveByScoreIdAndExamItemId">
+        UPDATE evaluation_expert.exam_score_item AS target
+        JOIN (
+            VALUES
+            <foreach collection="list" item="item" separator=",">
+                ROW(#{item.scoreId}, #{item.examItemId}, #{item.score}, #{item.answer},
+                    #{item.remark}, #{item.gradeTime}, #{item.deleted})
+            </foreach>
+        ) AS vals(score_id, exam_item_id, score, answer, remark, grade_time, deleted)
+        ON target.score_id = vals.score_id
+            AND target.exam_item_id = vals.exam_item_id
+        SET target.score = COALESCE(vals.score, target.score),
+            target.answer = COALESCE(vals.answer, target.answer),
+            target.remark = COALESCE(vals.remark, target.remark),
+            target.grade_time = COALESCE(vals.grade_time, target.grade_time),
+            target.deleted = COALESCE(vals.deleted, target.deleted),
+            target.update_time = NOW()
+    </update>
+
+    <update id="updateExamScoreItemSelective"
+            parameterType="com.smartcourse.pojo.entity.ExamScoreItem">
+        UPDATE evaluation_expert.exam_score_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scoreId != null">
+                score_id = #{scoreId},
+            </if>
+            <if test="examItemId != null">
+                exam_item_id = #{examItemId},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="aiScore != null">
+                ai_score = #{aiScore},
+            </if>
+            <if test="answer != null">
+                answer = #{answer},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="gradeTime != null">
+                grade_time = #{gradeTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            update_time = NOW(),
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

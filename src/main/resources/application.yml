@@ -1,0 +1,109 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+    include-message: always
+  tomcat:
+    keep-alive-timeout: 300000
+
+spring:
+  application:
+    name: EvaluationExpert
+  main:
+    allow-circular-references: true
+  servlet:
+    multipart:
+      max-file-size: 150MB
+      max-request-size: 150MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.22.120.47:13306/evaluation_expert?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: password
+  ai:
+    openai:
+      # embedding model configuration
+      api-key: ${CHAT_GLM_API_KEY}
+      base-url: https://open.bigmodel.cn/api/paas
+      embedding:
+        options:
+          model: embedding-3
+          dimensions: 1024
+        embeddings-path: /v4/embeddings
+  elasticsearch:
+    uris: http://172.22.120.47:9200
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: evaluation_expert
+      username: admin
+      password: password
+      authentication-database: admin
+  rabbitmq:
+    host: 172.22.120.47
+    port: 5672
+    username: guest
+    password: guest
+
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.smartcourse
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucket-name: evaluation-expert
+    region: cn-beijing
+    access-key-id: LTAI5tRZrSiZcLSGoHuTSk8z
+    access-key-secret: 2seTDeE5qjbrOthg43uRa3CuuEeS4Y
+
+logging:
+  level:
+    com.smartcourse.mapper: debug
+    com.smartcourse.service: debug
+    com.smartcourse.controller: debug
+    org.springframework.web: DEBUG
+    org.springframework.http.converter: DEBUG
+    com.fasterxml.jackson.databind: DEBUG
+    com.your.package: TRACE
+dify:
+  base-url: http://localhost/v1/workflows/run
+  grade-short-question-key: app-VUZyLcX0EKv3yXAy513hnDtW
+  polish-assignment-key: app-76EbJHw5ftOwuHbRIG19VlgU
+  mapping-knowledge-key: app-T2arHHbfiyO6SwEp2gFzjTHs
+  exam-generate-query-key: app-2tpVuDIsXJasACy25nKiJXl7
+  grade-assignment-key: app-KJ1WQb2VEZit4Ybe6Pbtc9fQ
+
+application:
+  redis:
+    host: 172.22.120.47
+    port: 6379
+    password:
+    database: 0
+    question-query:
+      key-prefix: query-question-
+      ttl-minutes: 5
+  exam:
+    prompts:
+      system: classpath:prompts/system-role.st
+      user: classpath:prompts/user-input.st
+
+custom:
+  ai:
+    deepseek:
+      api-key: ${CHAT_GLM_API_KEY}
+      base-url: https://open.bigmodel.cn/api/paas/v4/
+      model: glm-4.6
+
+dev:
+  scheduling:
+    enable: false
+
+

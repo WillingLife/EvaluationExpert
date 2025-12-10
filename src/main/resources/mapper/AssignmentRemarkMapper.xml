@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smartcourse.mapper.AssignmentRemarkMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into assignment_remark(
+            assignment_score_id, ai_remark, teacher_remark, create_time, update_time, deleted
+        ) values (
+            #{assignmentScoreId}, #{aiRemark}, #{teacherRemark}, #{createTime}, #{updateTime}, #{deleted}
+        )
+    </insert>
+
+    <select id="selectByScoreId" resultType="com.smartcourse.pojo.entity.AssignmentRemark">
+        select id, assignment_score_id as assignmentScoreId, ai_remark as aiRemark,
+               teacher_remark as teacherRemark, create_time as createTime, update_time as updateTime, deleted
+        from assignment_remark
+        where assignment_score_id = #{scoreId}
+        order by id desc
+        limit 1
+    </select>
+</mapper>

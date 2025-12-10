@@ -1,0 +1,50 @@
+package com.smartcourse.service;
+
+import com.smartcourse.pojo.dto.QuestionAddDTO;
+import com.smartcourse.pojo.dto.QuestionQueryDTO;
+import com.smartcourse.pojo.dto.QuestionUpdateDTO;
+import com.smartcourse.pojo.vo.QuestionQueryVO;
+import com.smartcourse.result.PageResult;
+
+import java.util.List;
+
+public interface QuestionService {
+    /**
+     * 新增题目
+     * @param questionAddDTO 题目信息
+     */
+    void addQuestion(QuestionAddDTO questionAddDTO);
+
+    /**
+     * 分页查询题目数据
+     * @param questionQueryDTO 查询条件
+     * @return 题目数据
+     */
+    PageResult<QuestionQueryVO> page(QuestionQueryDTO questionQueryDTO);
+
+    /**
+     * 根据ID查询题目详情
+     * @param id 题目ID
+     * @return 题目详情
+     */
+    QuestionQueryVO get(Long id);
+
+    /**
+     * 批量查询题目详情
+     * @param ids 题目ID列表
+     * @return 题目详情列表
+     */
+    List<QuestionQueryVO> getBatch(List<Long> ids);
+
+    /**
+     * 修改题目信息
+     * @param questionUpdateDTO 题目修改信息
+     */
+    void update(QuestionUpdateDTO questionUpdateDTO);
+
+    /**
+     * 根据ID删除题目（逻辑删除）
+     * @param id 题目ID
+     */
+    void deleteQuestion(Long id);
+}
